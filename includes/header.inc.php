@@ -9,6 +9,9 @@
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
                   mdl-textfield--floating-label mdl-textfield--align-right">
                   
+<label id="tt1" class="material-icons mdl-badge mdl-badge--overlap" data-badge="5">power_settings_new</label>  
+<div class="mdl-tooltip" for="tt1">Logout</div> 
+
 <label id="tt2" class="material-icons mdl-badge mdl-badge--overlap" data-badge="5">account_box</label>  
 <div class="mdl-tooltip" for="tt2">Messages</div>                     
                  
