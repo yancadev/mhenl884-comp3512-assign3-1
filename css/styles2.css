@@ -1,0 +1,114 @@
+header h1.mdl-layout-title {
+    font-size: 32px;
+    color: white;
+}
+header h1 span {
+    color: #ff6e40;
+}
+
+.profile {
+   background-color: #263238;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+.profile span {
+   font-size: 90%;   
+}
+.avatar {
+  width: 96px;
+  height: 96px;  
+    border-radius: 50%;
+    
+    display: block;
+}
+
+.page-content {
+  margin: 10px;   
+}
+
+main header {
+    margin: 0;
+    min-height: 40px;
+    padding-left: 10px;
+    padding-top: 5px;
+}
+main header h4 {
+  margin: 0; 
+    
+    font-size: 18px;
+}
+
+
+.card-lesson {
+  min-width: 200px;
+  min-height: 100px;
+}
+.card-lesson > .mdl-card__actions {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+}
+.card-lesson > .mdl-card__title {
+  align-items: flex-start;
+}
+.card-lesson > .mdl-card__title > h4 {
+  margin-top: 0;
+}
+.card-lesson > .mdl-card__title, .card-lesson > .mdl-card__supporting-text, .card-lesson > .mdl-card__actions, .card-lesson > .mdl-card__actions > .mdl-button {
+  _color: #fff;
+}
+
+
+.inlinesparkline  {width: 70%;}
+
+ .demo-card-square.mdl-card {
+    width: 320px;
+    height: 320px;
+    float: left;
+    margin: 1rem;
+    position: relative;
+    text-align: center;
+    color:black;
+  }
+
+  
+  .demo-card-square.mdl-card:hover {
+    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .2);
+  }
+  
+  .demo-card-square > .mdl-card__title {
+    color: #fff;
+    display:block;
+    margin-left: auto;
+    margin-right:auto;
+ 
+  }
+  
+  .mdl-card.mdl-shadow--2dp.demo-card-square{
+    width:320px;
+    height:320px;
+  }
+  
+  #mdl-layout__header{
+    background-color:rgb(96,125,139);
+  }
+  
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    list-style-type: none;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
