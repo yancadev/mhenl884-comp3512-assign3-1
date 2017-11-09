@@ -4,6 +4,8 @@ require_once('config.php');
 
 function outputFullNames() {
    try {
+            // $db = new EmployeesGateway($connection );
+            //$result = $db ->getAll();
             $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $sql = "select FirstName, LastName, EmployeeID from Employees order by LastName limit 0, 30";
