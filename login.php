@@ -17,11 +17,17 @@ else{
     $sql = "select UserID, UserName, Password, Salt, State, DateJoined, DateLastModified from UsersLogin where UserName='$username'";
     $result = $pdo-> query ($sql);
     while ($row = $result->fetch()){
-        $userid = $row['UserID'];
         $salt = $row['Salt'];
         $pass = md5($_POST['password'].$salt);
         if ($row['Password'] == $pass) {
-            $_SESSION['login_user']=$userid; // Initializing Session
+            $_SESSION['userid']= $row['UserID']; // Initializing Session
+            $sql2 = "select UserID, FirstName, LastName, Address, City, Region, Country, Postal, Phone, Email from Users";
+            $result2 = $pdo-> query($sql2);
+            while ($row = $result2->fetch()){
+                $_SESSION['firstname']=$row['FirstName'];
+                $_SESSION['lastname']=$row['LastName'];
+                $_SESSION['email']=$row['Email'];
+            }
             header("location: index.php"); // Redirecting To Other Page
         } else {
             $error = "Username or Password is invalid";
