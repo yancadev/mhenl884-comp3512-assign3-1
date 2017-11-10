@@ -1,4 +1,5 @@
 <?php 
+include "session.php";
 require_once('config.php');
 
     
@@ -104,6 +105,13 @@ function listUniversities(){
    }
 }
 
+//$uniClassObject = new UniversitiesDB($connection);
+//$uniHelperClassObject = new UniHelper($connection,$uniClassObject);
+include 'DataAccessLayer/PDOGenerator.php';
+include 'AssistantFunctions/UniHelper.php';
+
+$connection= new DBhelper();
+
 ?>
 
 <!DOCTYPE html>
@@ -182,6 +190,9 @@ function listUniversities(){
 
                          <?php  
                               listUniversities();
+                
+                          $uniHelperClassObject -> printUniList();
+        
                          ?>            
 
                     </ul>

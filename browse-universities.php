@@ -1,4 +1,5 @@
 <?php
+include "session.php";
 require_once('config.php');
 try{
     
@@ -66,6 +67,8 @@ function createList($row){
 }
 
 $pdo=null;
+
+
 ?>
 
 
