@@ -9,15 +9,17 @@ $user_check=$_SESSION['login_user'];
 // SQL Query To Fetch Complete Information Of User
 $sql="select UserID, UserName, Password, Salt, State, DateJoined, DateLastModified from UsersLogin where UserID='$user_check'";
 $result = $pdo-> query ($sql);
-$login_session="";
+//$login_session="";
 while ($row = $result->fetch()){
-    $login_session =$row['UserID'];
+    $_SESSION['userid']=$row['UserID'];
 }
-/*$sql2 = "select UserID, FirstName, LastName, Address, City, Region, Country, Postal, Phone, Email from Users";
+$sql2 = "select UserID, FirstName, LastName, Address, City, Region, Country, Postal, Phone, Email from Users";
 $result2 = $pdo-> query($sql2);
 while ($row = $result2->fetch()){
-    $login_session .= $row['FirstName'].$row['LastName'].$row['Email'];
-}*/
+    $_SESSION['firstname']=$row['FirstName'];
+    $_SESSION['lastname']=$row['LastName'];
+    $_SESSION['email']=$row['Email'];
+}
 
 if(!isset($login_session)){
     $pdo = null; // Closing Connection
