@@ -8,7 +8,7 @@ $ip = getenv('IP');
 $port = '3306';
 
 // you may need to change these for your own environment
-define('DBCONNECTION', "mysql:host=$ip;port=$port;dbname=book;charset=utf8mb4;");
+define('DBCONNECTION', 'mysql:dbname=book;charset=utf8mb4;'/*"mysql:host=$ip;port=$port;dbname=book;charset=utf8mb4;"*/);
 define('DBUSER', getenv('C9_USER'));
 define('DBPASS', '');
 

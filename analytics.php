@@ -22,7 +22,11 @@ include "session.php";
     <script src="https://code.getmdl.io/1.1.3/material.min.js"></script> 
   </head>
   <body>
-      
+      <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
+            mdl-layout--fixed-header">
+              <?php include 'includes/header.inc.php'; ?>
+    <?php include 'includes/left-nav.inc.php'; ?>
+    </div>
   </body>
     
 </html>

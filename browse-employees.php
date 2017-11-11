@@ -1,69 +1,49 @@
 <?php
-include "session.php";
-require_once('config.php');
+//include "session.php";
+//require_once('config.php');
+include 'includes/book-config.inc.php';
 
-
-function outputFullNames() {
-   try {
-            // $db = new EmployeesGateway($connection );
-            //$result = $db ->getAll();
-            $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "select FirstName, LastName, EmployeeID from Employees order by LastName limit 0, 30";
-            $result = $pdo-> query ($sql);
-    while ($row = $result->fetch()) {
-             echo '<a href="' . $SERVER["SCRIPT_NAME"] . '?emp=' . $row['EmployeeID'] . '" class="';
-        if (isset($_GET['emp']) && $_GET['emp'] == $row['EmployeeID']) echo 'acitve';
-            echo 'item">';
-            echo $row['FirstName']." ".$row['LastName'] . '</a>';
-            echo '<br>';
-            echo '<br>';
-         }
-         $pdo = null;
-   }
-   catch (PDOException $e) {
-      die( $e->getMessage() );
-   }
-}
-function outputAddresses() {
-  try {
-      if (isset($_GET['emp']) && $_GET['emp'] > 0) {   
-         $pdo = new PDO(DBCONNSTRING,DBUSER,DBPASS);
-         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql= 'select FirstName, LastName ,EmployeeID, Address, City, Region, Country, Postal, Email from Employees where EmployeeId=:emp';
-        $employ = $_GET['emp'];
-        $statement = $pdo->prepare($sql);
-        $statement->bindValue(':emp', $employ);
+try {
+    $db = new EmployeesGateway($connection);
+    $result = $db-> limitBy(30);
+    
+    //list employees
+    $string = "";
+    foreach ($result as $row){
+       $string .= createEmployeeList($row);
+    }
+    
+    //output address DOESNT WORK
+    $string1="";
+    if (isset($_GET['id']) && $_GET['id'] > 0) {
+        $employ = $_GET['id'];
+        $result1 = $db-> findById($employ);
+        $statement->bindValue(':id', $employ);
         $statement->execute();
-       
-			while	($row = $statement->fetch())	{
-                outputSingleAddress($row); 
+        while($row = $statement->fetch()){
+            outputAddress($row); 
          }
-         $pdo = null;
-      }
-  }
-  catch (PDOException $e) {
-      die( $e->getMessage() );
-  }
+        /*foreach($result1 as $row){
+            $string1 .= outputAddresses($row);
+        }*/
+    }
+}
+catch (Exception $e) {
+    die( $e->getMessage() );
 }
 
-function outputSingleAddress($row) {
-echo '<br>';
-echo "<font size='7 pt'>" . $row['FirstName']." ".$row['LastName']. "</font size>";
-echo '<br>';
-echo '<br>';
-echo $row['Address']; 
-echo '<br>';
-echo $row['City'] . " ";
-echo $row['Region'] . '<br>';
-echo $row['Country'] . " ";
-echo $row['Postal'] . '<br>';
-echo $row['Email'];
- }
+function createEmployeeList($rows){
+    return  "<li><a href='?eid=".$rows['EmployeeID']."'> ".$rows['FirstName']." ".$rows['LastName'] ."</a></li>";
+}
+
+function outputAddresses($rows){
+    return "<font size='7 pt'>" . $rows['FirstName']." ".$rows['LastName']. "</font size>"."<br>". $rows['Address'].'<br>'.$rows['City'] . " ".
+    $rows['Region'] . '<br>'. $rows['Country'] . " ". $rows['Postal'] . '<br>'. $rows['Email'];
+}
 
 
 
-
+/*
 function outputEmployeeToDo() {
   			try	{
 				if (isset($_GET['emp']) && $_GET['emp'] > 0) {   
@@ -166,14 +146,49 @@ function message($row) {
  echo '</td>';
   
 echo '</tr>';
-}  	    
+}
+function outputAddresses() {
+  try {
+      if (isset($_GET['emp']) && $_GET['emp'] > 0) {   
+         $pdo = new PDO(DBCONNSTRING,DBUSER,DBPASS);
+         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql= 'select FirstName, LastName ,EmployeeID, Address, City, Region, Country, Postal, Email from Employees where EmployeeId=:emp';
+        $employ = $_GET['emp'];
+        $statement = $pdo->prepare($sql);
+        $statement->bindValue(':emp', $employ);
+        $statement->execute();
+       
+			while	($row = $statement->fetch())	{
+                outputSingleAddress($row); 
+         }
+         $pdo = null;
+      }
+  }
+  catch (PDOException $e) {
+      die( $e->getMessage() );
+  }
+}
+
+function outputSingleAddress($row) {
+echo '<br>';
+echo "<font size='7 pt'>" . $row['FirstName']." ".$row['LastName']. "</font size>";
+echo '<br>';
+echo '<br>';
+echo $row['Address']; 
+echo '<br>';
+echo $row['City'] . " ";
+echo $row['Region'] . '<br>';
+echo $row['Country'] . " ";
+echo $row['Postal'] . '<br>';
+echo $row['Email'];
+ }*/  	    
 	
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Assignment 1</title>
+    <title>Browse Employees</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
@@ -214,7 +229,8 @@ echo '</tr>';
                          <?php  
                            /* programmatically loop though employees and display each
                               name as <li> element. */
-                              outputFullNames();
+                              echo $string;
+                             
                          ?>            
 
                     </ul>
@@ -239,7 +255,7 @@ echo '</tr>';
                               
                            <?php   
                              /* display requested employee's information */
-                             outputAddresses();
+                             echo $string1;
                            ?>
                            
          
@@ -291,8 +307,8 @@ echo '</tr>';
                                   
                                   <tbody>
                                    
-                                    <?php /*  display TODOs  */ 
-                                        //outputEmployeeToDo();
+                                    <?php /*  display messages  */ 
+                                      
                                          generateMessages();
                                     
                                     ?>

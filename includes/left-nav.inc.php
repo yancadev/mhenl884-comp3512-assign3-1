@@ -1,7 +1,7 @@
   <div class="mdl-layout__drawer mdl-color--blue-grey-800 mdl-color-text--blue-grey-50">
        <div class="profile">
            <img src="images/i_tried.png" class="avatar">
-           //<h4><?php echo $_SESSION['firstname'];echo $_SESSION['lastname']; ?></h4>           
+           <h4><?php echo $_SESSION['firstname'];echo $_SESSION['lastname']; ?></h4>           
            <span><?php echo $_SESSION['email']; ?></span>
        </div>
 

@@ -5,13 +5,13 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 session_start();// Starting Session
 // Storing Session
-$user_check=$_SESSION['login_user'];
+$user_check=$_SESSION['userid'];
 // SQL Query To Fetch Complete Information Of User
 $sql="select UserID, UserName, Password, Salt, State, DateJoined, DateLastModified from UsersLogin where UserID='$user_check'";
 $result = $pdo-> query ($sql);
-//$login_session="";
 while ($row = $result->fetch()){
     $_SESSION['userid']=$row['UserID'];
+    $login_session = $row['UserID'];
 }
 $sql2 = "select UserID, FirstName, LastName, Address, City, Region, Country, Postal, Phone, Email from Users";
 $result2 = $pdo-> query($sql2);

@@ -38,8 +38,8 @@ function printDetails(){
     ( Books.SubcategoryID = Subcategories.SubcategoryID ) join Imprints using ( ImprintID ) join BindingTypes using (BindingTypeID) where ISBN10 = '$book'";
     $result = $pdo-> query ($sql);
     while ($row = $result->fetch()) {
-      if (isset($_GET['book']) && $_GET['book'] == $row['ISBN10']) echo 'active';
-        echo $row['Title'];
+      //if (isset($_GET['book']) && $_GET['book'] == $row['ISBN10']) echo 'active';
+        echo "<h3>".$row['Title']."</h3>";
         echo "<img src ='/book-images/medium/". $row['ISBN10']. ".jpg'>" . "<br>";
         echo "ISBN10: " . $row['ISBN10']."<br>";
         echo "ISBN13: " . $row['ISBN13']."<br>";
@@ -71,7 +71,7 @@ function listAuthors(){
         $result = $pdo-> query ($sql);
         while ($row = $result->fetch()) {
           //if (isset($_GET['book']) && $_GET['book'] == $row['BookID']) echo 'active';
-            echo '<li>' .  $row['FirstName']. " ". $row['LastName'] . '</li>';
+            echo /*'<li>' .*/  $row['FirstName']. " ". $row['LastName'] /*. '</li>'*/;
                     
         }
         $pdo = null;
@@ -163,17 +163,7 @@ $connection= new DBhelper();
                     <ul class="demo-list-item mdl-list">
 
                          <?php  
-                             /*if(isset($_GET['book'])){
-                                $b = $_GET['book'];
-                              }
-                             $authors = listItems("select Authors.FirstName as FirstName,
-                            Authors.LastName as LastName, Authors.Institution as Institution 
-                            from Books join BookAuthors using (BookID) join Authors using (AuthorID)
-                            where BookID = '$book'", "");
-                            $b = $authors[0];
-                            foreach ($authors as $a) {
-                              echo '<li>' .  $a['FirstName']. " ". $a['LastName'] . '</li>';
-                            }*/
+                             
                             listAuthors();
                          ?>            
 

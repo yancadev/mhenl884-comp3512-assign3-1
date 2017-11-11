@@ -7,6 +7,7 @@ class DatabaseHelper {
 	
 	// Create the connection to the database
  public static function createConnectionInfo($values=array()) {
+ include "config.php";
  // pass in the connection string, username, and password as array
  $connString = $values[0];
  $user = $values[1];
@@ -18,7 +19,7 @@ class DatabaseHelper {
 
 
 	// run an SQL query and return the cursor to the database
-    public static function runQuery($connection, $sql, $parameters=array()) {
+public static function runQuery($connection, $sql, $parameters=array()) {
  // Ensure parameters are in an array
  if (!is_array($parameters)) {
  $parameters = array($parameters);

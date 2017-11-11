@@ -1,6 +1,10 @@
 <?php
 include "session.php";
 require_once('config.php');
+
+
+
+
 try{
     
     $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
@@ -42,11 +46,7 @@ try{
     $addressResult = $pdo -> query($sql2);
   $row =$addressResult->fetch();
 
-//   if(isset($_GET['EmployeeID'] )){
-//      $sql3='select DateBy, Status, Priority, Description from EmployeeToDo where EmployeeID ='.$_GET["EmployeeID"] . ' order by DateBy';
-//     $toDoResult = $pdo -> query($sql3);
-//  //$row2 = $toDoResult->fetch();
-//   }
+
     
 }
 catch (PDOException $e) {
@@ -113,17 +113,17 @@ $pdo=null;
                 </div>
                 <div class="mdl-card__supporting-text">
                     <ul class="demo-list-item mdl-list">
-
+                        <form action="browse-universities.php" method="GET">
+                         <select name="State"><option value="">Choose a state</option><?php echo $string1 ?></select>
+                         <input type="submit">
+                         </form>
                          <?php  
                            /* programmatically loop though employees and display each
                               name as <li> element. */
                               
                               echo $string; 
                          ?>  
-                         <form action="browse-universities.php" method="GET">
-                         <select name="State"><option value="">Choose a state</option><?php echo $string1 ?></select>
-                         <input type="submit">
-                         </form>
+                         
 
                     </ul>
                 </div>

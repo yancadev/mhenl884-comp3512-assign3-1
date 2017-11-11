@@ -13,7 +13,6 @@ else{
     // Selecting Database
     $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    // SQL query to fetch information of registerd users and finds user match.
     $sql = "select UserID, UserName, Password, Salt, State, DateJoined, DateLastModified from UsersLogin where UserName='$username'";
     $result = $pdo-> query ($sql);
     while ($row = $result->fetch()){

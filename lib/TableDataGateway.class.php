@@ -45,6 +45,8 @@ abstract protected function getOrderFields();
      The name of the primary keys in the database ... this can be overridden by subclasses
    */    
 abstract protected function getPrimaryKeyName();
+
+abstract protected function getDifferentSelect();
    
    // ***********************************************************
    // PUBLIC FINDERS 
@@ -55,7 +57,7 @@ abstract protected function getPrimaryKeyName();
    /*
       Returns all the records in the table
    */
- public function findAll($sortFields=null)
+public function findAll($sortFields=null)
 {
  $sql = $this->getSelectStatement();
  // add sort order if required
@@ -69,6 +71,13 @@ abstract protected function getPrimaryKeyName();
    /*
       Returns all the records in the table sorted by the specified sort order
    */
+
+public function limitBy($limit){
+    $sql = $this->getSelectStatement() . ' limit 0, ' . $limit;
+    $statement = DatabaseHelper::runQuery($this->connection, $sql, null);
+    return $statement->fetchAll();
+}
+
 public function findAllSorted($ascending)
 {
  $sql = $this->getSelectStatement() . ' ORDER BY ' .

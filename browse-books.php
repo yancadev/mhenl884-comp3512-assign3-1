@@ -1,26 +1,103 @@
 <?php 
 include "session.php";
 require_once('config.php');
-function outputBooks() {
-   try {
-        $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "select BookID, ISBN10, Title, CopyrightYear, SubcategoryID, ImprintID, CoverImage from Books order by Title limit 0, 20";
-        $result = $pdo-> query ($sql);
-        while ($row = $result->fetch()) {
-             echo '<a href="/single‐book.php?book='. $row['ISBN10'] . '" class="';
-             //echo '<a href="' . $SERVER["SCRIPT_NAME"] . '?book=' . $row['ISBN10'] . '" class="';
-        if (isset($_GET['book']) && $_GET['book'] == $row['BookID']) echo 'active';
-            echo 'item">';
-            echo "<img src ='/book-images/tinysquare/". $row['ISBN10']. ".jpg'>". " ". $row['Title']. " ". $row['CopyrightYear']. " ". $row['SubcategoryID']. " ". $row['ImprintID'] . '</a>';
-            echo '<br>';
-         }
-         $pdo = null;
-   } 
-   catch (PDOException $e) {
-      die( $e->getMessage() );
-   }
+try{
+    
+    $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
+    $pdo -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+    
+    $sql = "select BookID, ISBN10, Title, CopyrightYear, SubcategoryID, ImprintID, CoverImage from Books order by Title limit 0, 20";
+    $sql1 = "select BookID, ISBN10, ISBN13, Title, CopyrightYear, TrimSize, PageCountsEditorialEst
+        as PageCount, Description, STATUS , SubcategoryName, Imprint, BindingType from Books
+        join Statuses on ( Books.ProductionStatusID = Statuses.StatusID ) join Subcategories on 
+        ( Books.SubcategoryID = Subcategories.SubcategoryID ) join Imprints using ( ImprintID ) join BindingTypes using (BindingTypeID)";
+ 
+    $result=$pdo-> query($sql);
+    $string="";
+    while($row=$result->fetch()){
+        $string .= createList($row);
+    }
+ 
+    $result1=$pdo-> query($sql1);
+     $string1="";
+     while($row=$result1->fetch()){
+        $string1 .= createSubcategories($row);
+    }
+    
+    $result2=$pdo-> query($sql1);
+     $string2="";
+     while($row=$result2->fetch()){
+        $string2 .= createImprints($row);
+    }
+    
+    if(isset($_GET["Subcategory"]))
+    {
+        $sql2 = 'select BookID, ISBN10, ISBN13, Title, CopyrightYear, TrimSize, PageCountsEditorialEst
+        as PageCount, Description, STATUS , SubcategoryName, Imprint, BindingType from Books
+        join Statuses on ( Books.ProductionStatusID = Statuses.StatusID ) join Subcategories on 
+         $result3=$pdo-> query($sql2);
+            $string="";
+             while($row=$result3->fetch()){
+             $string .= createList($row);
+        }    
+        // if(!createList.Items.Contains(new createList($row)))
+        // {
+        //     createList.Items.Add($row);
+        // }
+        
+    }
+    
+    if(isset($_GET["Imprint"]))
+    {
+        $sql3 = 'select BookID, ISBN10, ISBN13, Title, CopyrightYear, TrimSize, PageCountsEditorialEst
+        as PageCount, Description, STATUS , SubcategoryName, Imprint, BindingType from Books
+        join Statuses on ( Books.ProductionStatusID = Statuses.StatusID ) join Subcategories on 
+        ( Books.SubcategoryID = Subcategories.SubcategoryID ) join Imprints using ( ImprintID ) join BindingTypes using (BindingTypeID) where Imprint="'.$_GET["Imprint"].'" order by Title Limit 0, 20';
+         $result4=$pdo-> query($sql3);
+            $string="";
+             while($row=$result4->fetch()){
+             $string .= createList($row);
+        }    
+    }
+    
+    if(!isset($_GET['ISBN10'])){
+        $isbn = '126182';
+    }else{
+        $isbn = $_GET['ISBN10'];
+    }
+    
+    /*$sql2='select UniversityID, Name, Address, City, State, Zip, Longitude, Latitude, Website from Universities where UniversityID ='.$id;
+    $addressResult = $pdo -> query($sql2);
+    $row =$addressResult->fetch();*/
+
+
+    
 }
+catch (PDOException $e) {
+    die($e->getMessage());
+}
+
+function createList($row){
+   return  "<li>
+         <a href='/single‐book.php?book=".$row['ISBN10']."'> "."<img src ='/book-images/tinysquare/". $row['ISBN10']. ".jpg'>".
+         " ". $row['Title']. " ". $row['CopyrightYear']. " ". $row['SubcategoryID']. " ". $row['ImprintID'] . "</a>
+         </li>";
+}
+
+function createSubcategories($rows)
+{
+    return '<option value="'.$rows["SubcategoryName"].'">'.$rows["SubcategoryName"].'</option>';
+    
+}
+
+function createImprints($rows)
+{
+    return '<option value="'.$rows["Imprint"].'">'.$rows["Imprint"].'</option>';
+    
+}
+
+
+$pdo=null;
 
 ?>
 
@@ -58,13 +135,43 @@ function outputBooks() {
                     <ul class="demo-list-item mdl-list">
 
                          <?php  
-                              outputBooks();
+                              echo $string; 
+                              //outputBooks();
                          ?>            
                 
                     </ul>
                 </div>
               </div>  <!-- / mdl-cell + mdl-card -->
-              
+              <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp"style="width:300px;">
+
+                    <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
+                      <h2 class="mdl-card__title-text">Filter by Subcategory</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+                          <form action="browse-books.php" method="GET">
+                         <select name="Subcategory"><option value="">All Subcategories</option><?php echo $string1 ?></select>
+                         <input type="submit">
+                         </form>
+                          
+                        </div>                         
+                    </div>    
+              </div>  <!-- / mdl-cell + mdl-card -->   
+              <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp"style="width:300px;">
+
+                    <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
+                      <h2 class="mdl-card__title-text">Filter by Imprint</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+                          <form action="browse-books.php" method="GET">
+                         <select name="Imprint"><option value="">All Imprints</option><?php echo $string2 ?></select>
+                         <input type="submit">
+                         </form>
+                          
+                        </div>                         
+                    </div>    
+              </div>  <!-- / mdl-cell + mdl-card -->   
             </div>  <!-- / mdl-grid -->    
 
         </section>

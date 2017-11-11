@@ -3,7 +3,7 @@
 class UniHelper
 {
     protected $connection; //PDO object
-    protected $uniClassObject; //PaintingsDB class object
+    protected $uniClassObject; //UniversitiesDB class object
      
 /**
      * This is the constructor for the class
@@ -25,7 +25,9 @@ class UniHelper
         $result = $this->uniClassObject->getUniListOrderedByAlphabet();
         foreach($result as $row)
         {
-            echo '<option value="'. $row['UniversityID']."|" .$row['Name'].'">' . utf8_encode($row['Name']) . '</option>';
+            //echo '<option value="'. $row['UniversityID']."|" .$row['Name'].'">' . utf8_encode($row['Name']) . '</option>';
+            echo $row['UniversityID'] . ' ' . $row['Name'] . ', ';
+            
         }
     }
     
