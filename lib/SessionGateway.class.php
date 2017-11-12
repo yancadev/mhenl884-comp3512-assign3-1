@@ -1,6 +1,6 @@
 <?php
 
-class LoginGateway extends TableDataGateway {
+class SessionGateway extends TableDataGateway {
  public function __construct($connect) {
  parent::__construct($connect);
  }
@@ -16,19 +16,7 @@ class LoginGateway extends TableDataGateway {
  protected function getPrimaryKeyName() {
  return "UserID";
  }
- 
- public function findByUserName($user){
- $sql = $this->getSelectStatement() . ' WHERE ' . "UserName='" . "$user'";
 
- $statement = DatabaseHelper::runQuery($this->connection, $sql,null);
- return $statement->fetch();
-} 
-public function findByUserID($user){
- $sql = $this->getSelectStatement() . ' WHERE ' . "UserID='" . "$user'";
-
- $statement = DatabaseHelper::runQuery($this->connection, $sql,null);
- return $statement->fetch();
-}
 }
 
 ?>

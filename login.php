@@ -3,8 +3,8 @@ include 'includes/book-config.inc.php';
 session_start(); // Starting Session
 $error=''; // Variable To Store Error Message
 
-$username = "";
-$password = "";
+$db = new LoginGateway($connection);
+$db2 = new SessionGateway($connection);
 
 if (isset($_POST['submit'])) {
     if (empty($_POST['username']) || empty($_POST['password'])) {
@@ -12,29 +12,28 @@ if (isset($_POST['submit'])) {
     }
 }
 else{
-    $username .= $_POST['username'];
-    $password .= $_POST['password'];
-    
-    $db = new LoginGateway($connection);    
-    $result = $db-> findByUserName($username);
-    foreach ($result as $row) {
-        $salt = $row['Salt'];
-        $pass = md5($_POST['password'].$salt);
-        if ($row['Password'] == $pass) {
-            $_SESSION['userid']= $row['UserID']; // Initializing Session
-            $id = $row['UserID'];
-            $db2 = new SessionGateway($connection);
-            $result2 = $db2->findByUserID($id);
-            foreach($result2 as $row){
-                $_SESSION['firstname']=$row['FirstName'];
-                $_SESSION['lastname']=$row['LastName'];
-                $_SESSION['email']=$row['Email'];
+    if(isset($_POST['username'])&&isset($_POST['password'])){
+        $username .= $_POST['username'];
+        $password .= $_POST['password'];
+        $result = $db-> findByField("UserName", $username);
+        foreach ($result as $row) {
+            $salt = $row['Salt'];
+            $pass = md5($_POST['password'].$salt);
+            if ($row['Password'] == $pass) {
+                $_SESSION['userid']= $row['UserID']; // Initializing Session
+                $id = $row['UserID'];
+                $result2 = $db2-> findByField("UserID", $id);
+                foreach($result2 as $row){
+                    $_SESSION['firstname']=$row['FirstName'];
+                    $_SESSION['lastname']=$row['LastName'];
+                    $_SESSION['email']=$row['Email'];
+                }
+                header("location: index.php"); // Redirecting To Other Page
+            } 
+            else {
+                $error = "Username or Password is invalid";
             }
-            header("location: index.php"); // Redirecting To Other Page
-        } 
-        else {
-            $error = "Username or Password is invalid";
-        }
+        }   
     }
 }
 

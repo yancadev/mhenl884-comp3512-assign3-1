@@ -46,6 +46,7 @@ abstract protected function getOrderFields();
    */    
 abstract protected function getPrimaryKeyName();
 
+
 //abstract protected function getDifferentSelect();
    
    // ***********************************************************
@@ -102,14 +103,30 @@ public function findAllSorted($ascending)
  return $statement->fetch();
 } 
  
-public function runDifferentSelect($input){
+public function findByField($field, $value)
+{
+ $sql = $this->getSelectStatement() . " WHERE " .
+ $field . "=' ". $value . "'";
+
+ $statement = DatabaseHelper::runQuery($this->connection, $sql,
+ Array(':id' => $id));
+ return $statement->fetch();
+}  
+ 
+public function runDifferentSelect($input,$name=null,$id = null, $limit=null){
     $sql=$input;
+    if (! is_null($name) && ! is_null($id) && ! is_null($limit)){
+        $sql .= " where " . $name . "='" . $id . "' limit 0,". $limit;
+    }
     $statement = DatabaseHelper::runQuery($this->connection, $sql,null);
     return $statement->fetchAll();
 }
 
-public function runOtherSelect($query,$valueName, $getValue){
-  $sql = $query . "where " . $valueName . "='" . $getValue . "' order by Title Limit 0, 20";
+public function runOtherSelect($name=null, $id=null){
+  $sql = $this->getSelectStatement();
+  if (! is_null($name) && ! is_null($id)){
+        $sql .= " where ". $name . "='" . $id . "'";
+  }
   $statement = DatabaseHelper::runQuery($this->connection, $sql, null);
   return $statement->fetch();
  }

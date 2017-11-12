@@ -17,28 +17,29 @@ try {
     $string1="";
     $string2="";
     $string3="";
-    if (isset($_GET['id']) && $_GET['id'] > 0) {
-        $employ = $_GET['id'];
-        $result1 = $db-> findById($employ);
+    $sql = "SELECT EmployeeID, FirstName, LastName, Address, City, Region, Country, Postal, Email FROM Employees ";
+    if (isset($_GET['id'])) {
+        $result1 = $db-> runDifferentSelect($sql, "EmployeeID",$_GET['id'], 1);
         foreach($result1 as $row){
             $string1 .= outputAddresses($row);
-            
-            $result2=$db->runDifferentSelect('select  DateBy, Status, Priority, Description from EmployeeToDo where EmployeeID=:id order by DateBy');
-            foreach($result2 as $row){
-                $string2 .= outputToDo($row);
-            }
-            
-            $result3=$db->runDifferentSelect('select  employ.EmployeeID, message.EmployeeID, message.MessageDate, message.Category, message.Content, 
-            message.ContactID, contact.ContactID from Employees employ, EmployeeMessages message, Contacts contact where employ.EmployeeID = message.EmployeeID and 
-            message.ContactID=contact.ContactID and employ.EmployeeID=:emp');
-            foreach($result3 as $row){
-                $string3.=outputMessages($row);
-            }
         }
         
-        
+    }
+    $sql2 = "select  ToDoID, EmployeeID, DateBy, Status, Priority, Description from EmployeeToDo";
+    if(isset($_GET['id'])){
+        $result2 = $db-> runDifferentSelect($sql2, "EmployeeID", $_GET['id'],20);
+        foreach($result2 as $row){
+            $string2 .= outputToDo($row);
+        }
     }
     
+    /*if(isset($_GET['id'])){        
+        $db2 = new MessagesGateway($connection);
+        $result3 = $db2->findAll();
+        foreach($result3 as $row){
+            $string3.=outputMessages($row);
+        }
+    }*/
 }
 catch (Exception $e) {
     die( $e->getMessage() );
@@ -49,180 +50,20 @@ function createEmployeeList($rows){
 }
 
 function outputAddresses($rows){
-    $output='<br>';
-    $output.="<font size='7 pt'>" . $rows['FirstName']." ".$rows['LastName']. "</font size>";
-    $output.='<br>';
-    $output.= $rows['Address'];
-    $output.='<br>';
-    $output.=$rows['City'] . " ";
-    $output.=$rows['Region'] . '<br>';
-    $output.=$rows['Country'] . " ";
-    $output.= $rows['Postal'] . '<br>';
-    $output.=$rows['Email'];
-    return $output;
+    return "<br><font size='7 pt'>" . $rows['FirstName']." ".$rows['LastName']. "<br></font size><br>".$rows['Address']."<br>".
+    $rows['City'] . " ". $rows['Region'] . "<br>".$rows['Country'] . " ". $rows['Postal'] . "<br>".$rows['Email'];
 }
 
 function outputToDo($rows){
-    $output = '<tr><td class="mdl-data-table__cell--non-numeric">'.$rows['DateBy'].'</td>';
-    $output.= '<td class="mdl-data-table__cell--non-numeric">'.$rows['Status'].'</td>';
-    $output.= '<td class="mdl-data-table__cell--non-numeric">'.$rows['Priority'].'</td>';
-    $output.= '<td class="mdl-data-table__cell--non-numeric">'.$rows['Description'].'</td></tr>';
-    return $output;
+    return "<tr><td class='mdl-data-table__cell--non-numeric'>". $rows['DateBy']."</td><td class='mdl-data-table__cell--non-numeric'>".
+    $rows['Status']."</td><td class='mdl-data-table__cell--non-numeric'>". $rows['Priority']."</td><td class='mdl-data-table__cell--non-numeric'>".
+    $rows['Description']."</td></tr>";
 }
 
 function outputMessages($rows){
-     $output='<tr><td class="mdl-data-table__cell--non-numeric">'.$rows['MessageDate'].'</td>';
-     $output.='<tr><td class="mdl-data-table__cell--non-numeric">'.$rows['Category'].'</td>';
-     $output.='<tr><td class="mdl-data-table__cell--non-numeric">'.$rows['employ.FirstName'].'</td>';
-     $output.='<tr><td class="mdl-data-table__cell--non-numeric">'.$rows['Content'].'</td></tr>';
-     return $output;
+     return "<tr><td class='mdl-data-table__cell--non-numeric'>".$rows['MessageDate']."</td><td class='mdl-data-table__cell--non-numeric'>".$rows['Category']."</td>
+     <td class='mdl-data-table__cell--non-numeric'>".$rows['employ.FirstName']."</td><td class='mdl-data-table__cell--non-numeric'>".$rows['Content']."</td></tr>";
 }
-
-// function printEmployeeDetails {
-//     $sql = "select "select FirstName, LastName ,EmployeeID, Address, City, Region, Country, Postal, Email from Employees where EmployeeId=:emp";
-//     if(isset($_GET["id"]))
-   
-/*
-
-function generateMessages() {
-  			try	{
-				if (isset($_GET['emp']) && $_GET['emp'] > 0) {   
-             $pdo = new PDO(DBCONNSTRING,DBUSER,DBPASS);
-             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-             
-             
-             $sql = 'select  employ.EmployeeID, message.EmployeeID, message.MessageDate, message.Category, message.Content, message.ContactID, contact.ContactID from Employees employ, EmployeeMessages message, Contacts contact where employ.EmployeeID = message.EmployeeID and message.ContactID=contact.ContactID and employ.EmployeeID=:emp';
-             $employ = $_GET['emp'];
-             $statement= $pdo-> prepare($sql);
-             $statement-> bindValue(':emp', $employ);
-             $statement-> execute();
-			        
-			        while	($row = $statement->fetch())	{
-                        message($row); 	
-                
-			                }
-			    $pdo = null;
-			}
-		}
-			catch	(PDOException	$e)	{
-						die($e->getMessage());
-			}
-			
-			
-}
-
-function message($row) {
-
- echo '<tr>';
- echo '<td class="mdl-data-table__cell--non-numeric">';
- echo $row['MessageDate'];
- echo '</td>';
-  
-
- echo '<td class="mdl-data-table__cell--non-numeric">';
- echo $row['Category'];
- echo '</td>';
- 
-
- echo '<td class="mdl-data-table__cell--non-numeric">';
- echo $row['employ.FirstName'];
-//echo $row['LastName'];
- echo '</td>';
-
- echo '<td class="mdl-data-table__cell--non-numeric">';
- echo $row['Content'];
- echo '</td>';
-  
-echo '</tr>';
-}
-function outputAddresses() {
-  try {
-      if (isset($_GET['emp']) && $_GET['emp'] > 0) {   
-         $pdo = new PDO(DBCONNSTRING,DBUSER,DBPASS);
-         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql= 'select FirstName, LastName ,EmployeeID, Address, City, Region, Country, Postal, Email from Employees where EmployeeId=:emp';
-        $employ = $_GET['emp'];
-        $statement = $pdo->prepare($sql);
-        $statement->bindValue(':emp', $employ);
-        $statement->execute();
-       
-			while	($row = $statement->fetch())	{
-                outputSingleAddress($row); 
-         }
-         $pdo = null;
-      }
-  }
-  catch (PDOException $e) {
-      die( $e->getMessage() );
-  }
-}
-
-function outputSingleAddress($row) {
-echo '<br>';
-echo "<font size='7 pt'>" . $row['FirstName']." ".$row['LastName']. "</font size>";
-echo '<br>';
-echo '<br>';
-echo $row['Address']; 
-echo '<br>';
-echo $row['City'] . " ";
-echo $row['Region'] . '<br>';
-echo $row['Country'] . " ";
-echo $row['Postal'] . '<br>';
-echo $row['Email'];
- }
- function outputEmployeeToDo() {
-  			try	{
-				if (isset($_GET['emp']) && $_GET['emp'] > 0) {   
-             $pdo = new PDO(DBCONNSTRING,DBUSER,DBPASS);
-             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-             
-             
-             $sql = 'select  DateBy, Status, Priority, Description from EmployeeToDo where EmployeeID=:emp order by DateBy ';
-             $employ = $_GET['emp'];
-             $statement= $pdo-> prepare($sql);
-             $statement-> bindValue(':emp', $employ);
-             $statement-> execute();
-			        
-			        while	($row = $statement->fetch())	{
-                        outputEmployeeInfo($row); 	
-                
-			                }
-			    $pdo = null;
-			}
-		}
-			catch	(PDOException	$e)	{
-						die($e->getMessage());
-			}
-			
-			
-}
-
-function outputEmployeeInfo($row) {
-
- echo '<tr>';
- echo '<td class="mdl-data-table__cell--non-numeric">';
- echo $row['DateBy'];
- echo '</td>';
-  
-
-  echo '<td class="mdl-data-table__cell--non-numeric">';
-  echo $row['Status'];
-  echo '</td>';
- 
-
- echo '<td class="mdl-data-table__cell--non-numeric">';
- echo $row['Priority'];
- echo '</td>';
-
- echo '<td class="mdl-data-table__cell--non-numeric">';
- echo $row['Description'];
- echo '</td>';
-  
-echo '</tr>';
-}
- 
- 
- */  	    
 	
 ?>
 <!DOCTYPE html>
@@ -247,6 +88,7 @@ echo '</tr>';
 </head>
 
 <body>
+
     
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
             mdl-layout--fixed-header">
@@ -266,17 +108,23 @@ echo '</tr>';
                 </div>
                 <div class="mdl-card__supporting-text">
                     <ul class="demo-list-item mdl-list">
-
+                        
+                        
                          <?php  
                            /* programmatically loop though employees and display each
                               name as <li> element. */
                               echo $string;
                              
-                         ?>            
+                         ?> 
+                         
+                         
 
                     </ul>
                 </div>
               </div>  <!-- / mdl-cell + mdl-card -->
+              
+              
+              
               
               <!-- mdl-cell + mdl-card -->
               <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp">
@@ -291,14 +139,28 @@ echo '</tr>';
                               <a href="#todo-panel" class="mdl-tabs__tab">To Do</a>
                               <a href="#messages-panel" class="mdl-tabs__tab">Messages</a>
                           </div>
-                        
+                          
                           <div class="mdl-tabs__panel is-active" id="address-panel">
-                              
                            <?php   
                              /* display requested employee's information */
                              echo $string1;
                            ?>
                            
+                    <button onclick="myFunction()">Filter</button>
+                    <div id="filter">
+                    -Filter will go in here-
+                    </div>
+
+                    <script>
+                    function myFunction() {
+                        var x = document.getElementById("filter");
+                    if (x.style.display === "none") {
+                    x.style.display = "block";
+                     } else {
+                 x.style.display = "none";
+              }
+            }
+                </script>
          
                           </div>
                           <div class="mdl-tabs__panel" id="todo-panel">
@@ -325,41 +187,25 @@ echo '</tr>';
                                    
                                     <?php /*  display TODOs  */ 
                                         echo $string2;
-                                        //outputEmployeeToDo();
                                     
                                     ?>
                             
                                   </tbody>
                               
                                   
-                                </table>
-                                
-                               </div >
-                                 <div class="mdl-tabs__panel" id="messages-panel">
-                                <table class="mdl-data-table  mdl-shadow--2dp">
-                                     <thead>
-                                    <tr>
-                                      <th class="mdl-data-table__cell--non-numeric">Date</th>
-                                      <th class="mdl-data-table__cell--non-numeric">Category</th>
-                                      <th class="mdl-data-table__cell--non-numeric">From</th>
-                                      <th class="mdl-data-table__cell--non-numeric">Messages</th>
-                                    </tr>
-                                  </thead>
-                                  
-                                  
                                   <tbody>
                                    
                                     <?php /*  display messages  */ 
                                         echo $string3;
-                                         //generateMessages();
-                                    
                                     ?>
                             
                                   </tbody>
                                     
                                 </table>
+                            
+                                
                                </div>
-         
+                         
                           </div>
                         </div>                         
                     </div>    
@@ -367,6 +213,7 @@ echo '</tr>';
                  
               </div>  <!-- / mdl-cell + mdl-card -->   
             </div>  <!-- / mdl-grid -->    
+
 
         </section>
     </main>    

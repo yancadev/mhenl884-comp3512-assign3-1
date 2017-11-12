@@ -11,13 +11,15 @@ try{
        $string .= createList($row);
     }
     
+    //$db2= new ImprintsGateway($conection);
+    $db2 = new ImprintsGateway($connection);
     $string1 = "";
     $string2 = "";
     $sql = "select BookID, ISBN10, ISBN13, Title, CopyrightYear, TrimSize, PageCountsEditorialEst
         as PageCount, Description, CoverImage, STATUS , Subcategories.SubcategoryID, SubcategoryName, Imprints.ImprintID, Imprint, BindingType from Books
         join Statuses on (Books.ProductionStatusID = Statuses.StatusID) join Subcategories on 
         (Books.SubcategoryID = Subcategories.SubcategoryID) join Imprints using (ImprintID) join BindingTypes using (BindingTypeID)";
-    $result1 = $db->runDifferentSelect($sql);
+    $result1 = $db2-> findAll();
     foreach ($result1 as $row) {
         $string1 .= createSubcategories($row);
         $string2 .= createImprints($row);
@@ -25,19 +27,18 @@ try{
     
     //FILTERS DONT WORK YET
     if(isset($_GET['Subcategory'])){
-        $result2 =  $db->runOtherSelect($sql, "SubcategoryName", $_GET["Subcategory"]);
+        $result2 =  $db2->runDifferentSelect($sql, "SubcategoryName",$_GET['Subcategory'], 20);
         $string="";
         foreach($result2 as $row){
-            $string .= createFilteredList($row);
+            $string .= createList($row);
         }
     }
     
     if(isset($_GET['Imprint'])){
-        $sql2 = $sql . "where Imprint='" .$_GET["Imprint"]."' order by Title Limit 0, 20";
-        $result2 =  $db->runOtherSelect($sql, "Imprint", $_GET["Imprint"]);
+        $result2 =  $db2->runDifferentSelect($sql,"Imprint",$_GET['Imprint'], 20);
         $string="";
         foreach($result2 as $row){
-            $string .= createFilteredList($row);
+            $string .= createList($row);
         }
     }
     
@@ -46,27 +47,6 @@ try{
     }else{
         $isbn = $_GET['ISBN10'];
     }
-    /*
-    
-    
-    if(isset($_GET["Imprint"]))
-    {
-        $sql3 = "select BookID, ISBN10, ISBN13, Title, CopyrightYear, TrimSize, PageCountsEditorialEst as PageCount, Description, STATUS , SubcategoryName, Imprint, BindingType from Books
-        join Statuses on ( Books.ProductionStatusID = Statuses.StatusID ) join Subcategories on 
-        ( Books.SubcategoryID = Subcategories.SubcategoryID ) join Imprints using ( ImprintID ) join BindingTypes using (BindingTypeID) where Imprint='" .$_GET["Imprint"]."' order by Title Limit 0, 20";
-         $result4=$pdo-> query($sql3);
-            $string="";
-             while($row=$result4->fetch()){
-             $string .= createList($row);
-        }    
-    }
-    
-    
-    $sql2='select UniversityID, Name, Address, City, State, Zip, Longitude, Latitude, Website from Universities where UniversityID ='.$id;
-    $addressResult = $pdo -> query($sql2);
-    $row =$addressResult->fetch();
-    */
-
     
 }
 catch (PDOException $e) {
@@ -76,12 +56,6 @@ catch (PDOException $e) {
 function createList($rows){
    return  "<li><a href='/single‐book.php?id=". $rows["ISBN10"] . "'>" . "<img src ='/book-images/tinysquare/" . $rows["ISBN10"]. ".jpg'>".
          " ". $rows["Title"]. " ". $rows["CopyrightYear"]. " ". $rows["SubcategoryID"]. " ". $rows["ImprintID"] . "</a></li>";
-}
-
-//FIX FILTERED LIST
-function createFilteredList($rows){
-   return  "<li><a href='/single‐book.php?id=". $rows["Books.ISBN10"] . "'>" . "<img src ='/book-images/tinysquare/" . $rows["Books.ISBN10"]. ".jpg'>".
-         " ". $rows["Books.Title"]. " ". $rows["Books.CopyrightYear"]. " ". $rows["Books.SubcategoryID"]. " ". $rows["Books.ImprintID"] . "</a></li>";
 }
 
 function createSubcategories($rows)
@@ -95,10 +69,6 @@ function createImprints($rows)
     return '<option value="'.$rows["Imprint"].'">'.$rows["Imprint"].'</option>';
     
 }
-
-
-$pdo=null;
-
 ?>
 
 <!DOCTYPE html>

@@ -16,6 +16,7 @@ class StatesGateway extends TableDataGateway {
  protected function getPrimaryKeyName() {
  return "StateID";
  }
+ 
 }
 
 ?>

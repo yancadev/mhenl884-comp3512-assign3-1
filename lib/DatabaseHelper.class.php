@@ -7,7 +7,7 @@ class DatabaseHelper {
 	
 	// Create the connection to the database
  public static function createConnectionInfo($values=array()) {
- include "config.php";
+ //include "config.php";
  // pass in the connection string, username, and password as array
  $connString = $values[0];
  $user = $values[1];

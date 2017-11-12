@@ -23,11 +23,11 @@ header("location: index.php");
         <section class="page-content">
         <div class="mdl-grid">
               <!-- mdl-cell + mdl-card -->
-              <div class="mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp">
-                <div class="mdl-card__title mdl-color--orange" >
+              <div class="mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp"style="width:100%;">
+                <div class="mdl-card__title mdl-color--orange"style="width:100%;" >
                   <h2 class="mdl-card__title-text">Login</h2>
                 </div>
-                <div class="mdl-card__supporting-text">
+                <div class="mdl-card__supporting-text"style="width:100%;">
                         <div id="login">
                             <form action="" method="post">
                                 <label>UserName :</label>
