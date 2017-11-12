@@ -1,24 +1,24 @@
 <?php
 require_once ( 'AbstractClass.php');
 
-class UniversitiesDB extends AbstractClass
+class EmployeesDB extends AbstractClass
 {
 /**
  * Returns the main query statement for the University table 
  * @return      the main query statement
  */    
     public function getStatement() {
-        return 'SELECT * FROM Universities ';
+        return 'SELECT * FROM Employees ';
     }
 /**
  * Returns the primary key of the table
  * @return      the primary key
  */
     public function getPrimaryKey() {
-        return "UniversityID";
+        return "EmployeeID";
     }
     
-        public function getUniListOrderedByAlphabet(){
+        public function getEmpListOrderedByAlphabet(){
             
         $sql = $this->getStatement(). 'ORDER BY Name';
         $connection = $this->dataSource ->createConnection();
@@ -27,7 +27,7 @@ class UniversitiesDB extends AbstractClass
     
     }
 
-    public function getSingleUniversityDetail($id){
+    public function getSingleEmployeeDetail($id){
 
         $sql = $this->getStatement(). ' WHERE ' . $this -> getPrimaryKey() .' = ' . $id;
         $connection = $this->dataSource ->createConnection();

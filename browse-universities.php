@@ -1,37 +1,31 @@
 <?php
-include "session.php";
-require_once('config.php');
-
-
-
+//include "session.php";
+//require_once('config.php');
+include 'includes/book-config.inc.php';
 
 try{
+    $db = new UniversitiesGateway($connection);
+    $result = $db-> limitBy(20);
     
-    $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
-    $pdo -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-    
-    $sql = "select UniversityID, Name, Address, City, State, Zip, Longitude, Latitude, Website from Universities order by Name Limit 19";
-    $sql1 = "select DISTINCT(State) from Universities order by State";
-    
- 
-    $result=$pdo-> query($sql);
-    $string="";
-    while($row=$result->fetch()){
-        $string .= createList($row);
-    }
- 
-    $result1=$pdo-> query($sql1);
-     $string1="";
-     while($row=$result1->fetch()){
-        $string1 .= createStates($row);
+    //list universities
+    $string = "";
+    foreach ($result as $row){
+       $string .= createList($row);
     }
     
-    if(isset($_GET["State"]))
-    {
-        $sql2 = 'select UniversityID, Name, Address, City, State, Zip, Longitude, Latitude, Website from Universities where State="'.$_GET["State"].'" order by Name Limit 19';
-         $result3=$pdo-> query($sql2);
-            $string="";
-             while($row=$result3->fetch()){
+    //list States
+    $db2=new StatesGateway($connection);
+    $string1="";
+    $result1 = $db2->findAll();
+    foreach ($result1 as $row){
+        $string1.= createStates($row);
+    }
+    
+    $sql = "select UniversityID, Name, Address, City, State, Zip, Longitude, Latitude, Website from Universities where State='". $_GET['id'] . "' order by Name limit 0,20";
+    if(isset($_GET['id'])){
+        $result2 = $db-> runDifferentSelect($sql);
+        $string="";
+        foreach($result2 as $row){
              $string .= createList($row);
         }    
     }
@@ -42,9 +36,9 @@ try{
         $id = $_GET['UniversityID'];
     }
     
-     $sql2='select UniversityID, Name, Address, City, State, Zip, Longitude, Latitude, Website from Universities where UniversityID ='.$id;
+    /*$sql2='select UniversityID, Name, Address, City, State, Zip, Longitude, Latitude, Website from Universities where UniversityID ='.$id;
     $addressResult = $pdo -> query($sql2);
-  $row =$addressResult->fetch();
+    $row =$addressResult->fetch();*/
 
 
     
@@ -55,18 +49,13 @@ catch (PDOException $e) {
 
 function createStates($rows)
 {
-    return '<option value="'.$rows["State"].'">'.$rows["State"].'</option>';
+    return '<option value="'.$rows['StateName'].'">'.$rows['StateName'].'</option>';
     
 }
 
-
-function createList($row){
-   return  "<li>
-         <a href='?UniversityID=".$row['UniversityID']."'> ".$row['Name']."</a>
-         </li>";
+function createList($rows){
+   return  "<li><a href='?id=".$rows['UniversityID']."'> ".$rows['Name']."</a></li>";
 }
-
-$pdo=null;
 
 
 ?>
@@ -114,7 +103,7 @@ $pdo=null;
                 <div class="mdl-card__supporting-text">
                     <ul class="demo-list-item mdl-list">
                         <form action="browse-universities.php" method="GET">
-                         <select name="State"><option value="">Choose a state</option><?php echo $string1 ?></select>
+                         <select name="id"><option value="">Choose a state</option><?php echo $string1 ?></select>
                          <input type="submit">
                          </form>
                          <?php  
@@ -145,14 +134,13 @@ $pdo=null;
                           <div class="mdl-tabs__panel is-active" id="address-panel">
                               
                            <?php   
-                             /* display requested employee's information */
-                             
-                             echo '<h2>'. $row["Name"].'</h2>';
-                             echo '<p><br>' .$row["Address"];
-                             echo '<br>'.$row["City"].", ".$row["State"]."  ".$row["Zip"];
-                             echo '<br> Longitude: '.$row["Longitude"]." || Latitude: ".$row["Latitude"];
-                             echo '<br>'.$row["Website"]."</p>"; 
-                             
+                             /* display requested universities information */
+                            $string3 = "";
+                            $string3 = $db-> outputDetails($_GET['id']);
+                            /*$result3 = $db->findById($_GET["id"]);
+                            foreach ($result3 as $row){
+                                $string3 = $db-> outputDetails($row);
+                            }*/
                            ?>
                            
          
@@ -160,8 +148,7 @@ $pdo=null;
                           <div class="mdl-tabs__panel" id="todo-panel">
                               
                                <?php                       
-                                 /* retrieve for selected employee;
-                                    if none, display message to that effect */
+                                 
                                    
                                ?>                                  
                             
@@ -173,55 +160,13 @@ $pdo=null;
                                     </tr>
                                   </thead>
                                   <tbody>
-                                       <?php
-                                       if(isset($_GET['EmployeeID']) ){
-                                       foreach($toDoResult as $row2){
-                                       echo '<tr><td class="mdl-data-table__cell--non-numeric">'.$row2["DateBy"].' </td>';
-                                      echo '<td class="mdl-data-table__cell--non-numeric">'. $row2["Status"].'</td>';
-                                      echo '<td class="mdl-data-table__cell--non-numeric">' . $row2["Priority"]; '</td>';
-                                      echo '<td class="mdl-data-table__cell--non-numeric">'. $row2["Description"]; '</td></tr>';
-                                      }
-                                       }
-                                        ?>
+                                       
                                   </tbody>
                                 </table>
                            
          
                           </div>
-                           <div class="mdl-tabs__panel" id="messages">
-                              
-                               <?php                       
-                                 /* retrieve for selected employee;
-                                    if none, display message to that effect */
-                                   
-                               ?>                                  
-                            
-                                <table class="mdl-data-table  mdl-shadow--2dp">
-                                  <thead>
-                                    <tr>
-                                      <th class="mdl-data-table__cell--non-numeric">Date</th>
-                                      <th class="mdl-data-table__cell--non-numeric">Status</th>
-                                      <th class="mdl-data-table__cell--non-numeric">Priority</th>
-                                      <th class="mdl-data-table__cell--non-numeric">Content</th>
-                                      
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                       <?php
-                                       if(isset($_GET['EmployeeID']) ){
-                                       foreach($toDoResult1 as $row2){
-                                       echo '<tr><td class="mdl-data-table__cell--non-numeric">'.$row2["a.MessageDate"].' </td>';
-                                      echo '<td class="mdl-data-table__cell--non-numeric">'. $row2["Status"].'</td>';
-                                      echo '<td class="mdl-data-table__cell--non-numeric">' . $row2["Priority"]; '</td>';
-                                      echo '<td class="mdl-data-table__cell--non-numeric">'. $row2["Description"]; '</td></tr>';
-                                      }
-                                       }
-                                        ?>
-                                  </tbody>
-                                </table>
                            
-         
-                          </div>
                         </div>                         
                     </div>    
   

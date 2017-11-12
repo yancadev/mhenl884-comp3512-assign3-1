@@ -1,5 +1,5 @@
 <?php
-class dBHelper
+class DBHelper
 {
     public static function createConnection(){
         $pdo = new pdo ('mysql:host=localhost; dbname=book','root', "");

@@ -15,87 +15,75 @@ try {
     
     //output address DOESNT WORK
     $string1="";
+    $string2="";
+    $string3="";
     if (isset($_GET['id']) && $_GET['id'] > 0) {
         $employ = $_GET['id'];
         $result1 = $db-> findById($employ);
-        $statement->bindValue(':id', $employ);
-        $statement->execute();
-        while($row = $statement->fetch()){
-            outputAddress($row); 
-         }
-        /*foreach($result1 as $row){
+        foreach($result1 as $row){
             $string1 .= outputAddresses($row);
-        }*/
+            
+            $result2=$db->runDifferentSelect('select  DateBy, Status, Priority, Description from EmployeeToDo where EmployeeID=:id order by DateBy');
+            foreach($result2 as $row){
+                $string2 .= outputToDo($row);
+            }
+            
+            $result3=$db->runDifferentSelect('select  employ.EmployeeID, message.EmployeeID, message.MessageDate, message.Category, message.Content, 
+            message.ContactID, contact.ContactID from Employees employ, EmployeeMessages message, Contacts contact where employ.EmployeeID = message.EmployeeID and 
+            message.ContactID=contact.ContactID and employ.EmployeeID=:emp');
+            foreach($result3 as $row){
+                $string3.=outputMessages($row);
+            }
+        }
+        
+        
     }
+    
 }
 catch (Exception $e) {
     die( $e->getMessage() );
 }
 
 function createEmployeeList($rows){
-    return  "<li><a href='?eid=".$rows['EmployeeID']."'> ".$rows['FirstName']." ".$rows['LastName'] ."</a></li>";
+    return  "<li><a href='?id=".$rows['EmployeeID']."'> ".$rows['FirstName']." ".$rows['LastName'] ."</a></li>";
 }
 
 function outputAddresses($rows){
-    return "<font size='7 pt'>" . $rows['FirstName']." ".$rows['LastName']. "</font size>"."<br>". $rows['Address'].'<br>'.$rows['City'] . " ".
-    $rows['Region'] . '<br>'. $rows['Country'] . " ". $rows['Postal'] . '<br>'. $rows['Email'];
+    $output='<br>';
+    $output.="<font size='7 pt'>" . $rows['FirstName']." ".$rows['LastName']. "</font size>";
+    $output.='<br>';
+    $output.= $rows['Address'];
+    $output.='<br>';
+    $output.=$rows['City'] . " ";
+    $output.=$rows['Region'] . '<br>';
+    $output.=$rows['Country'] . " ";
+    $output.= $rows['Postal'] . '<br>';
+    $output.=$rows['Email'];
+    return $output;
 }
 
+function outputToDo($rows){
+    $output = '<tr><td class="mdl-data-table__cell--non-numeric">'.$rows['DateBy'].'</td>';
+    $output.= '<td class="mdl-data-table__cell--non-numeric">'.$rows['Status'].'</td>';
+    $output.= '<td class="mdl-data-table__cell--non-numeric">'.$rows['Priority'].'</td>';
+    $output.= '<td class="mdl-data-table__cell--non-numeric">'.$rows['Description'].'</td></tr>';
+    return $output;
+}
 
+function outputMessages($rows){
+     $output='<tr><td class="mdl-data-table__cell--non-numeric">'.$rows['MessageDate'].'</td>';
+     $output.='<tr><td class="mdl-data-table__cell--non-numeric">'.$rows['Category'].'</td>';
+     $output.='<tr><td class="mdl-data-table__cell--non-numeric">'.$rows['employ.FirstName'].'</td>';
+     $output.='<tr><td class="mdl-data-table__cell--non-numeric">'.$rows['Content'].'</td></tr>';
+     return $output;
+}
 
+// function printEmployeeDetails {
+//     $sql = "select "select FirstName, LastName ,EmployeeID, Address, City, Region, Country, Postal, Email from Employees where EmployeeId=:emp";
+//     if(isset($_GET["id"]))
+   
 /*
-function outputEmployeeToDo() {
-  			try	{
-				if (isset($_GET['emp']) && $_GET['emp'] > 0) {   
-             $pdo = new PDO(DBCONNSTRING,DBUSER,DBPASS);
-             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-             
-             
-             $sql = 'select  DateBy, Status, Priority, Description from EmployeeToDo where EmployeeID=:emp order by DateBy ';
-             $employ = $_GET['emp'];
-             $statement= $pdo-> prepare($sql);
-             $statement-> bindValue(':emp', $employ);
-             $statement-> execute();
-			        
-			        while	($row = $statement->fetch())	{
-                        outputEmployeeInfo($row); 	
-                
-			                }
-			    $pdo = null;
-			}
-		}
-			catch	(PDOException	$e)	{
-						die($e->getMessage());
-			}
-			
-			
-}
 
-function outputEmployeeInfo($row) {
-
- echo '<tr>';
- echo '<td class="mdl-data-table__cell--non-numeric">';
- echo $row['DateBy'];
- echo '</td>';
-  
-
-  echo '<td class="mdl-data-table__cell--non-numeric">';
-  echo $row['Status'];
-  echo '</td>';
- 
-
- echo '<td class="mdl-data-table__cell--non-numeric">';
- echo $row['Priority'];
- echo '</td>';
-
- echo '<td class="mdl-data-table__cell--non-numeric">';
- echo $row['Description'];
- echo '</td>';
-  
-echo '</tr>';
-}
- 
- 
 function generateMessages() {
   			try	{
 				if (isset($_GET['emp']) && $_GET['emp'] > 0) {   
@@ -181,7 +169,60 @@ echo $row['Region'] . '<br>';
 echo $row['Country'] . " ";
 echo $row['Postal'] . '<br>';
 echo $row['Email'];
- }*/  	    
+ }
+ function outputEmployeeToDo() {
+  			try	{
+				if (isset($_GET['emp']) && $_GET['emp'] > 0) {   
+             $pdo = new PDO(DBCONNSTRING,DBUSER,DBPASS);
+             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+             
+             
+             $sql = 'select  DateBy, Status, Priority, Description from EmployeeToDo where EmployeeID=:emp order by DateBy ';
+             $employ = $_GET['emp'];
+             $statement= $pdo-> prepare($sql);
+             $statement-> bindValue(':emp', $employ);
+             $statement-> execute();
+			        
+			        while	($row = $statement->fetch())	{
+                        outputEmployeeInfo($row); 	
+                
+			                }
+			    $pdo = null;
+			}
+		}
+			catch	(PDOException	$e)	{
+						die($e->getMessage());
+			}
+			
+			
+}
+
+function outputEmployeeInfo($row) {
+
+ echo '<tr>';
+ echo '<td class="mdl-data-table__cell--non-numeric">';
+ echo $row['DateBy'];
+ echo '</td>';
+  
+
+  echo '<td class="mdl-data-table__cell--non-numeric">';
+  echo $row['Status'];
+  echo '</td>';
+ 
+
+ echo '<td class="mdl-data-table__cell--non-numeric">';
+ echo $row['Priority'];
+ echo '</td>';
+
+ echo '<td class="mdl-data-table__cell--non-numeric">';
+ echo $row['Description'];
+ echo '</td>';
+  
+echo '</tr>';
+}
+ 
+ 
+ */  	    
 	
 ?>
 <!DOCTYPE html>
@@ -283,7 +324,8 @@ echo $row['Email'];
                                   <tbody>
                                    
                                     <?php /*  display TODOs  */ 
-                                        outputEmployeeToDo();
+                                        echo $string2;
+                                        //outputEmployeeToDo();
                                     
                                     ?>
                             
@@ -308,8 +350,8 @@ echo $row['Email'];
                                   <tbody>
                                    
                                     <?php /*  display messages  */ 
-                                      
-                                         generateMessages();
+                                        echo $string3;
+                                         //generateMessages();
                                     
                                     ?>
                             

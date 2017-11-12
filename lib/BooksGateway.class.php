@@ -9,7 +9,7 @@ class BooksGateway extends TableDataGateway {
  {
  return "SELECT BookID, ISBN10, ISBN13, Title, CopyrightYear,
  SubcategoryID, ImprintID, ProductionStatusID, BindingTypeID,
- TrimSize, PageCountsEditorialEst, LastInstockDate, Description,
+ TrimSize, PageCountsEditorialEst, Description,
  CoverImage FROM Books ";
  }
 
@@ -19,6 +19,8 @@ class BooksGateway extends TableDataGateway {
  protected function getPrimaryKeyName() {
  return "BookID";
  }
+ 
+ 
 }
 
 ?>

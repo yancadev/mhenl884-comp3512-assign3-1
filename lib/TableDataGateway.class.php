@@ -46,7 +46,7 @@ abstract protected function getOrderFields();
    */    
 abstract protected function getPrimaryKeyName();
 
-abstract protected function getDifferentSelect();
+//abstract protected function getDifferentSelect();
    
    // ***********************************************************
    // PUBLIC FINDERS 
@@ -68,15 +68,15 @@ public function findAll($sortFields=null)
  return $statement->fetchAll();
 } 
    
-   /*
-      Returns all the records in the table sorted by the specified sort order
-   */
-
 public function limitBy($limit){
     $sql = $this->getSelectStatement() . ' limit 0, ' . $limit;
     $statement = DatabaseHelper::runQuery($this->connection, $sql, null);
     return $statement->fetchAll();
-}
+}   
+
+   /*
+      Returns all the records in the table sorted by the specified sort order
+   */
 
 public function findAllSorted($ascending)
 {
@@ -102,6 +102,17 @@ public function findAllSorted($ascending)
  return $statement->fetch();
 } 
  
+public function runDifferentSelect($input){
+    $sql=$input;
+    $statement = DatabaseHelper::runQuery($this->connection, $sql,null);
+    return $statement->fetchAll();
+}
+
+public function runOtherSelect($query,$valueName, $getValue){
+  $sql = $query . "where " . $valueName . "='" . $getValue . "' order by Title Limit 0, 20";
+  $statement = DatabaseHelper::runQuery($this->connection, $sql, null);
+  return $statement->fetch();
+ }
 
 }
 

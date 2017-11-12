@@ -1,63 +1,44 @@
 <?php 
-include "session.php";
-require_once('config.php');
+//include "session.php";
+//require_once('config.php');
+include 'includes/book-config.inc.php';
 try{
-    
-    $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
-    $pdo -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-    
-    $sql = "select BookID, ISBN10, Title, CopyrightYear, SubcategoryID, ImprintID, CoverImage from Books order by Title limit 0, 20";
-    $sql1 = "select BookID, ISBN10, ISBN13, Title, CopyrightYear, TrimSize, PageCountsEditorialEst
-        as PageCount, Description, STATUS , SubcategoryName, Imprint, BindingType from Books
-        join Statuses on ( Books.ProductionStatusID = Statuses.StatusID ) join Subcategories on 
-        ( Books.SubcategoryID = Subcategories.SubcategoryID ) join Imprints using ( ImprintID ) join BindingTypes using (BindingTypeID)";
- 
-    $result=$pdo-> query($sql);
-    $string="";
-    while($row=$result->fetch()){
-        $string .= createList($row);
+    $db = new BooksGateway($connection);
+    $result = $db-> limitBy(20);
+    //list books
+    $string = "";
+    foreach ($result as $row){
+       $string .= createList($row);
     }
- 
-    $result1=$pdo-> query($sql1);
-     $string1="";
-     while($row=$result1->fetch()){
+    
+    $string1 = "";
+    $string2 = "";
+    $sql = "select BookID, ISBN10, ISBN13, Title, CopyrightYear, TrimSize, PageCountsEditorialEst
+        as PageCount, Description, CoverImage, STATUS , Subcategories.SubcategoryID, SubcategoryName, Imprints.ImprintID, Imprint, BindingType from Books
+        join Statuses on (Books.ProductionStatusID = Statuses.StatusID) join Subcategories on 
+        (Books.SubcategoryID = Subcategories.SubcategoryID) join Imprints using (ImprintID) join BindingTypes using (BindingTypeID)";
+    $result1 = $db->runDifferentSelect($sql);
+    foreach ($result1 as $row) {
         $string1 .= createSubcategories($row);
-    }
-    
-    $result2=$pdo-> query($sql1);
-     $string2="";
-     while($row=$result2->fetch()){
         $string2 .= createImprints($row);
     }
     
-    if(isset($_GET["Subcategory"]))
-    {
-        $sql2 = 'select BookID, ISBN10, ISBN13, Title, CopyrightYear, TrimSize, PageCountsEditorialEst
-        as PageCount, Description, STATUS , SubcategoryName, Imprint, BindingType from Books
-        join Statuses on ( Books.ProductionStatusID = Statuses.StatusID ) join Subcategories on 
-         $result3=$pdo-> query($sql2);
-            $string="";
-             while($row=$result3->fetch()){
-             $string .= createList($row);
-        }    
-        // if(!createList.Items.Contains(new createList($row)))
-        // {
-        //     createList.Items.Add($row);
-        // }
-        
+    //FILTERS DONT WORK YET
+    if(isset($_GET['Subcategory'])){
+        $result2 =  $db->runOtherSelect($sql, "SubcategoryName", $_GET["Subcategory"]);
+        $string="";
+        foreach($result2 as $row){
+            $string .= createFilteredList($row);
+        }
     }
     
-    if(isset($_GET["Imprint"]))
-    {
-        $sql3 = 'select BookID, ISBN10, ISBN13, Title, CopyrightYear, TrimSize, PageCountsEditorialEst
-        as PageCount, Description, STATUS , SubcategoryName, Imprint, BindingType from Books
-        join Statuses on ( Books.ProductionStatusID = Statuses.StatusID ) join Subcategories on 
-        ( Books.SubcategoryID = Subcategories.SubcategoryID ) join Imprints using ( ImprintID ) join BindingTypes using (BindingTypeID) where Imprint="'.$_GET["Imprint"].'" order by Title Limit 0, 20';
-         $result4=$pdo-> query($sql3);
-            $string="";
-             while($row=$result4->fetch()){
-             $string .= createList($row);
-        }    
+    if(isset($_GET['Imprint'])){
+        $sql2 = $sql . "where Imprint='" .$_GET["Imprint"]."' order by Title Limit 0, 20";
+        $result2 =  $db->runOtherSelect($sql, "Imprint", $_GET["Imprint"]);
+        $string="";
+        foreach($result2 as $row){
+            $string .= createFilteredList($row);
+        }
     }
     
     if(!isset($_GET['ISBN10'])){
@@ -65,11 +46,26 @@ try{
     }else{
         $isbn = $_GET['ISBN10'];
     }
+    /*
     
-    /*$sql2='select UniversityID, Name, Address, City, State, Zip, Longitude, Latitude, Website from Universities where UniversityID ='.$id;
+    
+    if(isset($_GET["Imprint"]))
+    {
+        $sql3 = "select BookID, ISBN10, ISBN13, Title, CopyrightYear, TrimSize, PageCountsEditorialEst as PageCount, Description, STATUS , SubcategoryName, Imprint, BindingType from Books
+        join Statuses on ( Books.ProductionStatusID = Statuses.StatusID ) join Subcategories on 
+        ( Books.SubcategoryID = Subcategories.SubcategoryID ) join Imprints using ( ImprintID ) join BindingTypes using (BindingTypeID) where Imprint='" .$_GET["Imprint"]."' order by Title Limit 0, 20";
+         $result4=$pdo-> query($sql3);
+            $string="";
+             while($row=$result4->fetch()){
+             $string .= createList($row);
+        }    
+    }
+    
+    
+    $sql2='select UniversityID, Name, Address, City, State, Zip, Longitude, Latitude, Website from Universities where UniversityID ='.$id;
     $addressResult = $pdo -> query($sql2);
-    $row =$addressResult->fetch();*/
-
+    $row =$addressResult->fetch();
+    */
 
     
 }
@@ -77,11 +73,15 @@ catch (PDOException $e) {
     die($e->getMessage());
 }
 
-function createList($row){
-   return  "<li>
-         <a href='/single‐book.php?book=".$row['ISBN10']."'> "."<img src ='/book-images/tinysquare/". $row['ISBN10']. ".jpg'>".
-         " ". $row['Title']. " ". $row['CopyrightYear']. " ". $row['SubcategoryID']. " ". $row['ImprintID'] . "</a>
-         </li>";
+function createList($rows){
+   return  "<li><a href='/single‐book.php?id=". $rows["ISBN10"] . "'>" . "<img src ='/book-images/tinysquare/" . $rows["ISBN10"]. ".jpg'>".
+         " ". $rows["Title"]. " ". $rows["CopyrightYear"]. " ". $rows["SubcategoryID"]. " ". $rows["ImprintID"] . "</a></li>";
+}
+
+//FIX FILTERED LIST
+function createFilteredList($rows){
+   return  "<li><a href='/single‐book.php?id=". $rows["Books.ISBN10"] . "'>" . "<img src ='/book-images/tinysquare/" . $rows["Books.ISBN10"]. ".jpg'>".
+         " ". $rows["Books.Title"]. " ". $rows["Books.CopyrightYear"]. " ". $rows["Books.SubcategoryID"]. " ". $rows["Books.ImprintID"] . "</a></li>";
 }
 
 function createSubcategories($rows)

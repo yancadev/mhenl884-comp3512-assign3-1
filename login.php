@@ -1,5 +1,44 @@
 <?php
-require_once('config.php');
+include 'includes/book-config.inc.php';
+session_start(); // Starting Session
+$error=''; // Variable To Store Error Message
+
+$username = "";
+$password = "";
+
+if (isset($_POST['submit'])) {
+    if (empty($_POST['username']) || empty($_POST['password'])) {
+        $error = "Username or Password is invalid";
+    }
+}
+else{
+    $username .= $_POST['username'];
+    $password .= $_POST['password'];
+    
+    $db = new LoginGateway($connection);    
+    $result = $db-> findByUserName($username);
+    foreach ($result as $row) {
+        $salt = $row['Salt'];
+        $pass = md5($_POST['password'].$salt);
+        if ($row['Password'] == $pass) {
+            $_SESSION['userid']= $row['UserID']; // Initializing Session
+            $id = $row['UserID'];
+            $db2 = new SessionGateway($connection);
+            $result2 = $db2->findByUserID($id);
+            foreach($result2 as $row){
+                $_SESSION['firstname']=$row['FirstName'];
+                $_SESSION['lastname']=$row['LastName'];
+                $_SESSION['email']=$row['Email'];
+            }
+            header("location: index.php"); // Redirecting To Other Page
+        } 
+        else {
+            $error = "Username or Password is invalid";
+        }
+    }
+}
+
+/*require_once('config.php');
 session_start(); // Starting Session
 $error=''; // Variable To Store Error Message
 if (isset($_POST['submit'])) {
@@ -34,5 +73,5 @@ else{
     }
     $pdo = null; // Closing Connection
     }
-}
+}*/
 ?>
