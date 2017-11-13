@@ -1,6 +1,6 @@
 <?php
 
-class EmployeesGateway extends TableDataGateway {
+class MessagesGateway extends TableDataGateway {
  public function __construct($connect) {
  parent::__construct($connect);
  }

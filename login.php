@@ -1,6 +1,6 @@
 <?php
 include 'includes/book-config.inc.php';
-session_start(); // Starting Session
+/*session_start(); // Starting Session
 $error=''; // Variable To Store Error Message
 
 $db = new LoginGateway($connection);
@@ -35,9 +35,8 @@ else{
             }
         }   
     }
-}
+}*/
 
-/*require_once('config.php');
 session_start(); // Starting Session
 $error=''; // Variable To Store Error Message
 if (isset($_POST['submit'])) {
@@ -49,7 +48,7 @@ else{
     $password=$_POST['password'];
     
     // Selecting Database
-    $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
+    $pdo = new PDO(DBCONNECTION, DBUSER, DBPASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sql = "select UserID, UserName, Password, Salt, State, DateJoined, DateLastModified from UsersLogin where UserName='$username'";
     $result = $pdo-> query ($sql);
@@ -72,5 +71,5 @@ else{
     }
     $pdo = null; // Closing Connection
     }
-}*/
+}
 ?>

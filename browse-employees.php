@@ -1,70 +1,7 @@
 <?php
 //include "session.php";
-//require_once('config.php');
-include 'includes/book-config.inc.php';
+include "page-functions/employee-functions.php";
 
-try {
-    $db = new EmployeesGateway($connection);
-    $result = $db-> limitBy(30);
-    
-    //list employees
-    $string = "";
-    foreach ($result as $row){
-       $string .= createEmployeeList($row);
-    }
-    
-    //output address DOESNT WORK
-    $string1="";
-    $string2="";
-    $string3="";
-    $sql = "SELECT EmployeeID, FirstName, LastName, Address, City, Region, Country, Postal, Email FROM Employees ";
-    if (isset($_GET['id'])) {
-        $result1 = $db-> runDifferentSelect($sql, "EmployeeID",$_GET['id'], 1);
-        foreach($result1 as $row){
-            $string1 .= outputAddresses($row);
-        }
-        
-    }
-    $sql2 = "select  ToDoID, EmployeeID, DateBy, Status, Priority, Description from EmployeeToDo";
-    if(isset($_GET['id'])){
-        $result2 = $db-> runDifferentSelect($sql2, "EmployeeID", $_GET['id'],20);
-        foreach($result2 as $row){
-            $string2 .= outputToDo($row);
-        }
-    }
-    
-    /*if(isset($_GET['id'])){        
-        $db2 = new MessagesGateway($connection);
-        $result3 = $db2->findAll();
-        foreach($result3 as $row){
-            $string3.=outputMessages($row);
-        }
-    }*/
-}
-catch (Exception $e) {
-    die( $e->getMessage() );
-}
-
-function createEmployeeList($rows){
-    return  "<li><a href='?id=".$rows['EmployeeID']."'> ".$rows['FirstName']." ".$rows['LastName'] ."</a></li>";
-}
-
-function outputAddresses($rows){
-    return "<br><font size='7 pt'>" . $rows['FirstName']." ".$rows['LastName']. "<br></font size><br>".$rows['Address']."<br>".
-    $rows['City'] . " ". $rows['Region'] . "<br>".$rows['Country'] . " ". $rows['Postal'] . "<br>".$rows['Email'];
-}
-
-function outputToDo($rows){
-    return "<tr><td class='mdl-data-table__cell--non-numeric'>". $rows['DateBy']."</td><td class='mdl-data-table__cell--non-numeric'>".
-    $rows['Status']."</td><td class='mdl-data-table__cell--non-numeric'>". $rows['Priority']."</td><td class='mdl-data-table__cell--non-numeric'>".
-    $rows['Description']."</td></tr>";
-}
-
-function outputMessages($rows){
-     return "<tr><td class='mdl-data-table__cell--non-numeric'>".$rows['MessageDate']."</td><td class='mdl-data-table__cell--non-numeric'>".$rows['Category']."</td>
-     <td class='mdl-data-table__cell--non-numeric'>".$rows['employ.FirstName']."</td><td class='mdl-data-table__cell--non-numeric'>".$rows['Content']."</td></tr>";
-}
-	
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -145,22 +82,7 @@ function outputMessages($rows){
                              /* display requested employee's information */
                              echo $string1;
                            ?>
-                           
-                    <button onclick="myFunction()">Filter</button>
-                    <div id="filter">
-                    -Filter will go in here-
-                    </div>
-
-                    <script>
-                    function myFunction() {
-                        var x = document.getElementById("filter");
-                    if (x.style.display === "none") {
-                    x.style.display = "block";
-                     } else {
-                 x.style.display = "none";
-              }
-            }
-                </script>
+                    
          
                           </div>
                           <div class="mdl-tabs__panel" id="todo-panel">
@@ -210,6 +132,32 @@ function outputMessages($rows){
                         </div>                         
                     </div>    
   
+                 <div class="mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp">
+                <div class="mdl-card__title mdl-color--orange">
+                  <h2 class="mdl-card__title-text">Filters</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    
+                <!--<a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"> -->   
+                    <br>      
+                    <button onclick="switchFunction()">Filter</button>
+                    <div id="filter">
+                            <form action="browse-employees.php" method="GET">
+                         <select name="id"><option value="">Filter by last name</option><?php echo $string ?></select>
+                         <input type="submit">
+                         </form>
+                         
+                          <form action="browse-employees.php" method="GET">
+                         <select name="id"><option value="">Filter by city</option><?php echo $string ?></select>
+                         <input type="submit">
+                         </form>
+                   <!-- </a>-->
+                    </div>
+
+                <!--       
+                 </div> <!--mdl-card--expand
+                 </div> <!--mdl-card__title-->
+                 
                  
               </div>  <!-- / mdl-cell + mdl-card -->   
             </div>  <!-- / mdl-grid -->    

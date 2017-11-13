@@ -1,7 +1,7 @@
 <?php
 include 'includes/book-config.inc.php';
 
-$db = new LoginGateway($connection);
+/*$db = new LoginGateway($connection);
 session_start();// Starting Session
 
 // Storing Session
@@ -23,10 +23,10 @@ foreach($result as $row){
 if(!isset($login_session)){
     $pdo = null; // Closing Connection
     header('Location: login-page.php'); 
-}
+}*/
 
-/*require_once('config.php');
-$pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
+//require_once('config.php');
+$pdo = new PDO(DBCONNECTION, DBUSER, DBPASS);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 session_start();// Starting Session
@@ -50,5 +50,5 @@ while ($row = $result2->fetch()){
 if(!isset($login_session)){
     $pdo = null; // Closing Connection
     header('Location: login-page.php'); 
-}*/
+}
 ?>
