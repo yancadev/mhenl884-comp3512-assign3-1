@@ -10,7 +10,6 @@ try{
        $string .= createList($row);
     }
     
-    //$db2= new ImprintsGateway($conection);
     $db2 = new ImprintsGateway($connection);
     $string1 = "";
     $string2 = "";
@@ -18,17 +17,24 @@ try{
         as PageCount, Description, CoverImage, STATUS , Subcategories.SubcategoryID, SubcategoryName, Imprints.ImprintID, Imprint, BindingType from Books
         join Statuses on (Books.ProductionStatusID = Statuses.StatusID) join Subcategories on 
         (Books.SubcategoryID = Subcategories.SubcategoryID) join Imprints using (ImprintID) join BindingTypes using (BindingTypeID)";
-    $result1 = $db2-> findAll();
+    
+    $sql2 = "SELECT DISTINCT SubcategoryName from Subcategories ORDER BY SubcategoryName ASC";
+    
+    $sql3 = "SELECT DISTINCT Imprint from Imprints ORDER BY Imprint ASC";
+    
+    $result1 = $db2-> runDifferentSelect($sql2);
     foreach ($result1 as $row) {
         $string1 .= createSubcategories($row);
+    }
+    $result2= $db2-> runDifferentSelect($sql3);
+    foreach ($result2 as $row) {
         $string2 .= createImprints($row);
     }
     
-    
     if(isset($_GET['Subcategory'])){
-        $result2 =  $db2->runDifferentSelect($sql, "SubcategoryName",$_GET['Subcategory'], 20);
+        $result3 =  $db2->runDifferentSelect($sql, "SubcategoryName",$_GET['Subcategory'], 20);
         $string="";
-        foreach($result2 as $row){
+        foreach($result3 as $row){
             $string .= createList($row);
         }
     }
@@ -40,6 +46,7 @@ try{
             $string .= createList($row);
         }
     }
+    
     
     if(!isset($_GET['ISBN10'])){
         $isbn = '126182';
@@ -53,7 +60,7 @@ catch (PDOException $e) {
 }
 
 function createList($rows){
-   return  "<li><a href='/single‐book.php?id=". $rows["ISBN10"] . "'>" . "<img src ='/book-images/tinysquare/" . $rows["ISBN10"]. ".jpg'>".
+   return  "<li><a href='/singlebook.php?id=". $rows["ISBN10"] . "'>" . "<img src ='/book-images/tinysquare/" . $rows["ISBN10"]. ".jpg'>".
          " ". $rows["Title"]. " ". $rows["CopyrightYear"]. " ". $rows["SubcategoryID"]. " ". $rows["ImprintID"] . "</a></li>";
 }
 

@@ -64,7 +64,7 @@ include "page-functions/employee-functions.php";
               
               
               <!-- mdl-cell + mdl-card -->
-              <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp">
+              <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp"style="width:600px;">
 
                     <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
                       <h2 class="mdl-card__title-text">Employee Details</h2>
@@ -140,19 +140,37 @@ include "page-functions/employee-functions.php";
                     
                 <!--<a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"> -->   
                     <br>      
-                    <button onclick="switchFunction()">Filter</button>
-                    <div id="filter">
-                            <form action="browse-employees.php" method="GET">
-                         <select name="id"><option value="">Filter by last name</option><?php echo $string ?></select>
-                         <input type="submit">
-                         </form>
-                         
-                          <form action="browse-employees.php" method="GET">
-                         <select name="id"><option value="">Filter by city</option><?php echo $string ?></select>
-                         <input type="submit">
-                         </form>
+        
+         <button onclick="switchFunction()">View/Hide Filters</button>
+                    
+    <div id="filter">
+    <br>        
+   <label for="filter-name">Filter by last name</label>
+    <form action= "browse-employees.php" method "GET">
+       <input type="text" name="last-name" placeholder="Enter last name">
+         </form>
+      <br>
+     <label for="filter-city">Filter by city</label>
+        <form action="browse-employees.php" method="GET">
+          <select name="City"><option value=""> Choose a city </option><?php echo $string4; ?></select>
+           <input type="submit">
+            </form>
+    </div>        
+            
+<script>
+function switchFunction() {
+     var x = document.getElementById("filter");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    
+ }  
+ </script>
+                            
+                            
                    <!-- </a>-->
-                    </div>
+                    
 
                 <!--       
                  </div> <!--mdl-card--expand
