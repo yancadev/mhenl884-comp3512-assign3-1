@@ -68,6 +68,26 @@ main header h4 {
     margin-top: 20px;
 }
 
+.dimmer
+{
+    visibility: hidden;
+    position:absolute;
+    left:0px;
+    top:0px;
+    font-family:verdana;
+    font-weight:bold;
+    padding:40px;
+    color: black;
+    opacity: 50;
+
+    background-image:url("images/dark.png");
+    /* ieWin only stuff */
+        /* with this trick only IE
+           manage the following 2 attributes */
+    background-image:none;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader
+        (enabled=true, sizingMethod=scale src='dark.png');
+}
 
 
 

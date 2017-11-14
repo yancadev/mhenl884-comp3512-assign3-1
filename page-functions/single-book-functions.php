@@ -59,4 +59,81 @@ function printUniversities($rows){
   return "<li><a href='browse-universities.php?id=" . $rows["ID"] . "'>" .  $rows['UName'] . "</li>";
 }
 
+function makePageDim()
+{
+    document.write('<div id="dimmer" class="dimmer" style="width:'+
+    window.screen.width + 'px; height:' + window.screen.height +'px"></div>');
+    
+}
+
+/*function MouseDown($e)
+{
+    if (over)
+    {
+        if (isMozilla) {
+            $objDiv = document.getElementById("dimmer");
+            X=$e.layerX;
+            Y=$e.layerY;
+            return false;
+        }
+        else {
+            $objDiv = document.getElementById("dimmer");
+            $objDiv = objDiv.style;
+            X=event.offsetX;
+            Y=event.offsetY;
+        }
+    }
+}
+
+//
+//
+//
+function MouseMove(e)
+{
+    if (objDiv) {
+        if (isMozilla) {
+            objDiv.style.top = ($e.pageY-Y) + 'px';
+            objDiv.style.left = ($e.pageX-X) + 'px';
+            return false;
+        }
+        else
+        {
+            objDiv.pixelLeft = event.clientX-X + document.body.scrollLeft;
+            objDiv.pixelTop = event.clientY-Y + document.body.scrollTop;
+            return false;
+        }
+    }
+}
+
+//
+//
+//
+function MouseUp()
+{
+    objDiv = null;
+}
+
+//
+//
+//
+function init()
+{
+    // check browser
+    isMozilla = (document.all) ? 0 : 1;
+
+    if (isMozilla)
+    {
+        document.captureEvents(Event.MOUSEDOWN | Event.MOUSEMOVE | Event.MOUSEUP);
+    }
+
+    document.onmousedown = MouseDown;
+    document.onmousemove = MouseMove;
+    document.onmouseup = MouseUp;
+
+    // add the div
+    // used to dim the page
+    makePageDim();
+
+}*/
+
 ?>

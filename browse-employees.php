@@ -139,12 +139,11 @@ include "page-functions/employee-functions.php";
                 <div class="mdl-card__supporting-text">
                     
                 <!--<a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"> -->   
-                    <br>      
         
          <button onclick="switchFunction()">View/Hide Filters</button>
                     
-    <div id="filter">
-    <br>        
+    <div id="filter" style="display:none;">
+        
    <label for="filter-name">Filter by last name</label>
     <form action= "browse-employees.php" method "GET">
        <input type="text" name="last-name" placeholder="Enter last name">
@@ -165,16 +164,11 @@ function switchFunction() {
     } else {
         x.style.display = "none";
     
- }  
+ } 
+}
  </script>
-                            
-                            
-                   <!-- </a>-->
-                    
 
-                <!--       
-                 </div> <!--mdl-card--expand
-                 </div> <!--mdl-card__title-->
+                            
                  
                  
               </div>  <!-- / mdl-cell + mdl-card -->   
