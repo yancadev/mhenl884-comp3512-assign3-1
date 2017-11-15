@@ -1,5 +1,5 @@
 <?php
-//include "session.php";
+include "session.php";
 ?>
 
 <!DOCTYPE html>
@@ -86,6 +86,17 @@
         </a>
     </div>
   </div>
+  
+// <?php  
+//   //add query string
+//   //header("location: login.php?insertname=aboutuspage.php")
+//   //"aboutus.php?insertname=browse-employees"
+  
+//   if(!isset($_SESSION['username'])){
+//     header("Location: login.php?insertname=aboutus.php");
+//   }
+  
+// ?>  
         
                 <table>
                   <tr>

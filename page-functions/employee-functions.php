@@ -47,14 +47,18 @@ try {
         }
     }
     
-    /*if(isset($_GET['last-name'])){
-        $filter = $_GET['last-name'] . "%";
-        $result5 = $db->runDifferentSelect($sql, "LastName",$filter, 30);
+    $filter ="";
+    if(isset($_GET['last-name'])){
+        $filter .= $_GET['last-name'];
+    }
+    $sql3 = "SELECT EmployeeID, FirstName, LastName, Address, City, Region, Country, Postal, Email FROM Employees WHERE LastName LIKE '%" . $filter . "%'";
+    if(isset($_GET['last-name'])){
+        $result5 = $db->runDifferentSelect($sql3);
         $string="";
         foreach($result5 as $row){
             $string .= createEmployeeList($row);
         }
-    }*/
+    }
     
     /*$sql3= "select  employ.EmployeeID, message.EmployeeID, message.MessageDate, message.Category, message.Content, 
         message.ContactID, contact.ContactID from Employees employ, EmployeeMessages message, Contacts contact

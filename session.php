@@ -49,6 +49,6 @@ while ($row = $result2->fetch()){
 
 if(!isset($login_session)){
     $pdo = null; // Closing Connection
-    header('Location: login-page.php'); 
+    header('Location: login-page.php?=CRMAdmin/ . $_GET("name")aboutus.php'); 
 }
 ?>

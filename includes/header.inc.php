@@ -26,7 +26,7 @@
         </label>
         <div class="mdl-textfield__expandable-holder">
           <form method="post" action="browse-employees.php?">
-          <input class="mdl-textfield__input" type="text" name="search"
+          <input class="mdl-textfield__input" type="text" name="name"
                  id="fixed-header-drawer-exp">
           </form>
         </div>

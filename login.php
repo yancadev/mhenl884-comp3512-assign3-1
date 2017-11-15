@@ -12,6 +12,8 @@ if (isset($_POST['submit'])) {
     }
 }
 else{
+    $username = "";
+    $password = "";
     if(isset($_POST['username'])&&isset($_POST['password'])){
         $username .= $_POST['username'];
         $password .= $_POST['password'];
@@ -72,4 +74,19 @@ else{
     $pdo = null; // Closing Connection
     }
 }
+
+function redirectAfterLogin()
+{
+    if (isset($_GET['name']))
+    {
+        header("location: login-page.php?=" . $_GET['name'] . "php");
+        
+    }
+    else
+    {
+        $error= header("location: login-page.php");
+    }
+}
+
+
 ?>

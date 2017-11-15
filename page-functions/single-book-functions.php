@@ -59,6 +59,7 @@ function printUniversities($rows){
   return "<li><a href='browse-universities.php?id=" . $rows["ID"] . "'>" .  $rows['UName'] . "</li>";
 }
 
+  // <!-- Should be black but not yet -->
 function makePageDim()
 {
     document.write('<div id="dimmer" class="dimmer" style="width:'+
