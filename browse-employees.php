@@ -113,10 +113,23 @@ include "page-functions/employee-functions.php";
                                     ?>
                             
                                   </tbody>
-                              
+                                  </table>
+                                  </div>
+                                  
+                                   
+                                   <div class="mdl-tabs__panel" id="messages-panel">
+                                    <table class="mdl-data-table  mdl-shadow--2dp">
+                                  <thead>
+                                    <tr>
+                                      <th class="mdl-data-table__cell--non-numeric">Date</th>
+                                      <th class="mdl-data-table__cell--non-numeric">Category</th>
+                                      <th class="mdl-data-table__cell--non-numeric">From</th>
+                                      <th class="mdl-data-table__cell--non-numeric">Messages</th>
+                                    </tr>
+                                  </thead>
+                                  
                                   
                                   <tbody>
-                                   
                                     <?php /*  display messages  */ 
                                         echo $string5;
                                     ?>

@@ -39,11 +39,8 @@ try {
     
       
    $sql5 ="SELECT mess.MessageDate, mess.Category, mess.ContactID, mess.Content, con.FirstName, con.LastName, mess.EmployeeID	FROM	EmployeeMessages AS mess JOIN Contacts AS con  USING (ContactID)";
-						    	
     if(isset($_GET['id'])){
-        
         $result5 = $db-> runDifferentSelect($sql5, "EmployeeID", $_GET['id'],20);
-        
         foreach($result5 as $row){
             $string5 .= outputMessages($row);
         }
@@ -116,8 +113,8 @@ function outputToDo($rows){
 }
 
 function outputMessages($rows){
-     return " hello<tr><td class='mdl-data-table__cell--non-numeric'>".$rows['MessageDate']."</td><td class='mdl-data-table__cell--non-numeric'>".$rows['Category']."</td>
-     <td class='mdl-data-table__cell--non-numeric'>".$rows['FirstName']."</td><td class='mdl-data-table__cell--non-numeric'>".$rows['Content']."</td></tr> dammit";
+     return " <tr><td class='mdl-data-table__cell--non-numeric'>".$rows['MessageDate']."</td><td class='mdl-data-table__cell--non-numeric'>".$rows['Category']."</td>
+     <td class='mdl-data-table__cell--non-numeric'>".$rows['FirstName']."</td><td class='mdl-data-table__cell--non-numeric'>".$rows['Content']."</td></tr>";
 }
 
 function createCityList($rows)
