@@ -75,18 +75,18 @@ else{
     }
 }
 
-function redirectAfterLogin()
+/*function redirectAfterLogin()
 {
     if (isset($_GET['name']))
     {
-        header("location: login-page.php?=" . $_GET['name'] . "php");
+        header("location: login-page.php?page=" . $_GET['page'] . "php");
         
     }
     else
     {
         $error= header("location: login-page.php");
     }
-}
+}*/
 
 
 ?>

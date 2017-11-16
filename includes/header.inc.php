@@ -1,4 +1,4 @@
-  <header class="mdl-layout__header">
+ <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
      <h1 class="mdl-layout-title"><span>CRM</span> Admin</h1>
  
@@ -18,17 +18,47 @@
 <label id="tt3" class="material-icons mdl-badge mdl-badge--overlap" data-badge="4">notifications</label> 
  <div class="mdl-tooltip" for="tt3">Notifications</div>           
                   
+             
 
+
+
+
+
+
+
+<!-- trying to make the javascript hide/unhide underneath -->
 
 <label class="mdl-button mdl-js-button mdl-button--icon"
                for="fixed-header-drawer-exp">
-          <i class="material-icons">search</i>
+          <button onclick="searchbar()"><i class="material-icons">search</i></button>
         </label>
+        
         <div class="mdl-textfield__expandable-holder">
-          <form method="post" action="browse-employees.php?">
-          <input class="mdl-textfield__input" type="text" name="name"
-                 id="fixed-header-drawer-exp">
+          <form action="browse-employees.php?" method="GET">
+             
+  
+                 <div id="searching">
+                <input type="text" name="last-name">
+                <input type="submit" name="search"> 
+                </div>
           </form>
+          
+           <script>
+function searchbar() {
+    console.log("doesn't work");
+    
+    var x = document.getElementById("searching");
+    
+    if (x.style.display === "block") {
+        x.style.display = "none";
+    } else {
+        x.style.display = "block";
+    }
+}
+</script>
+
+
+
         </div>
         
       </div>

@@ -7,6 +7,7 @@ function getSearchResult(){
     
     $sql = "SELECT EmployeeID, FirstName, LastName, Address, City, Region, Country, Postal, Email FROM Employees WHERE FirstName LIKE '%" . $searchValue . "%' OR 
     LastName LIKE '%" . $searchValue . "%'";
+    
     $result = $db->runDifferentSelect($sql);
     foreach ($result as $row) {
         if ($_POST['name'] == $row['FirstName']){

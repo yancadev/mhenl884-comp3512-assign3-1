@@ -6,13 +6,13 @@
        </div>
 
     <nav class="mdl-navigation mdl-color-text--blue-grey-300">
-        <a class="mdl-navigation__link mdl-color-text--blue-grey-300" href="index.php"><i class="material-icons" role="presentation">dashboard</i> Dashboard</a>
-        <a class="mdl-navigation__link mdl-color-text--blue-grey-300" href="userprofile.php"><i class="material-icons" role="presentation">person_pin</i> User Profile</a>
-        <a class="mdl-navigation__link mdl-color-text--blue-grey-300" href="browse-employees.php"><i class="material-icons" role="presentation">people</i> Employees</a>
-        <a class="mdl-navigation__link mdl-color-text--blue-grey-300" href="browse-books.php"><i class="material-icons" role="presentation">view_list</i> Books</a>
-        <a class="mdl-navigation__link mdl-color-text--blue-grey-300" href="browse-universities.php"><i class="material-icons" role="presentation">account_balance</i> Universities</a>
-        <a class="mdl-navigation__link mdl-color-text--blue-grey-300" href="analytics.php"><i class="material-icons" role="presentation">insert_chart</i> Analytics</a>  
-        <a class="mdl-navigation__link mdl-color-text--blue-grey-300" href="aboutus.php"><i class="material-icons" role="presentation">contacts</i> About</a>
+        <a class="mdl-navigation__link mdl-color-text--blue-grey-300" name = "page" href="index.php"><i class="material-icons" role="presentation">dashboard</i> Dashboard</a>
+        <a class="mdl-navigation__link mdl-color-text--blue-grey-300" name = "page" href="userprofile.php"><i class="material-icons" role="presentation">person_pin</i> User Profile</a>
+        <a class="mdl-navigation__link mdl-color-text--blue-grey-300" name = "page" href="session.php?page=browse-employees.php"><i class="material-icons" role="presentation">people</i> Employees</a>
+        <a class="mdl-navigation__link mdl-color-text--blue-grey-300" name = "page" href="browse-books.php"><i class="material-icons" role="presentation">view_list</i> Books</a>
+        <a class="mdl-navigation__link mdl-color-text--blue-grey-300" name = "page" href="browse-universities.php"><i class="material-icons" role="presentation">account_balance</i> Universities</a>
+        <a class="mdl-navigation__link mdl-color-text--blue-grey-300" name = "page" href="analytics.php"><i class="material-icons" role="presentation">insert_chart</i> Analytics</a>  
+        <a class="mdl-navigation__link mdl-color-text--blue-grey-300" name = "page" href="aboutus.php"><i class="material-icons" role="presentation">contacts</i> About</a>
        
     </nav>
   </div>

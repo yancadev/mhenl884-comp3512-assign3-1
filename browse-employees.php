@@ -118,7 +118,7 @@ include "page-functions/employee-functions.php";
                                   <tbody>
                                    
                                     <?php /*  display messages  */ 
-                                        echo $string3;
+                                        echo $string5;
                                     ?>
                             
                                   </tbody>
@@ -143,14 +143,14 @@ include "page-functions/employee-functions.php";
          <button onclick="switchFunction()">View/Hide Filters</button>
                     
     <div id="filter" style="display:none;">
-        
+        <!-- cant do both-->
    <label for="filter-name">Filter by last name</label>
-    <form action= "browse-employees.php" method "GET">
+    <form action= "browse-employees.php" method="GET">
        <input type="text" name="last-name" placeholder="Enter last name">
-         </form>
+         <!--</form>-->
       <br>
      <label for="filter-city">Filter by city</label>
-        <form action="browse-employees.php" method="GET">
+        <!--<form action="browse-employees.php" method="GET">-->
           <select name="City"><option value=""> Choose a city </option><?php echo $string4; ?></select>
            <input type="submit">
             </form>

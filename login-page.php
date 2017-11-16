@@ -29,7 +29,8 @@ header("location: index.php");
                 </div>
                 <div class="mdl-card__supporting-text"style="width:100%;">
                         <div id="login">
-                            <form action="./login.php?name=<?php echo $_GET['name']; ?>" method="post">
+                            <form action="./login.php?page= ?php echo $_GET['page']; ?>" method="post">
+                                <!--<form action="./login.php" method="post">-->
                                 <label>UserName :</label>
                                 <input id="username" name="username" placeholder="username" type="text">
                                 <label>Password :</label>
