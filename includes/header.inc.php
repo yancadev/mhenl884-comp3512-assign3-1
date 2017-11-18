@@ -22,8 +22,8 @@
     
     
     
-    <button onclick="searchbar()" id="seachbutt" style="absolute">
-    <label id="tt3" class="material-icons mdl-badge mdl-badge--overlap">search</label> </button>
+    <button onclick="searchbar()" id="searchbutt" style="absolute">
+    <label id="tt3" class="material-icons mdl-badge mdl-badge--overlap" >search</label> </button>
     <div class="mdl-tooltip" for="tt3">Search</div>       
     
     </div>

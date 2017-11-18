@@ -85,18 +85,20 @@ function printUniversities($rows){
   return "<li><a href='browse-universities.php?id=" . $rows['UniversityID'] . "'>" .  $rows['Name'] . "</li>";
 }
 ?>
+
+<!--book-image enlargement (not working yet)-->
 <script>
 function viewImage($rows)
 {
-  var a = document.querySelectorAll("a img");
+  var a = document.querySelectorAll("a img images");
     for(var i=0; i<a.length; i++)
     {
-      a[i].addEventListener("click" , viewAction($rows));
+      a[i].addEventListener("click", viewAction());
     }
       document.querySelector("images").innerHTML= a[i].attributes["$id"];
 }
      
-function viewAction($rows)   
+function viewAction()   
 {
   document.querySelector("images");
   innerHTML= a[i].attributes["images"];
