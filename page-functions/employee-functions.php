@@ -1,3 +1,6 @@
+<!-- yanca: fixed filter and searchbar functionality (still needs to work on both filtering)-->
+<!-- yanca: changed employee list to output alphabetical order -->
+
 <?php
 //include "session.php";
 include 'includes/book-config.inc.php';
@@ -6,26 +9,29 @@ try {
     $db = new EmployeesGateway($connection);
     $result = $db-> limitBy(30);
     
-    //list employees
+    
+    // --- list employees --- //
     $string = "";
-    foreach ($result as $row){
+    $ordering = $db-> orderAndLimit('LastName', 30);
+    foreach ($ordering as $row){
        $string .= createEmployeeList($row);
     }
     
-    //output address DOESNT WORK
     $string1="";
     $string2="";
     $string3="";
     $string5="";
     
+    // --- output employee details --- //
     $sql = "SELECT EmployeeID, FirstName, LastName, Address, City, Region, Country, Postal, Email FROM Employees ";
     if (isset($_GET['id'])) {
         $result1 = $db-> runDifferentSelect($sql, "EmployeeID",$_GET['id'], 1);
         foreach($result1 as $row){
             $string1 .= outputAddresses($row);
         }
-        
     }
+    
+    // --- output toDo List --- //    
     $sql2 = "select  ToDoID, EmployeeID, DateBy, Status, Priority, Description from EmployeeToDo";
     if(isset($_GET['id'])){
         $result2 = $db-> runDifferentSelect($sql2, "EmployeeID", $_GET['id'],20);
@@ -35,9 +41,7 @@ try {
     }
     
     
-    //try
-    
-      
+    // --- output message --- // 
    $sql5 ="SELECT mess.MessageDate, mess.Category, mess.ContactID, mess.Content, con.FirstName, con.LastName, mess.EmployeeID	FROM	EmployeeMessages AS mess JOIN Contacts AS con  USING (ContactID)";
     if(isset($_GET['id'])){
         $result5 = $db-> runDifferentSelect($sql5, "EmployeeID", $_GET['id'],20);
@@ -47,11 +51,7 @@ try {
     }
    
     
-    
-    
-    
-    //try
-    
+    // ----- filter ----- //
     $sql3 = "SELECT DISTINCT City FROM Employees ORDER BY City ASC";
     $result3 = $db-> runDifferentSelect($sql3);
     $string4="";
@@ -71,7 +71,7 @@ try {
     if(isset($_GET['last-name'])){
         $filter .= $_GET['last-name'];
     }
-    $sql3 = "SELECT EmployeeID, FirstName, LastName, Address, City, Region, Country, Postal, Email FROM Employees WHERE LastName LIKE '%" . $filter . "%' OR FirstName LIKE '%" . $filter . "%'";
+    $sql3 = "SELECT EmployeeID, FirstName, LastName, Address, City, Region, Country, Postal, Email FROM Employees WHERE LastName LIKE '%" . $filter . "%' ";
     if(isset($_GET['last-name'])){
         $result5 = $db->runDifferentSelect($sql3);
         $string="";
@@ -79,23 +79,12 @@ try {
             $string .= createEmployeeList($row);
         }
     }
-   
- 
-    
-    
-    /*$sql3= "select  employ.EmployeeID, message.EmployeeID, message.MessageDate, message.Category, message.Content, 
-        message.ContactID, contact.ContactID from Employees employ, EmployeeMessages message, Contacts contact
-        where employ.EmployeeID = message.EmployeeID and message.ContactID=contact.ContactID and employ.EmployeeID=:id";
-    if(isset($_GET['id'])){        
-        $result3 = $db->runDifferentSelect($sql3);
-        foreach($result3 as $row){
-            $string3.=outputMessages($row);
-        }
-    }*/
 }
 catch (Exception $e) {
     die( $e->getMessage() );
 }
+
+    // ----- functions for creating the lists ----- //
 
 function createEmployeeList($rows){
     return  "<li><a href='?id=".$rows['EmployeeID']."'> ".$rows['FirstName']." ".$rows['LastName'] ."</a></li>";
@@ -123,34 +112,3 @@ function createCityList($rows)
     
 }
 
-/*function outputCityListings($rows){
-   return  "<li><a href='/browse-employees.php?id=". $rows["id"] . "'>" .
-    
-}*/
-
-/*function filterButton() {
-<div id="filter">
-    <br>        
-   <label for="filter-name">Filter by last name</label>
-    <form action= "browse-employees.php" method "GET">
-       <input type="text" name="search" placeholder="Enter last name">
-         </form>
-      <br>
-     <label for="filter-city">Filter by city</label>
-        <form action="browse-employees.php" method="GET">
-          <select name="id"><option value=""> Choose a city </option><?php outputCityList() ?></select>
-           <input type="submit">
-            </form>
-}*/
-
-?>
-<!--script>
-function switchFunction() {
-     var x = document.getElementById("filter");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    
- }  
- </script>-->

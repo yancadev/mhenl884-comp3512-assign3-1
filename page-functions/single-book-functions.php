@@ -1,3 +1,6 @@
+<!-- yanca: fixed authors, university with links and in alpha order-->
+<script src="css/styles.css"></script>
+
 <?php 
 include 'includes/book-config.inc.php';
 
@@ -6,6 +9,9 @@ try{
   $string = "";
   $string2 = "";
   $string3 = "";
+  $string4 = "";
+  
+  // ----- print single book info ----- // 
   
   if(isset($_GET['id'])){
       $id = $_GET['id'];
@@ -13,27 +19,43 @@ try{
       as PageCount, Description, Subcategories.SubcategoryID, SubcategoryName, ImprintID, Imprint, BindingType from Books join Subcategories on 
       (Books.SubcategoryID = Subcategories.SubcategoryID) join Imprints using (ImprintID) join BindingTypes using (BindingTypeID) where ISBN10 = '$id'";
       
-      $sql2 = "select Authors.FirstName as AFirstName,
-        Authors.LastName as ALastName, Authors.Institution as Institution 
-        from Books join BookAuthors using (BookID) join Authors using (AuthorID)"; 
+      //$sql2 = "select Authors.FirstName as AFirstName,
+      //  Authors.LastName as ALastName, Authors.Institution as Institution 
+      //  from Books join BookAuthors using (BookID) join Authors using (AuthorID)"; 
         
-      $sql3 = "select Universities.Name as UName, UniversityID as ID, Adoptions.ContactID as ContactID, 
-        Adoptions.AdoptionDate as AdoptionDate, Contacts.FirstName as FirstName, Contacts.LastName 
-        as LastName, Contacts.Email as Email FROM Adoptions join Universities using (UniversityID) 
-        join AdoptionBooks using (AdoptionID) join Contacts using (ContactID) where AdoptionBooks.BookID ='$id'";
+      $sql2="select au.AuthorID, FirstName, LastName, ISBN10 from Books bk, BookAuthors ba, Authors au 
+        where bk.BookID = ba.BookId AND ba.AuthorId = au.AuthorID AND ISBN10 = '$id'";
+        
+      //$sql3 = "select Universities.Name as UName, UniversityID as ID, Adoptions.ContactID as ContactID, 
+      //  Adoptions.AdoptionDate as AdoptionDate, Contacts.FirstName as FirstName, Contacts.LastName 
+      //  as LastName, Contacts.Email as Email FROM Adoptions join Universities using (UniversityID) 
+      //  join AdoptionBooks using (AdoptionID) join Contacts using (ContactID) where AdoptionBooks.BookID ='$id'";
+        
+        $sql3="select un.UniversityID, Name from Universities un, Adoptions ad, AdoptionBooks ab, Books bk
+                      WHERE bk.BookID = ab.BookID 
+                      AND ab.AdoptionID = ad.AdoptionID
+                      AND ad.UniversityID = un.UniversityID
+                      AND ISBN10= '$id' order by Name";
+                      
+        $sql4="select ISBN10 from Books where ISBN10 = '$id'";              
+        
     
       $result = $db-> runDifferentSelect($sql, "ISBN10", $_GET['id']);
       foreach($result as $row){
         $string .= printDetails($row);
       }
-      $result2 = $db-> runDifferentSelect($sql2, "BookID", $id, 1);
+      $result2 = $db-> runDifferentSelect($sql2, "ISBN10", $_GET['id']);
       foreach($result2 as $row){
         $string2 .= printAuthors($row);
       }
-      $result3 = $db-> runDifferentSelect($sql3);
-      foreach($result2 as $row){
+      $result3 = $db-> runDifferentSelect($sql3, "ISBN10", $_GET['id']);
+      foreach($result3 as $row){
         $string3 .= printUniversities($row);
       }
+      $result4 = $db ->runDifferentSelect($sql4, "ISBN10", $_GET['id']);
+      // foreach ($result4 as $row){
+      //   $string4 .= viewImage($row);
+      // }
   }
 
   
@@ -42,8 +64,12 @@ catch(PDOException $e) {
     die($e->getMessage());
 }
 
+// ----- Functions for printing authors and universities ----- //
+//function createList($rows){
+   //return  "<li><a href='/singlebook.php?id=". $rows["ISBN10"] . "'>" . "<img src ='/book-images/tinysquare/" . $rows["ISBN10"]. ".jpg'>".
+//<img src ='/book-images/small/" . $rows['ISBN10']. ".jpg'
 function printDetails($rows){
-  return "<h3>".$rows['Title']."</h3><img src ='/book-images/small/". $rows['ISBN10']. ".jpg'><br>ISBN10: " . $rows['ISBN10']."<br>ISBN13: " .
+  return "<h3>".$rows['Title']."</h3> <a id = 'images' alt= 'pictures' href='/singlebook.php?id=" . $rows["ISBN10"] . "'>" . "<img src ='/book-images/small/" . $rows['ISBN10']. ".jpg'></a> <br> ISBN10: " . $rows['ISBN10']."<br>ISBN13: " .
   $rows['ISBN13']."<br>Copyright Year: " . $rows['CopyrightYear']."<br><a href ='browse-books.php?Subcategory=" . $rows['SubcategoryName'] .
   "'>SubCategory: " . $rows['SubcategoryName']."</a><br><a href='browse-books.php?Imprint=" . $rows['Imprint'] . "'>Imprint: ". $rows['Imprint'].
   "</a><br>BindingType: ".$rows['BindingType']."<br>Trim Size: ".$rows['TrimSize']."<br>Page Count: ".$rows['PageCount'].
@@ -51,90 +77,53 @@ function printDetails($rows){
 }
 
 function printAuthors($rows){
-  return "<li>" . $rows['AFirstName']. " ". $rows['ALastName'] . "</li>";
+  return "<li>" . $rows['FirstName']. " ". $rows['LastName'] . "</li>";
   
 }
 
 function printUniversities($rows){
-  return "<li><a href='browse-universities.php?id=" . $rows["ID"] . "'>" .  $rows['UName'] . "</li>";
+  return "<li><a href='browse-universities.php?id=" . $rows['UniversityID'] . "'>" .  $rows['Name'] . "</li>";
 }
+?>
+<script>
+function viewImage($rows)
+{
+  var a = document.querySelectorAll("a img");
+    for(var i=0; i<a.length; i++)
+    {
+      a[i].addEventListener("click" , viewAction($rows));
+    }
+      document.querySelector("images").innerHTML= a[i].attributes["$id"];
+}
+     
+function viewAction($rows)   
+{
+  document.querySelector("images");
+  innerHTML= a[i].attributes["images"];
+  list[i].src + '/book-images/large/. $rows["ISBN10"] . "'>" .jpg";
+}   
+   
+    //["img src ='/book-images/large/. $rows["ISBN10"] . "'>" . ".jpg];
+    // echo '<img src="../book-images/small/' . $row['ISBN10'] . '.jpg" alt="..." class="big image" id="picture">';
+    //     echo '<div class="modal"> <div class="image content">';
+                 
+    //     echo '<img src="../book-images/large/' . $row['ISBN10'] . '.jpg" alt="..." class="image" >';
+                   
+</script>
 
-  // <!-- Should be black but not yet -->
-function makePageDim()
+
+
+
+      
+
+ <!-- // ----- function for picture enlargement ----- //
+  // <!-- Should be black but not yet 
+/*function makePageDim()
 {
     document.write('<div id="dimmer" class="dimmer" style="width:'+
     window.screen.width + 'px; height:' + window.screen.height +'px"></div>');
     
-}
+}*/-->
 
-/*function MouseDown($e)
-{
-    if (over)
-    {
-        if (isMozilla) {
-            $objDiv = document.getElementById("dimmer");
-            X=$e.layerX;
-            Y=$e.layerY;
-            return false;
-        }
-        else {
-            $objDiv = document.getElementById("dimmer");
-            $objDiv = objDiv.style;
-            X=event.offsetX;
-            Y=event.offsetY;
-        }
-    }
-}
 
-//
-//
-//
-function MouseMove(e)
-{
-    if (objDiv) {
-        if (isMozilla) {
-            objDiv.style.top = ($e.pageY-Y) + 'px';
-            objDiv.style.left = ($e.pageX-X) + 'px';
-            return false;
-        }
-        else
-        {
-            objDiv.pixelLeft = event.clientX-X + document.body.scrollLeft;
-            objDiv.pixelTop = event.clientY-Y + document.body.scrollTop;
-            return false;
-        }
-    }
-}
 
-//
-//
-//
-function MouseUp()
-{
-    objDiv = null;
-}
-
-//
-//
-//
-function init()
-{
-    // check browser
-    isMozilla = (document.all) ? 0 : 1;
-
-    if (isMozilla)
-    {
-        document.captureEvents(Event.MOUSEDOWN | Event.MOUSEMOVE | Event.MOUSEUP);
-    }
-
-    document.onmousedown = MouseDown;
-    document.onmousemove = MouseMove;
-    document.onmouseup = MouseUp;
-
-    // add the div
-    // used to dim the page
-    makePageDim();
-
-}*/
-
-?>

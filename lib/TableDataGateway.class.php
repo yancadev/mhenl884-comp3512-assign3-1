@@ -1,3 +1,5 @@
+<!-- yanca: added ordering function for sorting-->
+
 <?php
 /*
   Encapsulates common functionality needed by all table gateway objects.
@@ -73,7 +75,13 @@ public function limitBy($limit){
     $sql = $this->getSelectStatement() . ' limit 0, ' . $limit;
     $statement = DatabaseHelper::runQuery($this->connection, $sql, null);
     return $statement->fetchAll();
-}   
+}  
+
+public function orderAndLimit($order, $limit){
+    $sql = $this->getSelectStatement() . ' order by ' . $order . ' limit  ' . $limit;
+    $statement = DatabaseHelper::runQuery($this->connection, $sql, null);
+    return $statement->fetchAll();
+}
 
    /*
       Returns all the records in the table sorted by the specified sort order

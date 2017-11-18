@@ -37,9 +37,10 @@ include "page-functions/single-book-functions.php";
                 </div>
                 <div class="mdl-card__supporting-text">
                     <ul class="demo-list-item mdl-list">
-
+                            
                          <?php  
                              echo $string;
+
                          ?>            
 
                     </ul>
@@ -75,34 +76,14 @@ include "page-functions/single-book-functions.php";
                     </ul>
                 
                 </div>
-                <script type="text/javascript" src="">
-                document.getElementById('dimmer').style.visibility = "visible";
-                </script>
-                
-                <!--<span class="code-comment">  the following hidden div will be used by the script -->
-<div style="width: 518px; height: 287px; visibility:hidden" id="windowcontent">
-            <script language="javascript">
-           
-         <a class= "enlarge-image" href="'/book-images/medium/" . $rows["ISBN10"] . ' ".jpg"' . id="bookPic"  alt="Large Picture"'>" </a>'
-            function enlargeImage()
-            {
-               //var pic.src= <"img src ='/book-images/medium/ . $rows["ISBN10"] . ' ".jpg"' . id="bookPic"  alt="Large Picture"'/>"
-            
-               var yourImg = document.getElementById('bigPic');
-              if(yourImg && yourImg.style) {
-                yourImg.style.height = '500';
-                 yourImg.style.width = '500';
-
-               
-            }
-            </script>
-            
-  
-  
-  </div>
                 
                 
               </div>  <!-- / mdl-cell + mdl-card -->
+    
+   
+  </div>
+
+</div>
               
             </div>  <!-- / mdl-grid -->    
 

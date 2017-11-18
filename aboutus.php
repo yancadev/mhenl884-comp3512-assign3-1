@@ -61,10 +61,11 @@ include "session.php";
   <!-- 	Megans Card Card -->
   <div class="mdl-card mdl-shadow--2dp demo-card-square" >
     <div class="mdl-card__title mdl-card--expand">
-     <img src="../images/university.jpg" alt="Browse Universities">
+     
     </div>
     <div class="mdl-card__supporting-text">
-    
+      <h3>Responsible for:</h3>
+      <p>Program Design, Single Book, Login, Logout, Browse Employees</p>
     </div>
     <div class="mdl-card__actions mdl-card--border">
       <a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
@@ -75,10 +76,11 @@ include "session.php";
   <!-- Browse Books Card -->
   <div class="mdl-card mdl-shadow--2dp demo-card-square">
     <div class="mdl-card__title mdl-card__accent mdl-card--expand">
-      <img src="../images/books.jpg" alt="Browse books">
+      
     </div>
     <div class="mdl-card__supporting-text">
-     
+     <h3>Responsible for:</h3>
+      <p>Navigation, Single Book, Browse Employees</p>
     </div>
     <div class="mdl-card__actions mdl-card--border">
       <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
@@ -86,8 +88,23 @@ include "session.php";
         </a>
     </div>
   </div>
+  <!-- Browse Books Card -->
+  <div class="mdl-card mdl-shadow--2dp demo-card-square">
+    <div class="mdl-card__title mdl-card__accent mdl-card--expand">
+      
+    </div>
+    <div class="mdl-card__supporting-text">
+     <h3>Responsible for:</h3>
+      <p>Simple Search, Single Book,</p>
+    </div>
+    <div class="mdl-card__actions mdl-card--border">
+      <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+          Ma Angenica
+        </a>
+    </div>
+  </div>
   
-// <?php  
+ <?php  
 //   //add query string
 //   //header("location: login.php?insertname=aboutuspage.php")
 //   //"aboutus.php?insertname=browse-employees"

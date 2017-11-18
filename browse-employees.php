@@ -1,3 +1,5 @@
+<!-- yanca: fixed employee messages -->
+
 <?php
 //include "session.php";
 include "page-functions/employee-functions.php";
@@ -153,29 +155,34 @@ include "page-functions/employee-functions.php";
                     
                 <!--<a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"> -->   
         
-         <button onclick="switchFunction()">View/Hide Filters</button>
-                    
-    <div id="filter" style="display:none;">
+        
+        
+        <!-- Filter -->
+        <button onclick="switchFunction()">View/Hide Filters</button>
+        <div id="filter" style="display:none;">
         <!-- cant do both-->
-   <label for="filter-name">Filter by last name</label>
-    <form action= "browse-employees.php" method="GET">
-       <input type="text" name="last-name" placeholder="Enter last name">
-         <!--</form>-->
-      <br>
-     <label for="filter-city">Filter by city</label>
-        <!--<form action="browse-employees.php" method="GET">-->
+        <label for="filter-name">Filter by last name</label>
+        <form action= "browse-employees.php" method="GET">
+        <input type="text" name="last-name" placeholder="Enter last name">
+        <br>
+          <br>
+         <label for="filter-city">Filter by city</label>
           <select name="City"><option value=""> Choose a city </option><?php echo $string4; ?></select>
+          <br>
+          <br>
            <input type="submit">
             </form>
-    </div>        
+        </div>        
             
 <script>
 function switchFunction() {
-     var x = document.getElementById("filter");
-    if (x.style.display === "none") {
-        x.style.display = "block";
+     /*global x*/
+      var hide = document.getElementById("filter");
+     
+    if (hide.style.display === "none") {
+        hide.style.display = "block";
     } else {
-        x.style.display = "none";
+        hide.style.display = "none";
     
  } 
 }

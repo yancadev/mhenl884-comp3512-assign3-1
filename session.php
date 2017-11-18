@@ -25,7 +25,7 @@ if(!isset($login_session)){
     header('Location: login-page.php'); 
 }*/
 
-//require_once('config.php');
+//include 'includes/config.php';
 $pdo = new PDO(DBCONNECTION, DBUSER, DBPASS);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

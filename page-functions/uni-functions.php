@@ -1,3 +1,5 @@
+<!-- yanca: changed university list to output in alphabetical order -->
+
 <?php
 include 'includes/book-config.inc.php';
 
@@ -8,7 +10,8 @@ try{
     //list universities
     $string = "";
     $string3 = "";
-    foreach ($result as $row){
+    $orderuniv = $db-> orderAndLimit('Name', 30);
+    foreach ($orderuniv as $row){
        $string .= createList($row);
     }
     

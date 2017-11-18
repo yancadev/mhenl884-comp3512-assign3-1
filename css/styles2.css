@@ -1,3 +1,10 @@
+.searchb {
+    width: 130px;
+    border: 3px solid #00B4CC;
+    box-sizing: border-box;
+}
+
+
 header h1.mdl-layout-title {
     font-size: 32px;
     color: white;
@@ -197,3 +204,7 @@ transition: margin 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
 #toggle:checked + label:after {
   content:"Close"
 }
+
+/* edit search button color: DOESN'T WORK*/
+
+
