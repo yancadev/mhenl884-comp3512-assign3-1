@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="css/styles.css">
-<!--<script type="text/javascript" src="js/comp3512-assign2.js"></script> -->
+<script type="text/javascript" src="js/comp3512-assign2.js"></script>
  <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
      <h1 class="mdl-layout-title"><span>CRM</span> Admin</h1>
@@ -45,7 +45,7 @@
     </div>
         
     </div>
-    <script>
+<!--    <script>
 function searchbar() {
     var x = document.getElementById("searching");
     
@@ -56,6 +56,6 @@ function searchbar() {
     
  } 
 }
-</script>
+</script>-->
     
   </header>
