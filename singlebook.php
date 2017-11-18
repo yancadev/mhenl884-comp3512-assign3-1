@@ -30,7 +30,7 @@ include "page-functions/single-book-functions.php";
 
             <div class="mdl-grid">
 
-              <!-- mdl-cell + mdl-card -->
+              <!-- book info and img container -->
               <div class="mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp">
                 <div class="mdl-card__title mdl-color--orange">
                   <h2 class="mdl-card__title-text">Book</h2>
@@ -45,8 +45,9 @@ include "page-functions/single-book-functions.php";
 
                     </ul>
                 </div>
-              </div>  <!-- / mdl-cell + mdl-card -->
-              <!-- mdl-cell + mdl-card -->
+              </div> 
+              
+              <!-- book authors container -->
               <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp">
                 <div class="mdl-card__title mdl-color--orange">
                   <h2 class="mdl-card__title-text">Authors</h2>
@@ -60,8 +61,9 @@ include "page-functions/single-book-functions.php";
 
                     </ul>
                 </div>
-              </div>  <!-- / mdl-cell + mdl-card -->
-              <!-- mdl-cell + mdl-card -->
+              </div>  
+              
+              <!-- book university adoption container -->
               <div class="mdl-cell mdl-cell--5-col card-lesson mdl-card  mdl-shadow--2dp">
                 <div class="mdl-card__title mdl-color--orange">
                   <h2 class="mdl-card__title-text">Universities Adopting</h2>
@@ -78,18 +80,26 @@ include "page-functions/single-book-functions.php";
                 </div>
                 
                 
-              </div>  <!-- / mdl-cell + mdl-card -->
+              </div>  
     
    
   </div>
+  
+  
+    
 
 </div>
               
-            </div>  <!-- / mdl-grid -->    
+            </div>  
+            
+    <div id="imgzoom" class="modal" >
+        
+    <div class="inmodal" id="imgid" onclick="closeimg()"/>
+    </div>
 
         </section>
     </main>    
-</div>    <!-- / mdl-layout --> 
+</div>    
   </body>
     
 </html>

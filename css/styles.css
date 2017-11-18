@@ -1,17 +1,72 @@
-#searching {
-  border-radius: 10px;
+#imgzoom {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%;
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/*
+// TRYING TO FIT TO SCREEN - DOESN'T WORK //
+#imglrg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    max-width: 100%;
+    max-height: 100%;
+
+}
+#imgid {
+    position: relative;
+    padding-left: 500px;
+    padding-bottom: 100px;
+    margin: auto;
+}
+*/
+
+
+#imgid {
+    position: relative;
+    padding: 0px 500px 100px 500px;
+    margin: auto;
 }
 
 input[type=text] {
-    width: 200px;
-    font-size: 16px;
-    padding: 6px 10px 6px 20px;
-    border: 3px solid #00B4CC;
-    border-radius: 4px;
+    width: 160px;
+    font-size: 10px;
+    padding: 4px 8px 4px 10px;
+    border: 1px solid #00B4CC;
+    border-radius: 3px;
 }
 
 
 input[type=submit] {
+margin-top: 10px;
+
+padding: 5px 8px 5px;
+font-size: 14px;
+background-color: #57d6c7;
+color: #ffffff;
+border-radius: 5px;
+border: 1px solid #57D6C7;
+
+}
+
+
+#searching input[type=text] {
+    width: 200px;
+    font-size: 12px;
+    padding: 8px 10px 6px 20px;
+    border: 1px solid #00B4CC;
+    border-radius: 4px;
+}
+
+#searching input[type=submit] {
+margin-top: 10px;
+margin-left: 160px;
 padding: 5px 8px 5px;
 font-size: 14px;
 background-color: #57d6c7;
@@ -106,14 +161,6 @@ main header h4 {
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-
-    /*background-image:url("images/dark.png");*/
-    /* ieWin only stuff */
-        /* with this trick only IE
-           manage the following 2 attributes */
-    /*background-image:none;*/
-    /*filter:progid:DXImageTransform.Microsoft.AlphaImageLoader*/
-    /*    (enabled=true, sizingMethod=scale src='dark.png');*/
 }
 
 /* Modal Content */
@@ -138,6 +185,18 @@ main header h4 {
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+#button{
+margin-top: 10px;
+margin-left: 160px;
+padding: 5px 8px 5px;
+font-size: 14px;
+background-color: #57d6c7;
+color: #ffffff;
+border-radius: 5px;
+border: 1px solid #57D6C7;
+
 }
 
 

@@ -1,5 +1,5 @@
 <!-- yanca: fixed employee messages -->
-
+<!-- Ellen: Created filter card and functions-->
 <?php
 //include "session.php";
 include "page-functions/employee-functions.php";
@@ -23,6 +23,7 @@ include "page-functions/employee-functions.php";
     <script   src="https://code.jquery.com/jquery-1.7.2.min.js" ></script>
        
     <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+    <script type="text/javascript" src="js/comp3512-assign2.js"></script>
     
 </head>
 
@@ -55,15 +56,12 @@ include "page-functions/employee-functions.php";
                               echo $string;
                              
                          ?> 
-                         
-                         
+       
 
                     </ul>
                 </div>
               </div>  <!-- / mdl-cell + mdl-card -->
-              
-              
-              
+
               
               <!-- mdl-cell + mdl-card -->
               <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp"style="width:600px;">
@@ -173,24 +171,7 @@ include "page-functions/employee-functions.php";
            <input type="submit">
             </form>
         </div>        
-            
-<script>
-function switchFunction() {
-     /*global x*/
-      var hide = document.getElementById("filter");
-     
-    if (hide.style.display === "none") {
-        hide.style.display = "block";
-    } else {
-        hide.style.display = "none";
-    
- } 
-}
- </script>
-
-                            
-                 
-                 
+      
               </div>  <!-- / mdl-cell + mdl-card -->   
             </div>  <!-- / mdl-grid -->    
 

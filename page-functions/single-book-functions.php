@@ -1,4 +1,5 @@
 <!-- yanca: fixed authors, university with links and in alpha order-->
+<!-- yanca: did image enlargement -->
 <script src="css/styles.css"></script>
 
 <?php 
@@ -10,36 +11,28 @@ try{
   $string2 = "";
   $string3 = "";
   $string4 = "";
+  $getisb ="";
   
   // ----- print single book info ----- // 
-  
   if(isset($_GET['id'])){
       $id = $_GET['id'];
+      // --- SQL --- //
       $sql = "select BookID, ISBN10, ISBN13, Title, CopyrightYear, TrimSize, PageCountsEditorialEst
       as PageCount, Description, Subcategories.SubcategoryID, SubcategoryName, ImprintID, Imprint, BindingType from Books join Subcategories on 
       (Books.SubcategoryID = Subcategories.SubcategoryID) join Imprints using (ImprintID) join BindingTypes using (BindingTypeID) where ISBN10 = '$id'";
-      
-      //$sql2 = "select Authors.FirstName as AFirstName,
-      //  Authors.LastName as ALastName, Authors.Institution as Institution 
-      //  from Books join BookAuthors using (BookID) join Authors using (AuthorID)"; 
         
       $sql2="select au.AuthorID, FirstName, LastName, ISBN10 from Books bk, BookAuthors ba, Authors au 
         where bk.BookID = ba.BookId AND ba.AuthorId = au.AuthorID AND ISBN10 = '$id'";
         
-      //$sql3 = "select Universities.Name as UName, UniversityID as ID, Adoptions.ContactID as ContactID, 
-      //  Adoptions.AdoptionDate as AdoptionDate, Contacts.FirstName as FirstName, Contacts.LastName 
-      //  as LastName, Contacts.Email as Email FROM Adoptions join Universities using (UniversityID) 
-      //  join AdoptionBooks using (AdoptionID) join Contacts using (ContactID) where AdoptionBooks.BookID ='$id'";
-        
-        $sql3="select un.UniversityID, Name from Universities un, Adoptions ad, AdoptionBooks ab, Books bk
-                      WHERE bk.BookID = ab.BookID 
-                      AND ab.AdoptionID = ad.AdoptionID
-                      AND ad.UniversityID = un.UniversityID
-                      AND ISBN10= '$id' order by Name";
+      $sql3="select un.UniversityID, Name from Universities un, Adoptions ad, AdoptionBooks ab, Books bk
+         WHERE bk.BookID = ab.BookID 
+         AND ab.AdoptionID = ad.AdoptionID
+         AND ad.UniversityID = un.UniversityID
+         AND ISBN10= '$id' order by Name";
                       
-        $sql4="select ISBN10 from Books where ISBN10 = '$id'";              
-        
-    
+      $sql4="select ISBN10 from Books where ISBN10 = '$id'";              
+      
+      // --- Running Queries --- //  
       $result = $db-> runDifferentSelect($sql, "ISBN10", $_GET['id']);
       foreach($result as $row){
         $string .= printDetails($row);
@@ -53,6 +46,10 @@ try{
         $string3 .= printUniversities($row);
       }
       $result4 = $db ->runDifferentSelect($sql4, "ISBN10", $_GET['id']);
+      foreach($result4 as $row){
+      $getisb .= getisbn($row);
+        
+      }
       // foreach ($result4 as $row){
       //   $string4 .= viewImage($row);
       // }
@@ -65,29 +62,52 @@ catch(PDOException $e) {
 }
 
 // ----- Functions for printing authors and universities ----- //
-//function createList($rows){
-   //return  "<li><a href='/singlebook.php?id=". $rows["ISBN10"] . "'>" . "<img src ='/book-images/tinysquare/" . $rows["ISBN10"]. ".jpg'>".
-//<img src ='/book-images/small/" . $rows['ISBN10']. ".jpg'
+function getisbn($rows){
+  return $rows['ISBN10'] . ".jpg";
+}
+
 function printDetails($rows){
-  return "<h3>".$rows['Title']."</h3> <a id = 'images' alt= 'pictures' href='/singlebook.php?id=" . $rows["ISBN10"] . "'>" . "<img src ='/book-images/small/" . $rows['ISBN10']. ".jpg'></a> <br> ISBN10: " . $rows['ISBN10']."<br>ISBN13: " .
+  return "<h3>".$rows['Title']."</h3>" . "<img src ='/book-images/small/" . $rows['ISBN10']. ".jpg'id='imgg' onclick='imgEnlarge()'> <br> ISBN10: " . $rows['ISBN10']."<br>ISBN13: " .
   $rows['ISBN13']."<br>Copyright Year: " . $rows['CopyrightYear']."<br><a href ='browse-books.php?Subcategory=" . $rows['SubcategoryName'] .
   "'>SubCategory: " . $rows['SubcategoryName']."</a><br><a href='browse-books.php?Imprint=" . $rows['Imprint'] . "'>Imprint: ". $rows['Imprint'].
   "</a><br>BindingType: ".$rows['BindingType']."<br>Trim Size: ".$rows['TrimSize']."<br>Page Count: ".$rows['PageCount'].
   "<br>Description: ".$rows['Description']."<br><br>";
 }
-
 function printAuthors($rows){
   return "<li>" . $rows['FirstName']. " ". $rows['LastName'] . "</li>";
+}
+function printUniversities($rows){
+  return "<li><a href='browse-universities.php?id=" . $rows['UniversityID'] . "'>" .  $rows['Name'] . "</a></li>";
+}
+
+?>
+
+<!-- JAVASCRIPT -->
+
+<script type="text/javascript">
+
+function imgEnlarge(){
+  var mod = document.getElementById('imgzoom');
+  var imgurl = document.getElementById('imgg').getAttribute('src');
+  //var close = document.getElementsByClassName("close")[0];
+  mod.style.display ="block";
+  //document.getElementById('imgid').innerHTML = "<img src ='" + imgurl + "'/>";
+  
+  
+  var isb = "<?php echo $getisb ?>";
+  document.getElementById('imgid').innerHTML = "<img src ='/book-images/large/" + isb + "' id='imglrg'/>";
+  
+  
   
 }
 
-function printUniversities($rows){
-  return "<li><a href='browse-universities.php?id=" . $rows['UniversityID'] . "'>" .  $rows['Name'] . "</li>";
+function closeimg(){
+  var mod = document.getElementById('imgzoom');
+  mod.style.display ="none";
 }
-?>
 
-<!--book-image enlargement (not working yet)-->
-<script>
+
+/*
 function viewImage($rows)
 {
   var a = document.querySelectorAll("a img images");
@@ -104,7 +124,8 @@ function viewAction()
   innerHTML= a[i].attributes["images"];
   list[i].src + '/book-images/large/. $rows["ISBN10"] . "'>" .jpg";
 }   
-   
+*/
+
     //["img src ='/book-images/large/. $rows["ISBN10"] . "'>" . ".jpg];
     // echo '<img src="../book-images/small/' . $row['ISBN10'] . '.jpg" alt="..." class="big image" id="picture">';
     //     echo '<div class="modal"> <div class="image content">';

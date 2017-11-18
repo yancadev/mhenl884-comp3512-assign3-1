@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="css/styles.css">
- 
+<!--<script type="text/javascript" src="js/comp3512-assign2.js"></script> -->
  <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
      <h1 class="mdl-layout-title"><span>CRM</span> Admin</h1>
@@ -34,7 +34,7 @@
     
         <div class="mdl-textfield__expandable-holder">
             <br/><br/>
-            <div id="searching" class="searchb" style="display:none; background-color: black; position: relative; right: 250px; top: 30px">
+            <div id="searching" class="searchb" style="display:none; position: relative; right: 250px; top: 30px;">
             <br/><br/>
           <form action="browse-employees.php?" method="GET">
                 <input type="text" name="last-name" placeholder="search employee..."><br/>
