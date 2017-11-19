@@ -1,4 +1,3 @@
-<!-- yanca: added error message when logging in -->
 <!-- THIS PAGE IS RESPONSIBLE FOR THE LOGIN LAYOUT -->
 
 
