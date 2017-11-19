@@ -1,5 +1,7 @@
 <?php
-include 'includes/book-config.inc.php';
+
+//include 'includes/book-config.inc.php';
+
 
 /*$db = new LoginGateway($connection);
 session_start();// Starting Session
@@ -26,6 +28,13 @@ if(!isset($login_session)){
 }*/
 
 //include 'includes/config.php';
+
+
+
+
+
+/*
+// ------ FOR NOW ------ //
 $pdo = new PDO(DBCONNECTION, DBUSER, DBPASS);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -53,4 +62,46 @@ if(!isset($login_session)){
     header('Location: login-page.php');
     //header('Location: login-page.php?=CRMAdmin/' . $_GET('page') . 'aboutus.php'); 
 }
+*/
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+function	init()	{
+				document.getElementById("mainform").addEventListener("submit", checkForEmptyFields);				
+}
+/*	initialize	handlers	once	page	is	ready	*/
+window.addEventListener("load",	init);
+/*	ensures	form	fields	are	not	empty	*/
+
+function checkForEmptyFields(e)	{
+    
+    console.log("working");
+	var	cssSelector	=	"input[type=text]";
+	var	fields	=	document.querySelectorAll(cssSelector);
+	var error = document.getElementById("errormsg");
+//	loop	thru	the	input	elements	looking	for	empty	values
+	var	fieldList	=	[];
+	for	(var i=0;	i<fields.length;	i++)	{
+		//if (document.getElementsByClassName('hilightable').classList.contains("required")){
+		if	(fields[i].value	==	null || fields[i].value	==	"")	{
+		//	since	a	field	is	empty	prevent	the	form	submission
+			e.preventDefault();
+			error.style.display = "block";
+		} else {
+			error.style.display = "none";
+		}
+	}
+}
+				    
+</script>

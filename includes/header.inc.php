@@ -45,17 +45,5 @@
     </div>
         
     </div>
-<!--    <script>
-function searchbar() {
-    var x = document.getElementById("searching");
-    
-     if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    
- } 
-}
-</script>-->
     
   </header>
