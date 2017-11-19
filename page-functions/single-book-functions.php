@@ -1,5 +1,3 @@
-<!-- yanca: fixed authors, university with links and in alpha order-->
-<!-- yanca: did image enlargement -->
 <script src="css/styles.css"></script>
 
 <?php 
