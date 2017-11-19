@@ -55,6 +55,8 @@
             
     <?php include 'includes/header.inc.php'; ?>
               <?php include 'includes/left-nav.inc.php'; ?>
+              
+              
     <main class="mdl-layout__content mdl-color--grey-50">
      <section class="page-content">
   <!-- 	Browse Universities Card -->

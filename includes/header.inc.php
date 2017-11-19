@@ -6,9 +6,9 @@
  
 
      
-      <div class="mdl-layout-spacer"></div>
+     <div class="mdl-layout-spacer"></div>
       
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+     <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
                   mdl-textfield--floating-label mdl-textfield--align-right">
                   
     <label id="tt1" class="material-icons mdl-badge mdl-badge--overlap"><a href="logout.php">power_settings_new</a></label>  
@@ -27,20 +27,16 @@
     <div class="mdl-tooltip" for="tt3">Search</div>       
     
     </div>
-                
-<!-- SEARCH BAR -->
-<!-- trying to make the javascript hide/unhide underneath -->
-
     
         <div class="mdl-textfield__expandable-holder">
             <br/><br/>
             <div id="searching" class="searchb" style="display:none; position: relative; right: 250px; top: 30px;">
             <br/><br/>
-          <form action="browse-employees.php?" method="GET">
+        <form action="browse-employees.php?" method="GET">
                 <input type="text" name="last-name" placeholder="search employee..."><br/>
                 <input type="submit" name="search"> 
                 
-          </form>
+        </form>
          </div>
     </div>
         

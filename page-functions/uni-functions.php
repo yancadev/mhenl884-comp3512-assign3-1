@@ -1,8 +1,9 @@
-<!-- yanca: changed university list to output in alphabetical order -->
-
 <?php
 include 'includes/book-config.inc.php';
 
+/** 
+* Runs all the methods and objects for the browse-univsersites.php page.
+*/
 try{
     $db = new UniversitiesGateway($connection);
     $result = $db-> limitBy(20);
@@ -56,13 +57,17 @@ catch (PDOException $e) {
     die($e->getMessage());
 }
 
-function createStates($rows)
-{
+/** 
+* Prints different types of lists on the main browse-universities.php page.
+* @return      states and details.
+* @param       rows
+*/
+function createStates($rows) {
     return '<option value="'.$rows['StateName'].'">'.$rows['StateName'].'</option>';
     
 }
 
-function createList($rows){
+function createList($rows) {
    return  "<li><a href='?id=".$rows['UniversityID']."'> ".$rows['Name']."</a></li>";
 }
 

@@ -1,10 +1,10 @@
-<!-- yanca: fixed filter and searchbar functionality (still needs to work on both filtering)-->
-<!-- yanca: changed employee list to output alphabetical order -->
-
 <?php
 //include "session.php";
 include 'includes/book-config.inc.php';
 
+/** 
+* Runs all the methods and objects for the browse-employees.php page.
+*/
 try {
     $db = new EmployeesGateway($connection);
     $result = $db-> limitBy(30);
@@ -84,8 +84,11 @@ catch (Exception $e) {
     die( $e->getMessage() );
 }
 
-    // ----- functions for creating the lists ----- //
-
+/** 
+* Creates different types of lists on the main employee function page.
+* @return      employees, addresses, ToDo, messages, and cities.
+* @param       rows
+*/
 function createEmployeeList($rows){
     return  "<li><a href='?id=".$rows['EmployeeID']."'> ".$rows['FirstName']." ".$rows['LastName'] ."</a></li>";
 }

@@ -1,5 +1,199 @@
+<!-- THIS PAGE CHECKS FOR LOGIN CREDENTIALS AND ERRORS -->
+
 <?php
 include 'includes/book-config.inc.php';
+include 'session.php';
+//include 'login-page.php';
+//session_start();
+
+
+$pdo = new PDO(DBCONNECTION, DBUSER, DBPASS);
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+//if (isset($_POST['submit'])) {
+//}
+
+if (isset($_POST['submit'])){
+    
+} else {
+    $username = "";
+    $password = "";
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    echo "oi";
+
+
+$sql = "select * from UsersLogin where UserName='" . $username . "'";
+$result = $pdo->query($sql);
+
+while ($row = $result->fetch()){
+    //header('Location: index.php');
+    $salt = $row['Salt'];
+    $pass = md5($_POST['password'].$salt); //or $password
+    if ($row['Password'] == $pass) {
+        echo "works";
+        echo $pass;
+    //    header('Location: index.php');
+        $_SESSION['userid']= $row['UserID']; // Initializing Session and getting info
+        $sql2 = "select UserID, FirstName, LastName, Address, City, Region, Country, Postal, Phone, Email from Users join UsersLogin using (UserID) where UserName= '" . $username . "'"; 
+        $result2 = $pdo-> query($sql2);
+        while ($row = $result2->fetch()){
+            $_SESSION['firstname']=$row['FirstName'];
+            $_SESSION['lastname']=$row['LastName'];
+            $_SESSION['email']=$row['Email'];
+        
+            echo $row['FirstName'] . $row['LastName'] . $row['Email'];
+        }
+        
+       
+        if(isset($_SESSION['url'])) {
+        
+        //$url = $_SESSION['url'];
+        echo $prev;
+        //header('Location:'.$url);
+       }
+        
+    } else { 
+        echo "doesn't work!!";
+    
+       //<!-- OVER HERE ELLEN! i just need the error message javascript to pop up-->
+       echo '<script type="text/javascript"> document.getElementById("errormsg").style.display = "block"; </script>';
+        
+    
+    }
+    
+    
+     
+}
+
+
+
+
+}
+
+ $pdo = null;
+?>
+
+
+<script type="text/javascript">
+
+function	init()	{
+	document.getElementById("mainform").addEventListener("submit", checkForEmptyFields);				
+}
+window.addEventListener("load",	init);
+
+// Removing error message when typing - DOESN'T FULLY WORK //
+/*
+function	removeErr(e)	{
+				if	(e.type	==	"blur")	{
+								checkForEmptyFields(e);
+				}
+}
+window.addEventListener("load",	function(){
+				var	cssSelector	=	"input[type=text],input[type=password]";
+				var	fields	=	document.querySelectorAll(cssSelector);
+				for	(var i=0;	i<fields.length;	i++)
+				{
+					fields[i].addEventListener("blur",	removeErr);
+				}
+});
+*/
+
+// ERROR CHECKING FOR LOGIN //
+function checkForEmptyFields(e)	{
+    console.log("working");
+	var	cssSelector	=	"input[type=text],input[type=password]";
+	var	fields	=	document.querySelectorAll(cssSelector);
+	var	fieldList	=	[];
+	var error = document.getElementById("errormsg");
+	for	(var i=0;	i<fields.length; i++)	{
+		if	(fields[i].value ==	null || fields[i].value	== ""){
+			e.preventDefault();
+			fieldList.push(fields[i]);
+			error.style.display = "block";
+		} else {
+			error.style.display = "none";
+		}
+	}
+}
+				    
+</script>
+
+
+
+
+
+<!--
+//include 'includes/book-config.inc.php';
+/*$db = new LoginGateway($connection);
+session_start();// Starting Session
+
+// Storing Session
+$user_check=$_SESSION['userid'];
+$result = $db-> findByUserID($user_check);
+foreach($result as $row){
+    $_SESSION['userid']=$row['UserID'];
+    $id = $row['UserID'];
+    $db = new SessionGateway($connection);
+    $result2 = $db->findByUserID($id);
+    foreach($result2 as $row){
+        $_SESSION['firstname']=$row['FirstName'];
+        $_SESSION['lastname']=$row['.LastName'];
+        $_SESSION['email']=$row['Email'];
+        $login_session = $row['UserID'];
+    }
+}
+
+if(!isset($login_session)){
+    $pdo = null; // Closing Connection
+    header('Location: login-page.php'); 
+}*/
+
+//include 'includes/config.php';
+
+
+
+
+
+/*
+// ------ FOR NOW ------ //
+$pdo = new PDO(DBCONNECTION, DBUSER, DBPASS);
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+session_start();// Starting Session
+// Storing Session
+$user_check=$_SESSION['userid'];
+// SQL Query To Fetch Complete Information Of User
+$sql="select UserID, UserName, Password, Salt, State, DateJoined, DateLastModified from UsersLogin where UserID='$user_check'";
+$result = $pdo-> query ($sql);
+while ($row = $result->fetch()){
+    $_SESSION['userid']=$row['UserID'];
+    $login_session = $row['UserID'];
+}
+$sql2 = "select UserID, FirstName, LastName, Address, City, Region, Country, Postal, Phone, Email from Users";
+$result2 = $pdo-> query($sql2);
+while ($row = $result2->fetch()){
+    $_SESSION['firstname']=$row['FirstName'];
+    $_SESSION['lastname']=$row['LastName'];
+    $_SESSION['email']=$row['Email'];
+}
+
+if(!isset($login_session)){
+    $pdo = null; // Closing Connection
+    <form action='' method="post">
+    header('Location: login-page.php');
+    //header('Location: login-page.php?=CRMAdmin/' . $_GET('page') . 'aboutus.php'); 
+}
+*/
+-->
+
+
+
+
+<?php
+//include 'includes/book-config.inc.php';
+
+
 /*session_start(); // Starting Session
 $error=''; // Variable To Store Error Message
 
@@ -39,8 +233,11 @@ else{
     }
 }*/
 
+
+/*
+// PREVIOUSLY WORKING CODE //
 session_start(); // Starting Session
-$error=''; // Variable To Store Error Message
+$error=""; // Variable To Store Error Message
 if (isset($_POST['submit'])) {
     if (empty($_POST['username']) || empty($_POST['password'])) {
         $error = "Username or Password is invalid";
@@ -75,6 +272,9 @@ else{
     }
 }
 
+*/
+
+
 /*function redirectAfterLogin()
 {
     if (isset($_GET['name']))
@@ -87,6 +287,5 @@ else{
         $error= header("location: login-page.php");
     }
 }*/
-
 
 ?>

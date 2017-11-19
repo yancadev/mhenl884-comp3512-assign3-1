@@ -3,6 +3,9 @@
 <?php 
 include 'includes/book-config.inc.php';
 
+/** 
+* Runs all the methods and objects for the browse-single-book.php page.
+*/
 try{
   $db = new ImprintsGateway($connection);
   $string = "";
@@ -48,9 +51,6 @@ try{
       $getisb .= getisbn($row);
         
       }
-      // foreach ($result4 as $row){
-      //   $string4 .= viewImage($row);
-      // }
   }
 
   
@@ -64,6 +64,11 @@ function getisbn($rows){
   return $rows['ISBN10'] . ".jpg";
 }
 
+/** 
+* Prints different types of lists on the main singlebook.php page.
+* @return      details, author, ToDo, and universities.
+* @param       rows
+*/
 function printDetails($rows){
   return "<h3>".$rows['Title']."</h3>" . "<img src ='/book-images/small/" . $rows['ISBN10']. ".jpg'id='imgg' onclick='imgEnlarge()'> <br> ISBN10: " . $rows['ISBN10']."<br>ISBN13: " .
   $rows['ISBN13']."<br>Copyright Year: " . $rows['CopyrightYear']."<br><a href ='browse-books.php?Subcategory=" . $rows['SubcategoryName'] .
@@ -71,9 +76,11 @@ function printDetails($rows){
   "</a><br>BindingType: ".$rows['BindingType']."<br>Trim Size: ".$rows['TrimSize']."<br>Page Count: ".$rows['PageCount'].
   "<br>Description: ".$rows['Description']."<br><br>";
 }
+
 function printAuthors($rows){
   return "<li>" . $rows['FirstName']. " ". $rows['LastName'] . "</li>";
 }
+
 function printUniversities($rows){
   return "<li><a href='browse-universities.php?id=" . $rows['UniversityID'] . "'>" .  $rows['Name'] . "</a></li>";
 }
@@ -95,56 +102,15 @@ function imgEnlarge(){
   var isb = "<?php echo $getisb ?>";
   document.getElementById('imgid').innerHTML = "<img src ='/book-images/large/" + isb + "' id='imglrg'/>";
   
-  
-  
 }
 
-function closeimg(){
+function closeimg() {
   var mod = document.getElementById('imgzoom');
   mod.style.display ="none";
 }
 
-
-/*
-function viewImage($rows)
-{
-  var a = document.querySelectorAll("a img images");
-    for(var i=0; i<a.length; i++)
-    {
-      a[i].addEventListener("click", viewAction());
-    }
-      document.querySelector("images").innerHTML= a[i].attributes["$id"];
-}
-     
-function viewAction()   
-{
-  document.querySelector("images");
-  innerHTML= a[i].attributes["images"];
-  list[i].src + '/book-images/large/. $rows["ISBN10"] . "'>" .jpg";
-}   
-*/
-
-    //["img src ='/book-images/large/. $rows["ISBN10"] . "'>" . ".jpg];
-    // echo '<img src="../book-images/small/' . $row['ISBN10'] . '.jpg" alt="..." class="big image" id="picture">';
-    //     echo '<div class="modal"> <div class="image content">';
-                 
-    //     echo '<img src="../book-images/large/' . $row['ISBN10'] . '.jpg" alt="..." class="image" >';
-                   
 </script>
 
-
-
-
-      
-
- <!-- // ----- function for picture enlargement ----- //
-  // <!-- Should be black but not yet 
-/*function makePageDim()
-{
-    document.write('<div id="dimmer" class="dimmer" style="width:'+
-    window.screen.width + 'px; height:' + window.screen.height +'px"></div>');
-    
-}*/-->
 
 
 

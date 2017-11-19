@@ -30,8 +30,8 @@ include "session.php";
     
     <script src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
   <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue-orange.min.css">
-   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" type="text/css" href="index-design.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" type="text/css" href="index-design.css">
     
     <script src="https://code.jquery.com/jquery-1.7.2.min.js" ></script>
     <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
@@ -43,9 +43,9 @@ include "session.php";
   <!-- -->
   <script src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
   <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue-orange.min.css">
-   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" type="text/css" href="index-design.css">
-    <link rel="stylesheet" href="../css/styles2.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" type="text/css" href="index-design.css">
+  <link rel="stylesheet" href="../css/styles2.css">
 
 </head>
 
@@ -65,7 +65,7 @@ include "session.php";
     </div>
     <div class="mdl-card__supporting-text">
       <h3>Responsible for:</h3>
-      <p>Program Design, Single Book, Login, Logout, Browse Employees</p>
+      <p>Program Design, Single Book, Login, Logout, Browse Universities, and Browse Employees</p>
     </div>
     <div class="mdl-card__actions mdl-card--border">
       <a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
@@ -80,7 +80,7 @@ include "session.php";
     </div>
     <div class="mdl-card__supporting-text">
      <h3>Responsible for:</h3>
-      <p>Navigation, Single Book, Browse Employees</p>
+      <p> Navigation, Single Book, Browse Employees, and Documentation</p>
     </div>
     <div class="mdl-card__actions mdl-card--border">
       <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
@@ -95,7 +95,7 @@ include "session.php";
     </div>
     <div class="mdl-card__supporting-text">
      <h3>Responsible for:</h3>
-      <p>Simple Search, Single Book,</p>
+      <p>Simple Search, Single Book, Login, and Browse Universities</p>
     </div>
     <div class="mdl-card__actions mdl-card--border">
       <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">

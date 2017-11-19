@@ -60,47 +60,51 @@ abstract protected function getPrimaryKeyName();
    /*
       Returns all the records in the table
    */
-public function findAll($sortFields=null)
-{
- $sql = $this->getSelectStatement();
+public function findAll($sortFields=null) {
+    $sql = $this->getSelectStatement();
+ 
  // add sort order if required
  if (! is_null($sortFields)) {
- $sql .= ' ORDER BY ' . $sortFields;
+    $sql .= ' ORDER BY ' . $sortFields;
  }
  $statement = DatabaseHelper::runQuery($this->connection, $sql, null);
  return $statement->fetchAll();
 } 
    
-public function limitBy($limit){
+public function limitBy($limit) {
     $sql = $this->getSelectStatement() . ' limit 0, ' . $limit;
     $statement = DatabaseHelper::runQuery($this->connection, $sql, null);
     return $statement->fetchAll();
 }  
 
-public function orderAndLimit($order, $limit){
+public function orderAndLimit($order, $limit) {
     $sql = $this->getSelectStatement() . ' order by ' . $order . ' limit  ' . $limit;
     $statement = DatabaseHelper::runQuery($this->connection, $sql, null);
     return $statement->fetchAll();
 }
 
-   /*
-      Returns all the records in the table sorted by the specified sort order
-   */
+/*
+*Returns all the records in the table sorted by the specified sort order
+*@param     ascending
+*@return    statement 
+*/
 
 public function findAllSorted($ascending)
 {
- $sql = $this->getSelectStatement() . ' ORDER BY ' .
- $this->getOrderFields();
- if (! $ascending) {
- $sql .= " DESC";
- }
- $statement = DatabaseHelper::runQuery($this->connection, $sql, null);
- return $statement->fetchAll();
+    $sql = $this->getSelectStatement() . ' ORDER BY ' .
+    $this->getOrderFields();
+if (! $ascending) {
+    $sql .= " DESC";
+}
+    $statement = DatabaseHelper::runQuery($this->connection, $sql, null);
+    return $statement->fetchAll();
 } 
    
-   /*
-      Returns a record for the specificed ID
-   */
+/**
+* Returns a record for the specificed ID
+*@param     id
+*@return    statement
+*/
   public function findById($id)
 {
  $sql = $this->getSelectStatement() . ' WHERE ' .
@@ -121,22 +125,22 @@ public function findByField($field, $value)
  return $statement->fetch();
 }  
  
-public function runDifferentSelect($input,$name=null,$id = null, $limit=null){
+public function runDifferentSelect($input, $name=null, $id = null, $limit=null) {
     $sql=$input;
     if (! is_null($name) && ! is_null($id) && ! is_null($limit)){
         $sql .= " where " . $name . "='" . $id . "' limit 0,". $limit;
     }
-    $statement = DatabaseHelper::runQuery($this->connection, $sql,null);
+    $statement = DatabaseHelper::runQuery($this->connection, $sql, null);
     return $statement->fetchAll();
 }
 
 public function runOtherSelect($name=null, $id=null){
   $sql = $this->getSelectStatement();
-  if (! is_null($name) && ! is_null($id)){
+if (! is_null($name) && ! is_null($id)){
         $sql .= " where ". $name . "='" . $id . "'";
   }
-  $statement = DatabaseHelper::runQuery($this->connection, $sql, null);
-  return $statement->fetch();
+    $statement = DatabaseHelper::runQuery($this->connection, $sql, null);
+    return $statement->fetch();
  }
 
 }

@@ -1,6 +1,7 @@
+// Hide and unhide filters within browse-employees
 function switchFunction() {
      /*global x*/
-      var hide = document.getElementById("filter");
+     var hide = document.getElementById("filter");
      
     if (hide.style.display === "none") {
         hide.style.display = "block";
@@ -9,6 +10,8 @@ function switchFunction() {
     
  } 
 }
+
+// Hide and unhide filters within header navigation.
 function searchbar() {
     var x = document.getElementById("searching");
     

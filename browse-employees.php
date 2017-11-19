@@ -1,7 +1,8 @@
-<!-- yanca: fixed employee messages -->
 <!-- Ellen: Created filter card and functions-->
 <?php
-//include "session.php";
+include "session.php";
+include "redirect.php";
+//include "login.php";
 include "page-functions/employee-functions.php";
 
 ?>

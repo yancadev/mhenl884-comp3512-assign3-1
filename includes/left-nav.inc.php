@@ -13,6 +13,5 @@
         <a class="mdl-navigation__link mdl-color-text--blue-grey-300" name = "page" href="browse-universities.php"><i class="material-icons" role="presentation">account_balance</i> Universities</a>
         <a class="mdl-navigation__link mdl-color-text--blue-grey-300" name = "page" href="analytics.php"><i class="material-icons" role="presentation">insert_chart</i> Analytics</a>  
         <a class="mdl-navigation__link mdl-color-text--blue-grey-300" name = "page" href="aboutus.php"><i class="material-icons" role="presentation">contacts</i> About</a>
-       
     </nav>
   </div>
