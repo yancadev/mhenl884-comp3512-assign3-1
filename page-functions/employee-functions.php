@@ -1,7 +1,6 @@
 <?php
 //include "session.php";
 include 'includes/book-config.inc.php';
-
 /** 
 * Runs all the methods and objects for the browse-employees.php page.
 */
@@ -20,6 +19,7 @@ try {
     $string1="";
     $string2="";
     $string3="";
+    $string4='';
     $string5="";
     
     // --- output employee details --- //
@@ -42,7 +42,7 @@ try {
     
     
     // --- output message --- // 
-   $sql5 ="SELECT mess.MessageDate, mess.Category, mess.ContactID, mess.Content, con.FirstName, con.LastName, mess.EmployeeID	FROM	EmployeeMessages AS mess JOIN Contacts AS con  USING (ContactID)";
+   $sql5 ="SELECT mess.MessageDate, mess.Category, mess.ContactID, mess.Content, con.FirstName, con.LastName, mess.EmployeeID FROM EmployeeMessages AS mess JOIN Contacts AS con  USING (ContactID)";
     if(isset($_GET['id'])){
         $result5 = $db-> runDifferentSelect($sql5, "EmployeeID", $_GET['id'],20);
         foreach($result5 as $row){
@@ -58,6 +58,7 @@ try {
     foreach($result3 as $row){
          $string4 .= createCityList($row);
     }
+    
     
     if(isset($_GET['City'])){
         $result4 =  $db->runDifferentSelect($sql, "City",$_GET['City'], 30);
@@ -115,3 +116,4 @@ function createCityList($rows)
     
 }
 
+?>

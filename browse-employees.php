@@ -1,7 +1,7 @@
 <!-- Ellen: Created filter card and functions-->
 <?php
-include "session.php";
-include "redirect.php";
+//include "session.php";
+//include "redirect.php";
 //include "login.php";
 include "page-functions/employee-functions.php";
 
@@ -153,8 +153,6 @@ include "page-functions/employee-functions.php";
                 <div class="mdl-card__supporting-text">
                     
                 <!--<a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"> -->   
-        
-        
         
         <!-- Filter -->
         <button onclick="switchFunction()">View/Hide Filters</button>

@@ -36,21 +36,16 @@ include 'login.php';
 			
 	  	    <div class="mdl-card__supporting-text">
 	  	    <!-- NEEDS REDIRECTING TO PREVIOUS PAGE OR INDEX -->
-				<form id="mainform" action="" method="post"  main="mainform">
-					<div class="mdl-textfield mdl-js-textfield">
-						<input class="mdl-textfield__input" type="text" id="username" name="username"/>
-						<label class="mdl-textfield__label" for="username">Username</label>
-					</div>
-					<div class="mdl-textfield mdl-js-textfield">
-						<input class="mdl-textfield__input" type="password" id="password" name="password"/>
-						<label class="mdl-textfield__label" for="userpass">Password</label>
-					</div>
-			
-			        <div class="mdl-card__actions mdl-card--border">
-				        <input type="submit"/>
-				        
-			        </div>
-			     </form>
+				<div id="login">
+                            <form action="" method="post">
+                                <label>UserName :</label>
+                                <input id="username" name="username" placeholder="username" type="text">
+                                <label>Password :</label>
+                                <input id="password" name="password" placeholder="**********" type="password">
+                                <input name="submit" type="submit" value=" Login ">
+                                <span><?php echo $error; ?></span>
+                            </form>
+                        </div>
 		    </div>
 		</div>
 		

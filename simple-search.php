@@ -1,4 +1,3 @@
-<!-- ARE WE EVEN USING THIS? -->
 <?php
 function getSearchResult(){
     include 'includes/book-config.inc.php';
