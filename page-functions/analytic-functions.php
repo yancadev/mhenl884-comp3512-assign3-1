@@ -1,33 +1,42 @@
 <?php
 include 'includes/book-config.inc.php';
 try {
-    $db = new BooksVisitGateway($connection);
-    $result = $db-> limitBy(30);
-    
-    
-    // --- list employees --- //
+    $db = new AnalyticsGateway($connection);
+    //$result = $db-> limitBy(30);
 
-    }
-    
     $string1="";
-    $string2="";
-    // $string3="";
-    // $string4='';
-    // $string5="";
+    $sql1 = "Select VisitID, CountryName from BookVisits JOIN Countries on Countries.CountryCode = BookVisits.CountryCode LIMIT 15";
     
-    // --- output employee details --- //
-    $sql = "SELECT  FROM BooksVisit ";
-    if (isset($_GET['id'])) {
-        $result1 = $db-> runDifferentSelect($sql, "VisitID",$_GET['id'], 1);
-        foreach($result1 as $row){
-            $string1 .= outputCountries($row);
-        }
+    $result = $db->runDifferentSelect($sql1);
+    foreach ($result as $row){
+        $string1 .= outputCountries($row);
     }
+    
+
+   /*   $sql2 = "select  ToDoID, EmployeeID, DateBy, Status, Priority, Description from ....";
+    if(isset($_GET['id'])){
+        $result2 = $db-> runDifferentSelect($sql2, "EmployeeID", $_GET['id'],20);
+        foreach($result2 as $row){
+            $string2 .= outputToDo($row);
+        }
+    }   */ 
 }
-catch (Exception $e)
-    {
+catch (Exception $e){
         die($e -> getMessage());
     }
+
+function outputCountries($rows) {
+    return '<option value="'.$rows['CountryName'].'">'.$rows['CountryName'].'</option>';
+    
+}
+
+function outputAnalytics($rows){
+    return "<tr><td class='mdl-data-table__cell--non-numeric'>". $rows['1-10']."</td><td class='mdl-data-table__cell--non-numeric'>".
+    $rows['Books']."</td><td class='mdl-data-table__cell--non-numeric'>". $rows['Titles']."</td><td class='mdl-data-table__cell--non-numeric'>".
+    $rows['Total Quantity']."</td></tr>";
+}
+
+
 
 
 ?>

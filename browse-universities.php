@@ -81,6 +81,15 @@ include "page-functions/uni-functions.php";
                              echo $string3;
                            ?>
                            
+                           <?php
+                            echo "<div id='map'></div><script>";
+                            include "js/map-functions.js";
+                            echo "setLatLong($latitude, $longitude)";
+                            echo "</script>";
+                            echo '<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzIctYz_Tgsj-2I7xuE6nd4gkPutMhO6w&callback=initMap"></script>';
+                                
+                           ?>
+                           
          
                           </div>
                           <div class="mdl-tabs__panel" id="todo-panel">

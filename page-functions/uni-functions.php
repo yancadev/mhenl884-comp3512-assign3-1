@@ -35,10 +35,15 @@ try{
         
     }
     
+    $map = "";
+    $latitude = "";
+    $longitude = "";
     if(isset($_GET['id'])){
         $result3 = $db-> runDifferentSelect($sql, "UniversityID", $_GET['id'],1);
         foreach($result3 as $row){
             $string3 .=  outputDetails($row);
+            $latitude .= $row['Latitude'];
+            $longitude .= $row["Longitude"];
             $db = new UniversitiesGateway($connection);
             $result4 = $db-> limitBy(20);
             foreach ($result as $row){
@@ -73,6 +78,8 @@ function createList($rows) {
 
 function outputDetails($rows){
   return "<h2>". $rows["Name"]."</h2>". "<p>" .$rows["Address"]. "<br>" . $rows["City"] . ", " . $rows["State"] . "  ". $rows["Zip"]. 
-  "<br> Longitude: " . $rows["Longitude"] . " || Latitude: " .$rows["Latitude"]. "<br>" . $rows["Website"] . "</p>";
+  /*"<br> Longitude: " . $rows["Longitude"] . " || Latitude: " .$rows["Latitude"].*/ "<br>" . $rows["Website"] . "</p>";
 }
+
+
 ?>

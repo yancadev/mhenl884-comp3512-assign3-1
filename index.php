@@ -27,23 +27,13 @@
     
     
     
-    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
-  <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue-orange.min.css">
+   <script src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
+   <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue-orange.min.css">
    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" type="text/css" href="index-design.css">
+   <link rel="stylesheet" type="text/css" href="index-design.css">
     
     <script src="https://code.jquery.com/jquery-1.7.2.min.js" ></script>
     <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
-  
-  
-  
-  
-  
-  <!-- -->
-  <script src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
-  <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue-orange.min.css">
-   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" type="text/css" href="index-design.css">
     <link rel="stylesheet" href="../css/styles2.css">
 
 </head>

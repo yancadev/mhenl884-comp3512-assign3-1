@@ -8,14 +8,24 @@
   
   <head>
     <title>Analytics</title>
-    <meta charset="utf-8">
-    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+  <!-- test test -->
+  
+   <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-orange.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+
+    
+    
+    
+   <script src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
+   <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue-orange.min.css">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+   <link rel="stylesheet" type="text/css" href="index-design.css">
     
     <script src="https://code.jquery.com/jquery-1.7.2.min.js" ></script>
     <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+    <link rel="stylesheet" href="../css/styles2.css">
     
 <body>
   
@@ -28,100 +38,123 @@
               
     <main class="mdl-layout__content mdl-color--grey-50">
      <section class="page-content">
-  <!-- 	Browse Universities Card -->
-  <div class="mdl-card mdl-shadow--2dp demo-card-square" >
-    <div class="mdl-card__title mdl-card--expand">
-    <form action= "browse-employees.php" method="GET">
-     <label for="filter-country">Choose a country</label>
-          <select name="country"><option value=""> Choose a country </option><?php echo $string4; ?></select>
+    
+        <div class="mdl-grid">
+  <!-- 	Analytic country card -->
+  <div class="mdl-cell mdl-cell--2-col card-lesson mdl-card  mdl-shadow--2dp">
+  <div class="mdl-card__title mdl-color--purple">
+    <h2 class="mdl-card__title-text">Top Views</h2>
+  </div>
+  <div class="mdl-card__supporting-text">
+  
+       <form action= "analytics.php" method="GET">
+         <label for="filter-country"></label>
+          <select name="country"><option value="">Choose a country</option><?php echo $string1; ?></select>
           <br>
           <br>
            <input type="submit">
-    </form>  
-    </div>
-    <div class="mdl-card__supporting-text">
+        </form>
     
     </div>
-    <div class="mdl-card__actions mdl-card--border">
-      <a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect" href="/browse-universities.php">
-          Browse Universities
-        </a>
-    </div>
-  </div>
-  <!-- Browse Books Card -->
-  <div class="mdl-card mdl-shadow--2dp demo-card-square">
-    <div class="mdl-card__title mdl-card__accent mdl-card--expand">
-      <img src="../images/books.jpg" alt="Browse books">
-    </div>
-    <div class="mdl-card__supporting-text">
      
     </div>
-    <div class="mdl-card__actions mdl-card--border">
-      <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/browse-books.php">
-          Browse Books
-        </a>
-    </div>
-  </div>
-  <!-- Browse Employees card -->
-  <div class="mdl-card mdl-shadow--2dp demo-card-square">
-    <div class="mdl-card__title mdl-card--expand">
-      <img src="../images/employee.jpg" alt="Browse employee"> 
-    </div>
-    <div class="mdl-card__supporting-text">
-         </div>
-    <div class="mdl-card__actions mdl-card--border">
-      <a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect" href="/browse-employees.php">
-         Browse Employees 
-        </a>
-    </div>
-  </div>
-  <!-- About Card -->
-  <div class="mdl-card mdl-shadow--2dp demo-card-square">
-    <div class="mdl-card__title mdl-card--expand">
-       <img src="../images/about.JPG" alt="About">
-    </div>
-    <div class="mdl-card__supporting-text">
-     
-    </div>
-    <div class="mdl-card__actions mdl-card--border">
-      <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/aboutus.php">
-          About 
-        </a>
-        
-    </div>
-    </div>
+
+    <!--will put into separate horizontal boxes in a bit-->
+   <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp">
+                <div class="mdl-card__title mdl-color--purple">
+                  <h2 class="mdl-card__title-text">Country Statistics</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                <ul class="demo-list-item mdl-list" style="height:150px; ">
+             
+                  
+ 
+             <table class="mdl-data-table  mdl-shadow--2dp">
+                                  <thead>
+                                    <tr>
+                                      <th class="mdl-data-table__cell--non-numeric"><i class="material-icons">people_outline</i> Total Visits in June: </th>
+                            
+  
+                                      <th class="mdl-data-table__cell--non-numeric"><i class="material-icons">public</i> Number of <br> different countries</th>
+                                      <th class="mdl-data-table__cell--non-numeric"><i class="material-icons">format_list_numbered</i> Total ToDos</th>
+                                      <th class="mdl-data-table__cell--non-numeric"><i class="material-icons">mail_outline</i> Total Messages</th>
+                                    </tr>
+                                  </thead>
+                                  
+                                  
+                                  <tbody>
+                                   
+                                    <?php /*  display TODOs  */ 
+                                        echo $string5;
+                                    
+                                    ?>
+                            
+                                  </tbody>
+                                  </table>
+
+             
+          
+        <!--<div class="mdl-cell mdl-cell--1-col card-lesson mdl-card  mdl-shadow--2dp" style="width:0.5cm;">  
+                    Number of Visits in June: <?php ?>
+        </div> 
+            </li> 
+            
+             
+         <div class="mdl-cell mdl-cell--1-col card-lesson mdl-card  mdl-shadow--2dp" style="width:0.5cm;">
+                    Visitors from <?php ?> different countries 
+        </div>  
+             </li> 
+             
+             <li>
+         <div class="mdl-cell mdl-cell--1-col card-lesson mdl-card  mdl-shadow--2dp" style="width:0.5cm;">
+                    Total number of employees Todos in June 2017: <?php ?>  
+        </div>
+             </li> 
+             <li> 
+         <div class="mdl-cell mdl-cell--1-col card-lesson mdl-card  mdl-shadow--2dp" style="width:0.5cm;">
+                    total number of employee messages in June 2017 <?php ?>
+          </div>               
+             </li>-->
+                    
+                </ul>
+                </div>
+              </div>  <!-- / mdl-cell + mdl-card --> 
+    
+  <div class="mdl-cell mdl-cell--11-col card-lesson mdl-card  mdl-shadow--2dp">
+                <div class="mdl-card__title mdl-color--orange">
+                  <h2 class="mdl-card__title-text">Top 10 Adopted Books</h2>
+                </div>
+                <div class="mdl-card__supporting-text"> 
+                
+                 <table class="mdl-data-table  mdl-shadow--2dp">
+                                  <thead>
+                                    <tr>
+                                      <th class="mdl-data-table__cell--non-numeric">1-10</th>
+                                      <th class="mdl-data-table__cell--non-numeric">Books</th>
+                                      <th class="mdl-data-table__cell--non-numeric">Titles</th>
+                                      <th class="mdl-data-table__cell--non-numeric">Total Quantity</th>
+                                    </tr>
+                                  </thead>
+                                  
+                                  
+                                  <tbody>
+                                   
+                                    <?php /*  display TODOs  */ 
+                                        echo $string5;
+                                    
+                                    ?>
+                            
+                                  </tbody>
+                                  </table>
+                                  
+                
+                
+                </div>     
+                 
   </section>
   </main>
   </div>    <!-- / mdl-layout --> 
   </body>
-  <!-- Square card 
-  <div class="mdl-card mdl-shadow--2dp demo-card-square">
-    <div class="mdl-card__title mdl-card--expand">
-      <h2 class="mdl-card__title-text">Card 5</h2>
-    </div>
-    <div class="mdl-card__supporting-text">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenan convallis.
-    </div>
-    <div class="mdl-card__actions mdl-card--border">
-      <a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
-          Action
-        </a>
-    </div>
-  </div>
-  <!-- Square card 
-  <div class="mdl-card mdl-shadow--2dp demo-card-square">
-    <div class="mdl-card__title mdl-card--expand">
-      <h2 class="mdl-card__title-text">Card 6</h2>
-    </div>
-    <div class="mdl-card__supporting-text">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenan convallis.
-    </div>
-    <div class="mdl-card__actions mdl-card--border">
-      <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-          Action
-        </a>
-    </div>
-  </div>
-</body>-->
+
 
 </html> 
