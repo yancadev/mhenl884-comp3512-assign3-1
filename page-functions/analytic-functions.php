@@ -2,10 +2,10 @@
 include 'includes/book-config.inc.php';
 try {
     $db = new AnalyticsGateway($connection);
-    //$result = $db-> limitBy(30);
+    $result = $db-> limitBy(30);
 
     $string = "";
-    $sql = "Select BookVisits.VisitID, Countries.CountryName from BookVisits JOIN Countries on Countries.CountryCode = BookVisits.CountryCode";
+    $sql = "Select distinct VisitID, CountryName from BookVisits JOIN Countries on Countries.CountryCode = BookVisits.CountryCode";
     $result = $db->runDifferentSelect($sql);
     foreach ($result as $row){
         $string .= outputCountries($row);
