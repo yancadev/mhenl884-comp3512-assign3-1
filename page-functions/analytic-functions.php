@@ -4,12 +4,11 @@ try {
     $db = new AnalyticsGateway($connection);
     //$result = $db-> limitBy(30);
 
-    $string1="";
-    $sql1 = "Select VisitID, CountryName from BookVisits JOIN Countries on Countries.CountryCode = BookVisits.CountryCode LIMIT 15";
-    
-    $result = $db->runDifferentSelect($sql1);
+    $string = "";
+    $sql = "Select BookVisits.VisitID, Countries.CountryName from BookVisits JOIN Countries on Countries.CountryCode = BookVisits.CountryCode";
+    $result = $db->runDifferentSelect($sql);
     foreach ($result as $row){
-        $string1 .= outputCountries($row);
+        $string .= outputCountries($row);
     }
     
 
@@ -23,7 +22,7 @@ try {
 }
 catch (Exception $e){
         die($e -> getMessage());
-    }
+}
 
 function outputCountries($rows) {
     return '<option value="'.$rows['CountryName'].'">'.$rows['CountryName'].'</option>';

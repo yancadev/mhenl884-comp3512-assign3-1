@@ -49,7 +49,7 @@
   
        <form action= "analytics.php" method="GET">
          <label for="filter-country"></label>
-          <select name="country"><option value="">Choose a country</option><?php echo $string1; ?></select>
+          <select name="country"><option value="">Choose a country</option><?php echo $string; ?></select>
           <br>
           <br>
            <input type="submit">
@@ -65,19 +65,28 @@
                   <h2 class="mdl-card__title-text">Country Statistics</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
-                <ul class="demo-list-item mdl-list" style="height:150px; ">
+                <ul class="demo-list-item mdl-list" style="height:125px; ">
              
                   
  
              <table class="mdl-data-table  mdl-shadow--2dp">
                                   <thead>
                                     <tr>
-                                      <th class="mdl-data-table__cell--non-numeric"><i class="material-icons">people_outline</i> Total Visits in June: </th>
-                            
-  
-                                      <th class="mdl-data-table__cell--non-numeric"><i class="material-icons">public</i> Number of <br> different countries</th>
-                                      <th class="mdl-data-table__cell--non-numeric"><i class="material-icons">format_list_numbered</i> Total ToDos</th>
-                                      <th class="mdl-data-table__cell--non-numeric"><i class="material-icons">mail_outline</i> Total Messages</th>
+                                      <th class="mdl-data-table__cell--non-numeric"><i class="material-icons">people_outline</i> Total Visits in June 
+                                         <div class="mdl-card__supporting-text"><?php    ?></div>
+                                       </th>   
+                                       
+                                      <th class="mdl-data-table__cell--non-numeric"><i class="material-icons">public</i> Number of countries
+                                      <div class="mdl-card__supporting-text"><?php    ?></div>
+                                      </th>
+                                      
+                                      <th class="mdl-data-table__cell--non-numeric"><i class="material-icons">format_list_numbered</i> Total ToDos
+                                      <div class="mdl-card__supporting-text"><?php    ?></div>
+                                      </th>
+                                      
+                                      <th class="mdl-data-table__cell--non-numeric"><i class="material-icons">mail_outline</i> Total Messages
+                                      <div class="mdl-card__supporting-text"><?php    ?></div>
+                                      </th>
                                     </tr>
                                   </thead>
                                   
@@ -92,29 +101,7 @@
                                   </tbody>
                                   </table>
 
-             
-          
-        <!--<div class="mdl-cell mdl-cell--1-col card-lesson mdl-card  mdl-shadow--2dp" style="width:0.5cm;">  
-                    Number of Visits in June: <?php ?>
-        </div> 
-            </li> 
-            
-             
-         <div class="mdl-cell mdl-cell--1-col card-lesson mdl-card  mdl-shadow--2dp" style="width:0.5cm;">
-                    Visitors from <?php ?> different countries 
-        </div>  
-             </li> 
-             
-             <li>
-         <div class="mdl-cell mdl-cell--1-col card-lesson mdl-card  mdl-shadow--2dp" style="width:0.5cm;">
-                    Total number of employees Todos in June 2017: <?php ?>  
-        </div>
-             </li> 
-             <li> 
-         <div class="mdl-cell mdl-cell--1-col card-lesson mdl-card  mdl-shadow--2dp" style="width:0.5cm;">
-                    total number of employee messages in June 2017 <?php ?>
-          </div>               
-             </li>-->
+     
                     
                 </ul>
                 </div>
