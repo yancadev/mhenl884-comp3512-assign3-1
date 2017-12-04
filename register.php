@@ -39,10 +39,10 @@
 						<label>Country:</label> <input type="text" name="" class="required hifield"><br/><br/>
 						<label>Postal code:</label> <input type="text" name="" class="hifield"><br/><br/>
 						<label>Phone:</label> <input type="number" name="" class="hifield"><br/><br/>
-						<label>Email:</label> <input type="email" name="" class="required hifield"><br/><br/>
-						<label>Password:</label> <input type="password" name="" class="hifield"><br/><br/>
-						<label>Re-enter Password:</label> <input type="password" name="" class="hifield"><br/><br/>
-						
+						<label>Email:</label> <input type="email" name="email" class="required hifield" id="em" pattern="([A-Za-z0-9_\.\-])+@[\w]+\.[\w]{2,6}" title="format: abc@x.yz"><br/><br/>
+						<label>Password:</label> <input type="password" name="pass" id="pass" class="hifield"><br/><br/>
+						<label>Re-enter Password:</label> <input type="password" name="conf" id="conf" class="hifield"><br/><br/>
+						<span id="mess" class="mess"></span>
 						<br/>
 						<div class="mdl-card__actions mdl-card--border">
 						<input type="submit" name="register"> 
@@ -63,15 +63,44 @@
 		
 		<script>
 		
+
+    var pass1 = document.getElementById('pass');
+    var pass2 = document.getElementById('conf');
+    var message = document.getElementById('mess');
+    var correct = "#ace1af";
+    var mismatch = "#ffb7c5";
+
+
+$(document).ready(function() {
+  $("#conf").keyup(validate);
+});
+
+
+function validate() {
+  var password1 = $("#pass").val();
+  var password2 = $("#conf").val();
+
+    
+ 
+    if(password1 == password2) {
+    	pass2.style.backgroundColor = correct;
+            
+    }
+    else {
+    	pass2.style.backgroundColor = mismatch;
+        
+    }
+    
+}
+
 		
 function	setBackground(e)	{
 				if	(e.type	==	"focus")	{
 							e.target.classList.toggle('highlight');
-							console.log("got it");
 				}
 				else	if	(e.type	==	"blur")	{
 								e.target.classList.toggle('highlight');
-								checkForEmptyFields(e);
+								//checkForEmptyFields(e);
 								
 				}
 }
@@ -81,12 +110,10 @@ function	setBackground(e)	{
 window.addEventListener("load",	function(){
 				var	cssSelector	=	"input[type=text]";
 				var	fields	=	document.querySelectorAll(cssSelector);
-				console.log("gets in");
 				for	(var i=0;	i<fields.length;	i++)
 				{
 								
 								fields[i].addEventListener("focus",	setBackground);
-								console.log("comeo n");
 								fields[i].addEventListener("blur",	setBackground);
 								
 								
@@ -101,16 +128,14 @@ window.addEventListener("load",	function(){
 
 function	init()	{
 				document.getElementById("reg").addEventListener("submit", checkForEmptyFields);
-				console.log("init");
 }
 
 //	initialize	handlers	once	page	is	ready	
 window.addEventListener("load",	init);
-console.log("addev");
+
 
 //	ensures	form	fields	are	not	empty	
 function	checkForEmptyFields(e)	{	
-	console.log("emptyf");
 	var	cssSelector	=	"input[type=text], input[type=email], input[type=password]";
 	var	fields	=	document.querySelectorAll(cssSelector);
 //	loop	thru	the	input	elements	looking	for	empty	values
@@ -120,7 +145,6 @@ function	checkForEmptyFields(e)	{
 		if	(fields[i].classList.contains('required') && fields[i].value	==	null || fields[i].classList.contains('required') && fields[i].value	==	"")	{
 		//	since	a	field	is	empty	prevent	the	form	submission
 			e.preventDefault();
-			console.log("if req");
 			//fieldList.push( fields[i]);
 			fields[i].classList.add('error');
 		} else {

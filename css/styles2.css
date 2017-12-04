@@ -228,12 +228,7 @@ container h2 {
 .card-lesson > .mdl-card__title, .card-lesson > .mdl-card__supporting-text, .card-lesson > .mdl-card__actions, .card-lesson > .mdl-card__actions > .mdl-button {
     _color: #fff;
 }
-/*.div > .mdl-cell .card-lesson .mdl-card > .li{
-    display: inline-block !important;
-}*/
-/*.mdl-card-square .ul #li{
-    display: inline-block !important;
-}*/
+
 
 ul{
 	width: 100%;
@@ -249,5 +244,3 @@ li{
 	background-color: #efefef;
 	margin: 0 10px;
 }
-
-.inlinesparkline  {width: 70%;}
