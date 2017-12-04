@@ -28,7 +28,7 @@ class AnalyticsGateway extends TableDataGateway {
  return "VisitID";
  }
  
-public function retrieveVisits(){
+/*public function retrieveVisits(){
  return $this->runDifferentSelect("Select VisitID, CountryName from BookVisits JOIN Countries on Countries.CountryCode = BookVisits.CountryCode LIMIT 15");
 }
 
@@ -50,7 +50,7 @@ public function retrieveMessages(){
 
 public function retrieveToDo(){
  return $this->runDifferentSelect("SELECT COUNT( * ) AS  `todocount` FROM EmployeeToDo WHERE  `DateBy` >  '2017-06-01*' AND  `DateBy` <  '2017-06-31*'");
-}
+}*/
 }
 
 ?>

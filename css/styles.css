@@ -1,3 +1,43 @@
+.highlight {
+    background-color: #FFE0B2;
+} 
+
+ 
+
+.error {
+    background: #FFCDD2 url(error.png) no-repeat 98% center;
+    box-shadow: 0 0 5px #FF5252;
+    border-color: #FF1744;    
+}
+
+#regis .mdl-layout {
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+}
+#regis .mdl-layout__content {
+	padding: 24px;
+	flex: none;
+	text-align: left;
+}
+
+#reg label {
+    float: left; 
+    width: 120px; 
+    text-align: left;
+    
+}
+
+#reg input {
+    float: right;
+    width: 150px; 
+    text-align: left;
+}
+
+
+
+
+
 #imgzoom {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -13,6 +53,8 @@
     display: none;
 }
 
+
+
 #logindiv .mdl-layout {
 	align-items: center;
     justify-content: center;
@@ -23,6 +65,7 @@
 	flex: none;
 	text-align: center;
 }
+
 
 #imgid {
     position: relative;
@@ -218,3 +261,6 @@ main header h4 {
 
 
 .inlinesparkline  {width: 70%;}
+
+
+
