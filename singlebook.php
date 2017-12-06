@@ -91,7 +91,7 @@ include "page-functions/single-book-functions.php";
 </div>
               
             </div>  
-            
+<!--Code modified from modal image obtained from https://www.w3schools.com/howto/howto_js_lightbox.asp -->           
     <div id="imgzoom" class="modal" >
         
     <div class="inmodal" id="imgid" onclick="closeimg()"/>

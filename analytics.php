@@ -1,6 +1,6 @@
 <?php 
 //include "session.php";
-
+//include "Service/service-totals.php";
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +25,7 @@
     
     <script src="https://code.jquery.com/jquery-1.7.2.min.js" ></script>
     <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+    <script type="text/javascript" src="js/analytics.js"></script>
     <link rel="stylesheet" href="../css/styles2.css">
     
 <body>
@@ -40,6 +41,7 @@
      <section class="page-content">
     
         <div class="mdl-grid">
+            
   <!-- 	Analytic country card -->
   <div class="mdl-cell mdl-cell--2-col card-lesson mdl-card  mdl-shadow--2dp">
   <div class="mdl-card__title mdl-color--purple">
@@ -49,7 +51,7 @@
   
        <form action= "analytics.php" method="GET">
          <!--<label for="filter-country"></label>-->
-          <select id="country" name="country"><option value="">Choose a country</option><?php echo $string ?></select>
+          <select id="country" name="country"><option value="">Choose a country</option><?php  ?></select>
           <!-- <input type="submit">-->
         </form>
         <span id = "result"><span>
@@ -140,7 +142,10 @@
                 
                 
                 </div>     
-                 
+                 <?php  
+                    //include 'page-functions/analytic-functions.php';
+                    
+                 ?>
   </section>
   </main>
   </div>    <!-- / mdl-layout --> 

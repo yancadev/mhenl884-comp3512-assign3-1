@@ -1,4 +1,4 @@
-<?php ?>
+<?php include 'insert.php' ?>
 
 
 
@@ -30,22 +30,22 @@
 			</div>
 	  	<div class="mdl-card__supporting-text">
 	  		
-				<form action="#" method="" id="reg">
-						<label>First Name:</label> <input type="text" name="" class="hifield"><br/><br/>
-						<label>Last Name: </label> <input type="text" name="" class="required hifield"><br/><br/>
-						<label>Address: </label> <input type="text" name="" class="hifield"><br/><br/>
-						<label>City:</label> <input type="text" name="" class="required hifield"><br/><br/>
-						<label>Region:</label> <input type="text" name="" class="hifield"><br/><br/>
-						<label>Country:</label> <input type="text" name="" class="required hifield"><br/><br/>
-						<label>Postal code:</label> <input type="text" name="" class="hifield"><br/><br/>
-						<label>Phone:</label> <input type="number" name="" class="hifield"><br/><br/>
-						<label>Email:</label> <input type="email" name="email" class="required hifield" id="em" pattern="([A-Za-z0-9_\.\-])+@[\w]+\.[\w]{2,6}" title="format: abc@x.yz"><br/><br/>
+				<form action="insert.php" method="POST" id="reg">
+						<label>First Name:</label> <input type="text" name="FirstName" class="hifield"><br/><br/>
+						<label>Last Name: </label> <input type="text" name="LastName" class="required hifield"><br/><br/>
+						<label>Address: </label> <input type="text" name="Address" class="hifield"><br/><br/>
+						<label>City:</label> <input type="text" name="City" class="required hifield"><br/><br/>
+						<label>Region:</label> <input type="text" name="Region" class="hifield"><br/><br/>
+						<label>Country:</label> <input type="text" name="Country" class="required hifield"><br/><br/>
+						<label>Postal code:</label> <input type="text" name="Postal" class="hifield"><br/><br/>
+						<label>Phone:</label> <input type="number" name="Phone" class="hifield"><br/><br/>
+						<label>Email:</label> <input type="email" name="Email" class="required hifield" id="em" pattern="([A-Za-z0-9_\.\-])+@[\w]+\.[\w]{2,6}" title="format: abc@x.yz"><br/><br/>
 						<label>Password:</label> <input type="password" name="pass" id="pass" class="hifield"><br/><br/>
 						<label>Re-enter Password:</label> <input type="password" name="conf" id="conf" class="hifield"><br/><br/>
 						<span id="mess" class="mess"></span>
 						<br/>
 						<div class="mdl-card__actions mdl-card--border">
-						<input type="submit" name="register"> 
+						<input type="submit" name="submit" value="submit"> 
 						</div>
 				</form>
 			</div>
@@ -84,13 +84,10 @@ function validate() {
  
     if(password1 == password2) {
     	pass2.style.backgroundColor = correct;
-            
     }
     else {
     	pass2.style.backgroundColor = mismatch;
-        
-    }
-    
+    }	
 }
 
 		

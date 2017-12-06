@@ -1,4 +1,5 @@
 // Hide and unhide filters within browse-employees
+/* Code modified from toggle Hide/Show obtained from https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp */
 function switchFunction() {
      /*global x*/
      var hide = document.getElementById("filter");
@@ -12,13 +13,14 @@ function switchFunction() {
 }
 
 // Hide and unhide filters within header navigation.
+/* Code modified from toggle Hide/Show obtained from https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp */
 function searchbar() {
-    var x = document.getElementById("searching");
+    var hide = document.getElementById("searching");
     
-     if (x.style.display === "none") {
-        x.style.display = "block";
+     if (hide.style.display === "none") {
+        hide.style.display = "block";
     } else {
-        x.style.display = "none";
+        hide.style.display = "none";
     
  } 
 }

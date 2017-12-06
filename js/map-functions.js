@@ -1,10 +1,5 @@
-function setLatLong(lat, long) {
-            this.lat= lat;
-            this.long= long;
-}
-
-function initMap(){
-    var uluru = {lat: this.lat, lng: this.long};
+function initMap(lat, long){
+    var uluru = {lat: lat, lng: long};
     var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 14,
     center: uluru

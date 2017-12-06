@@ -14,6 +14,13 @@ class LoginGateway extends TableDataGateway {
  protected function getSelectStatement() {
  return "select UserID, UserName, Password, Salt, State, DateJoined, DateLastModified from UsersLogin";
  }
+ 
+ 
+ 
+
+ 
+ 
+ 
 
 /** 
 * Returns the following fields and primary key

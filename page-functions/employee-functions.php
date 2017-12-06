@@ -90,6 +90,8 @@ catch (Exception $e) {
 * @return      employees, addresses, ToDo, messages, and cities.
 * @param       rows
 */
+
+
 function createEmployeeList($rows){
     return  "<li><a href='?id=".$rows['EmployeeID']."'> ".$rows['FirstName']." ".$rows['LastName'] ."</a></li>";
 }

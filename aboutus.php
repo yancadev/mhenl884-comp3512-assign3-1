@@ -145,6 +145,10 @@ include "session.php";
                     <td>MDL: Cards</td>
                     <td><a href="https://codepen.io/arnaudin/pen/RPvjwz"target="_blank">Click Here</a></td>
                   </tr>
+                  <tr>
+                    <td>W3schools</td>
+                    <td><a href="https://www.w3schools.com/"target="_blank">Click Here</a></td>
+                  </tr>
                 </table>
  
   </section>

@@ -5,12 +5,10 @@ try {
     //$result = $db-> limitBy(30);
 
     //output country list
-    $string = "";
-    $sql = "Select distinct VisitID, CountryName from BookVisits JOIN Countries on Countries.CountryCode = BookVisits.CountryCode";
-    // $sql = "Select distinct  VisitID, CountryName from BookVisits INNER JOIN Countries on Countries.CountryCode = BookVisits.CountryCode";
-    $result = $db->runDifferentSelect($sql);
-    foreach ($result as $row){
-        $string .= outputCountries($row);
+    include 'Service/service-topCountries.php';
+    $countryArray = json_decode($countries, true);
+    foreach ($countryArray as $c) {
+        outputCountries($c);
     }
     
     //country stats
@@ -53,8 +51,8 @@ catch (Exception $e){
         die($e -> getMessage());
 }
 
-function outputCountries($rows) {
-    return '<option value="'.$rows['CountryName'].'">'.$rows['CountryName'].'</option>';
+function outputCountries($array) {
+    return '<option value="'.$array[2].'">'.$array[1].'</option>';
     
 }
 
