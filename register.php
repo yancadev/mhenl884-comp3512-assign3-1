@@ -25,6 +25,8 @@
     <div class="mdl-layout mdl-js-layout mdl-color--grey-100">
 	<main class="mdl-layout__content">
 		<div class="mdl-card mdl-shadow--6dp">
+			
+			
 			<div class="mdl-card__title mdl-color--primary mdl-color-text--white">
 				<h2 class="mdl-card__title-text">Register </h2>
 			</div>
@@ -47,8 +49,18 @@
 						<div class="mdl-card__actions mdl-card--border">
 						<input type="submit" name="submit" value="submit"> 
 						</div>
+						
+						
 				</form>
+				<div id="errorlog">	
+				
 			</div>
+			</div>
+					
+			
+			
+		
+			
 			
 		</div>
 	</main>
@@ -63,6 +75,9 @@
 		
 		<script>
 		
+		var	errorArea	=	document.getElementById("errorlog");
+				errorArea.className	=	"hidden";
+				errorArea.innerHTML	=	" error! user already exists!";
 
     var pass1 = document.getElementById('pass');
     var pass2 = document.getElementById('conf');
@@ -133,6 +148,9 @@ window.addEventListener("load",	init);
 
 //	ensures	form	fields	are	not	empty	
 function	checkForEmptyFields(e)	{	
+	
+	 
+	
 	var	cssSelector	=	"input[type=text], input[type=email], input[type=password]";
 	var	fields	=	document.querySelectorAll(cssSelector);
 //	loop	thru	the	input	elements	looking	for	empty	values
@@ -144,6 +162,16 @@ function	checkForEmptyFields(e)	{
 			e.preventDefault();
 			//fieldList.push( fields[i]);
 			fields[i].classList.add('error');
+			
+
+			
+			/*
+				$(function(){
+			$("submit").on("click", function(){
+				$("#errorlog").css("display", "block");
+			});
+			}); */
+		
 		} else {
 			fields[i].classList.remove('error');
 		}

@@ -1,5 +1,5 @@
 <?php
-include 'includes/book-config.inc.php';
+//include 'includes/book-config.inc.php';
 
 /** 
 * Runs all the methods and objects for the browse-book.php page.

@@ -1,11 +1,11 @@
 <?php
-include 'includes/book-config.inc.php';
+//include 'includes/book-config.inc.php';
 try {
-    $db = new AnalyticsGateway($connection);
+    //$db = new AnalyticsGateway($connection);
     //$result = $db-> limitBy(30);
 
     //output country list
-    include 'Service/service-topCountries.php';
+    include 'service/service-topCountries.php';
     $countryArray = json_decode($countries, true);
     foreach ($countryArray as $c) {
         outputCountries($c);
@@ -59,8 +59,5 @@ function outputCountries($array) {
 function outputAdoptedBooks($rows){
    
 }
-
-
-
 
 ?>

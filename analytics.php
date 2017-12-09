@@ -1,4 +1,5 @@
 <?php 
+include 'includes/book-config.inc.php';
 //include "session.php";
 //include "Service/service-totals.php";
 ?>
@@ -51,19 +52,56 @@
   
        <form action= "analytics.php" method="GET">
          <!--<label for="filter-country"></label>-->
-          <select id="country" name="country"><option value="">Choose a country</option><?php  ?></select>
-          <!-- <input type="submit">-->
+          <select id="country" name="country"><option id="opt" value=" 
+          
+
+          ">Choose a country</option></select>
+          
+           <script>
+           
+        $(function(){
+            
+        	var url = "service/service-topCountries.php";
+        	console.log("in func");
+        	
+        	    $.get(url, function(data, status){
+        	    
+        	    console.log("in get");
+	        	//var list = "";
+	        	//loop
+	        	for (var i=0; i < data.length; i++){
+	        	 $('select').append('<option value='+i+'>'+ data[i].CountryName +'</option>');    
+	        	}    
+	        	//list += data[i].CountryName + "<br>";
+	        	
+	        	//$("option").html(list);
+	        	});
+	        	
+	        	console.log("done");
+	        
+        });
+           
+           
+        
+            
+        </script>
         </form>
         <span id = "result"><span>
-        <script>
-            document.getElementById("option").addEventListener("click", function(){
-                var v = document.querySelector("#country").value;
-                document.querySelector("#result").innerHTML=v;
-            });
-        </script>
+       
+       
+       
     </div>
      
     </div>
+    
+    
+    <?php 
+    //VARIABLE DECLARATION
+    $string2 = "";
+    $string3 = "";
+    $string4 = "";
+    $string5 = "";
+    ?>
 
     <!--will put into separate horizontal boxes in a bit-->
    <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp">
@@ -79,7 +117,7 @@
                                   <thead>
                                     <tr>
                                       <th class="mdl-data-table__cell--non-numeric"><i class="material-icons">people_outline</i> Total Visits in June 
-                                         <div class="mdl-card__supporting-text"><?php  echo $string2  ?></div>
+                                         <div class="mdl-card__supporting-text"><?php include 'service/service-totals.php'  ?></div>
                                        </th>   
                                        
                                       <th class="mdl-data-table__cell--non-numeric"><i class="material-icons">public</i> Number of countries

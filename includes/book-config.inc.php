@@ -1,4 +1,6 @@
 <?php
+
+
 // set error reporting on to help with debugging
 error_reporting(E_ALL);
 ini_set('display_errors','1');
