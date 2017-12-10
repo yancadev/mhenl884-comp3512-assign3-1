@@ -4,7 +4,7 @@ include  'includes/book-config.inc.php';
 include "lib/AnalyticsGateway.class.php";
 //include "lib/Test.php";
 try {
-    echo "hello";
+    //echo "hello";
     $db = new AnalyticsGateway($connection);
     $pdo = new PDO(DBCONNECTION, DBUSER, DBPASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -21,6 +21,17 @@ try {
         $total2 = $tot2->fetch(PDO::FETCH_ASSOC);
         $servtotal2 = json_encode($total2);
 
+    $sql3 = "SELECT COUNT( * ) AS  `messagescount` FROM EmployeeMessages WHERE  `MessageDate` >  '2017-06-01*' AND  `MessageDate` <  '2017-06-31*'";
+        $tot3 = $pdo->prepare($sql3);
+        $tot3->execute();
+        $total3 = $tot3->fetch(PDO::FETCH_ASSOC);
+        $servtotal3 = json_encode($total3);
+        
+    $sql4 = "select distinct COUNT(a.AdoptionID), ab.BookID, Quantity, ISBN10, Title, CoverImage From AdoptionBooks AS ab JOIN Books AS b ON (ab.BookID= b.BookID) JOIN Adoptions AS a ON (a.AdoptionID=ab.AdoptionID) GROUP BY a.AdoptionID ORDER BY COUNT(a.AdoptionID) DESC LIMIT 10";
+        $tot4 = $pdo->prepare($sql4);
+        $tot4->execute();
+        $total4 = $tot4->fetch(PDO::FETCH_ASSOC);
+        $servtotal4 = json_encode($total4);
     
 } catch (PDOException $e) {
     die($e->getMessage());

@@ -126,11 +126,11 @@
                                       </th>
                                       
                                       <th class="mdl-data-table__cell--non-numeric"><i class="material-icons">format_list_numbered</i> Total ToDos
-                                      <div class="mdl-card__supporting-text"><?php  echo $string4  ?></div>
+                                      <div class="mdl-card__supporting-text"><?php  echo $servtotal3  ?></div>
                                       </th>
                                       
                                       <th class="mdl-data-table__cell--non-numeric"><i class="material-icons">mail_outline</i> Total Messages
-                                      <div class="mdl-card__supporting-text"><?php  echo $string5  ?></div>
+                                      <div class="mdl-card__supporting-text"><?php  echo $servtotal4  ?></div>
                                       </th>
                                     </tr>
                                   </thead>
