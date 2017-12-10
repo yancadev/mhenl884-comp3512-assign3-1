@@ -1,5 +1,5 @@
 <?php 
-include 'includes/book-config.inc.php';
+//include 'includes/book-config.inc.php';
 //include "session.php";
 //include "Service/service-totals.php";
 ?>
@@ -9,7 +9,6 @@ include 'includes/book-config.inc.php';
   
   <head>
     <title>Analytics</title>
-  <!-- test test -->
   
    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
@@ -97,6 +96,8 @@ include 'includes/book-config.inc.php';
     
     <?php 
     //VARIABLE DECLARATION
+    include 'service/service-totals.php';
+    //$total1 = "";
     $string2 = "";
     $string3 = "";
     $string4 = "";
@@ -117,11 +118,11 @@ include 'includes/book-config.inc.php';
                                   <thead>
                                     <tr>
                                       <th class="mdl-data-table__cell--non-numeric"><i class="material-icons">people_outline</i> Total Visits in June 
-                                         <div class="mdl-card__supporting-text"><?php include 'service/service-totals.php'  ?></div>
+                                         <div class="mdl-card__supporting-text"><?php echo $servtotal1;    ?></div>
                                        </th>   
                                        
                                       <th class="mdl-data-table__cell--non-numeric"><i class="material-icons">public</i> Number of countries
-                                      <div class="mdl-card__supporting-text"><?php echo $string3   ?></div>
+                                      <div class="mdl-card__supporting-text"><?php echo $servtotal2;   ?></div>
                                       </th>
                                       
                                       <th class="mdl-data-table__cell--non-numeric"><i class="material-icons">format_list_numbered</i> Total ToDos

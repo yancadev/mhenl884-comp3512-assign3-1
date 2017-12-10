@@ -3,6 +3,8 @@
 /**
  * This class helps with connecting the application to access the Universities Database.
  */
+ require __DIR__ . "/TableDataGateway.class.php";
+ 
 class UniversitiesGateway extends TableDataGateway {
  public function __construct($connect) {
         parent::__construct($connect);

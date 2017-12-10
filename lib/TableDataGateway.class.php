@@ -1,5 +1,3 @@
-<!-- yanca: added ordering function for sorting-->
-
 <?php
 /*
   Encapsulates common functionality needed by all table gateway objects.
